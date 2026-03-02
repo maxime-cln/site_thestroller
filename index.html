@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lo | Lisbon Foodie Concierge</title>
+  <script src="https://cdn.tailwindcss.com/"></script>
+  <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+  <script src="https://unpkg.com/petite-vue@0.4.1/dist/petite-vue.iife.js"></script>
+  <style>
+* { box-sizing: border-box; } body {margin: 0;}*{box-sizing:border-box;}body{margin-top:0px;margin-right:0px;margin-bottom:0px;margin-left:0px;}:root{--color-lime:#5db689;--color-gold:#fbbf24;--color-dark:#0a0a0a;--color-light:#fafafa;}body{font-family:"Averia Serif Libre", serif;background-color:var(--color-light);color:var(--color-dark);}.text-lime{color:var(--color-lime);}.bg-lime{background-color:var(--color-lime);}.hero-text{font-size:clamp(3rem, 6vw, 5.5rem);line-height:0.95;letter-spacing:-0.03em;font-weight:700;}.selector-card{transition-duration:0.4s;transition-timing-function:cubic-bezier(0.16, 1, 0.3, 1);transition-delay:0s;transition-behavior:normal;transition-property:all;}.selector-card:hover{transform:translateY(-8px);}.selector-card:hover .selector-arrow{transform:translateX(8px);}.selector-arrow{transition-duration:0.3s;transition-timing-function:ease;transition-delay:0s;transition-behavior:normal;transition-property:transform;}.image-reveal{clip-path:polygon(0px 0px, 100% 0px, 100% 100%, 0px 100%);transition-duration:0.6s;transition-timing-function:cubic-bezier(0.16, 1, 0.3, 1);transition-delay:0s;transition-behavior:normal;transition-property:clip-path;}.selector-card:hover .image-reveal{clip-path:polygon(0px 0px, 100% 0px, 100% 90%, 0px 100%);}.nav-link{position:relative;}.nav-link::after{content:"";position:absolute;bottom:-4px;left:0px;width:0px;height:2px;background-color:var(--color-lime);transition-duration:0.3s;transition-timing-function:ease;transition-delay:0s;transition-behavior:normal;transition-property:width;}.nav-link:hover::after{width:100%;}.play-button{opacity:0;transition-duration:0.3s;transition-timing-function:ease;transition-delay:0s;transition-behavior:normal;transition-property:opacity;}.video-thumb:hover .play-button{opacity:1;}.marquee-track{animation-duration:30s;animation-timing-function:linear;animation-delay:0s;animation-iteration-count:infinite;animation-direction:normal;animation-fill-mode:none;animation-play-state:running;animation-name:marquee;animation-timeline:auto;animation-range-start:normal;animation-range-end:normal;}.grain-overlay{position:fixed;top:0px;left:0px;width:100%;height:100%;pointer-events:none;z-index:50;opacity:0.03;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");}@keyframes marquee{0%{transform:translateX(0px);}100%{transform:translateX(-50%);}}
+  </style>
+  <style>
+@font-face {
+  font-family: "Averia Serif Libre";
+  src: url("assets/fonts/AveriaSerifLibre-Light.ttf") format("truetype");
+  font-weight: 100 349;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Averia Serif Libre";
+  src: url("assets/fonts/AveriaSerifLibre-LightItalic.ttf") format("truetype");
+  font-weight: 100 349;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Averia Serif Libre";
+  src: url("assets/fonts/AveriaSerifLibre-Regular.ttf") format("truetype");
+  font-weight: 350 649;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Averia Serif Libre";
+  src: url("assets/fonts/AveriaSerifLibre-Italic.ttf") format("truetype");
+  font-weight: 350 649;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Averia Serif Libre";
+  src: url("assets/fonts/AveriaSerifLibre-Bold.ttf") format("truetype");
+  font-weight: 650 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Averia Serif Libre";
+  src: url("assets/fonts/AveriaSerifLibre-BoldItalic.ttf") format("truetype");
+  font-weight: 650 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+html, body, body *:not(iconify-icon) {
+  font-family: "Averia Serif Libre", serif !important;
+  font-synthesis: none;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+.font-light,
+.font-normal {
+  font-weight: 400 !important;
+}
+
+.font-medium {
+  font-weight: 500 !important;
+}
+
+.font-semibold,
+.font-bold,
+.font-extrabold,
+.font-black {
+  font-weight: 700 !important;
+}
+
+#top-hero .top-nav {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(10, 10, 10, 0.72);
+  backdrop-filter: blur(10px);
+}
+
+#top-hero .top-nav.is-dark {
+  border-bottom-color: rgba(255, 255, 255, 0.2);
+  background: rgba(10, 10, 10, 0.72);
+}
+
+#top-hero .top-nav.is-light {
+  border-bottom-color: rgba(10, 10, 10, 0.12);
+  background: rgba(238, 239, 234, 0.95);
+}
+
+#top-hero .top-nav.is-dark .nav-link::after {
+  background-color: rgba(255, 255, 255, 0.92);
+}
+
+#top-hero .top-nav.is-light .nav-link::after {
+  background-color: #5db689;
+}
+
+#top-hero .top-nav.is-dark .nav-link,
+#top-hero .top-nav.is-dark #mobile-menu-btn {
+  color: #ffffff !important;
+}
+
+#top-hero .top-nav.is-light .nav-link,
+#top-hero .top-nav.is-light #mobile-menu-btn {
+  color: #0a0a0a !important;
+}
+
+#top-hero #nav-logo {
+  transition: opacity 0.26s ease, transform 0.26s ease, visibility 0.26s ease;
+}
+
+#top-hero #nav-logo.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(-6px);
+}
+
+#top-hero #nav-logo.is-visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+#top-hero #nav-logo img {
+  transition: filter 0.28s ease;
+}
+
+#top-hero .top-nav.is-dark #nav-logo img {
+  filter: brightness(0) invert(1);
+}
+
+#top-hero .top-nav.is-light #nav-logo img {
+  filter: none;
+}
+
+.hero-logo-stage {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 8.5rem;
+  padding-bottom: 4.5rem;
+}
+
+.hero-brand-lockup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.hero-logo-main {
+  width: min(92vw, 980px);
+  height: auto;
+  display: block;
+}
+
+.hero-running-strip {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3rem;
+  overflow: hidden;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(10, 10, 10, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-running-track {
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+
+.hero-running-item {
+  font-size: clamp(0.98rem, 1.35vw, 1.22rem);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.9);
+  padding-inline: 0.8rem;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.hero-scroll-cue {
+  color: #ffffff;
+  text-decoration: none;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.55rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.72rem;
+  opacity: 0.88;
+  margin-top: 1.6rem;
+  animation: heroArrowBounce 2.2s ease-in-out infinite;
+}
+
+.hero-scroll-cue:hover {
+  opacity: 1;
+}
+
+@keyframes heroArrowBounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(6px);
+  }
+  60% {
+    transform: translateY(3px);
+  }
+}
+
+#cta-book-call {
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+#cta-book-call .book-call-image {
+  display: block;
+  height: 1.4rem;
+  width: auto;
+  transition: filter 0.3s ease;
+}
+
+#top-hero .top-nav.is-dark #cta-book-call .book-call-image {
+  filter: none;
+}
+
+#top-hero .top-nav.is-light #cta-book-call .book-call-image,
+#cta-book-call:hover .book-call-image {
+  filter: brightness(0);
+}
+
+.selector-theme-b2b {
+  background-color: #00a8f0;
+  background-image: url("./assets/fond_texture_bleu.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.selector-theme-b2c {
+  background-color: #5db689;
+  background-image: url("./assets/fond_texture_vert.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+#selector .selector-card-luxe {
+  position: relative;
+  isolation: isolate;
+  border-radius: 30px;
+  border: 2px solid rgba(255, 255, 255, 0.22);
+  padding: clamp(1.75rem, 2.8vw, 2.75rem);
+  box-shadow: 0 20px 46px rgba(10, 10, 10, 0.2);
+}
+
+#selector .selector-card-luxe:hover {
+  transform: translateY(-12px) scale(1.015);
+  box-shadow: 0 28px 64px rgba(10, 10, 10, 0.24);
+}
+
+#selector .selector-pill {
+  letter-spacing: 0.08em;
+  border-radius: 9999px;
+  padding: 0.58rem 1.1rem;
+  box-shadow: 0 8px 18px rgba(10, 10, 10, 0.2);
+}
+
+#selector .selector-card-copy {
+  max-width: 23ch;
+}
+
+#selector .selector-headline {
+  min-height: 2.7em;
+}
+
+.partner-marquee-group {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: clamp(2rem, 3.2vw, 4rem);
+}
+
+.partner-logo-slot {
+  flex: 0 0 auto;
+  -webkit-flex: 0 0 auto;
+  width: clamp(190px, 14vw, 240px);
+  min-width: clamp(190px, 14vw, 240px);
+  height: clamp(38px, 3vw, 52px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.partner-logo {
+  width: auto;
+  max-width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+#selector .selector-stroll {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-repeat: no-repeat;
+  background-size: 250% auto;
+  background-position: 62% 76%;
+  opacity: 0.96;
+}
+
+#selector .selector-stroll-red {
+  background-image: url("./assets/stroll_red.png");
+}
+
+#selector .selector-stroll-blue {
+  background-image: url("./assets/stroll_blue.png");
+}
+
+.phone-preview-card {
+  max-width: 390px;
+  margin: 0 auto;
+}
+
+.phone-preview-screen {
+  position: relative;
+  aspect-ratio: 9 / 16;
+  border-radius: 34px;
+  overflow: hidden;
+  border: 1px solid rgba(10, 10, 10, 0.2);
+  background: #121212;
+  box-shadow: 0 24px 56px rgba(10, 10, 10, 0.2);
+}
+
+.phone-preview-screen img,
+.phone-preview-screen video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.phone-preview-card:hover .phone-preview-screen img,
+.phone-preview-card:hover .phone-preview-screen video {
+  transform: scale(1.045);
+}
+
+.phone-preview-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.72) 0%,
+    rgba(0, 0, 0, 0.4) 16%,
+    rgba(0, 0, 0, 0) 42%
+  );
+}
+
+.phone-preview-controls {
+  position: absolute;
+  left: 1rem;
+  right: 1rem;
+  bottom: 0.95rem;
+  color: #ffffff;
+  pointer-events: none;
+}
+
+.phone-preview-progress {
+  -webkit-appearance: none;
+  appearance: none;
+  pointer-events: auto;
+  cursor: pointer;
+  width: 100%;
+  height: 6px;
+  border-radius: 999px;
+  --progress: 0%;
+  background: linear-gradient(
+    to right,
+    #ffffff 0%,
+    #ffffff var(--progress),
+    rgba(255, 255, 255, 0.34) var(--progress),
+    rgba(255, 255, 255, 0.34) 100%
+  );
+  margin-bottom: 0.8rem;
+}
+
+.phone-preview-progress::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  border: 0;
+  background: #ffffff;
+  box-shadow: 0 0 0 2px rgba(10, 10, 10, 0.25);
+}
+
+.phone-preview-progress::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  border: 0;
+  background: #ffffff;
+  box-shadow: 0 0 0 2px rgba(10, 10, 10, 0.25);
+}
+
+.phone-preview-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.98rem;
+  line-height: 1;
+  letter-spacing: 0.01em;
+}
+
+.phone-preview-left,
+.phone-preview-right {
+  display: flex;
+  align-items: center;
+  gap: 0.68rem;
+}
+
+.phone-preview-control-btn {
+  pointer-events: auto;
+  cursor: pointer;
+  border: 0;
+  background: transparent;
+  color: #ffffff;
+  padding: 0;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.phone-preview-control-btn:hover {
+  opacity: 0.82;
+}
+
+.phone-preview-time {
+  white-space: nowrap;
+}
+
+.phone-preview-settings {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 0.45rem);
+  min-width: 72px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(8, 8, 8, 0.82);
+  backdrop-filter: blur(8px);
+  padding: 0.35rem;
+  display: grid;
+  gap: 0.2rem;
+  z-index: 20;
+}
+
+.phone-preview-settings[hidden] {
+  display: none;
+}
+
+.phone-preview-settings button {
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: #ffffff;
+  font-size: 0.78rem;
+  letter-spacing: 0.02em;
+  padding: 0.32rem 0.45rem;
+  cursor: pointer;
+  text-align: center;
+}
+
+.phone-preview-settings button:hover,
+.phone-preview-settings button.is-active {
+  background: rgba(255, 255, 255, 0.23);
+}
+
+.fresh-feed-viewport {
+  overflow: visible;
+}
+
+.fresh-feed-nav {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 0.85rem;
+  margin-top: 1.4rem;
+}
+
+.fresh-feed-nav-btn {
+  width: 2.6rem;
+  height: 2.6rem;
+  border: 1px solid rgba(10, 10, 10, 0.35);
+  border-radius: 999px;
+  background: #ffffff;
+  color: #0a0a0a;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.fresh-feed-nav-btn:hover:not(:disabled) {
+  background: #0a0a0a;
+  color: #ffffff;
+  border-color: #0a0a0a;
+}
+
+.fresh-feed-nav-btn:disabled {
+  opacity: 0.38;
+  cursor: not-allowed;
+}
+
+@media (max-width: 1024px) {
+  #selector .selector-card-luxe {
+    border-radius: 22px;
+    padding: 1.9rem;
+  }
+
+  #selector .selector-stroll {
+    background-size: 275% auto;
+    background-position: 64% 80%;
+  }
+
+  .phone-preview-card {
+    max-width: 360px;
+  }
+
+  .phone-preview-screen {
+    border-radius: 30px;
+  }
+}
+
+@media (max-width: 1279px) {
+  #latest-content .fresh-feed-viewport {
+    overflow: hidden;
+    margin-inline: -0.25rem;
+    touch-action: pan-y;
+  }
+
+  #latest-content #fresh-feed-track {
+    display: flex;
+    gap: 0;
+    transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform;
+  }
+
+  #latest-content #fresh-feed-track > .fresh-feed-slide {
+    flex: 0 0 100%;
+    max-width: 100%;
+    padding-inline: 0.25rem;
+  }
+
+  #latest-content #fresh-feed-track > .fresh-feed-slide.phone-preview-card {
+    max-width: none;
+    margin: 0;
+  }
+
+  #latest-content .fresh-feed-nav {
+    display: flex;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1279px) {
+  #latest-content #fresh-feed-track > .fresh-feed-slide {
+    flex-basis: 50%;
+    max-width: 50%;
+  }
+}
+
+@media (max-width: 1024px) {
+  .hero-logo-stage {
+    padding-top: 7rem;
+    padding-bottom: 3.6rem;
+  }
+
+  .hero-logo-main {
+    width: min(92vw, 640px);
+  }
+
+  .hero-running-strip {
+    height: 2.5rem;
+  }
+
+  .hero-running-item {
+    font-size: clamp(0.8rem, 2.6vw, 0.98rem);
+    padding-inline: 0.5rem;
+  }
+}
+
+.testimonial-pan-wrap {
+  overflow: hidden;
+}
+
+.testimonial-pan-track {
+  display: flex;
+  gap: 1.5rem;
+  width: max-content;
+  animation: testimonial-pan 52s linear infinite;
+}
+
+.testimonial-pan-card {
+  width: min(72vw, 430px);
+  min-height: 690px;
+  padding: 2.25rem 2.25rem 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid rgba(10, 10, 10, 0.12);
+}
+
+.testimonial-pan-quote {
+  font-size: clamp(1.3rem, 1.8vw, 2rem);
+  line-height: 1.22;
+  letter-spacing: -0.015em;
+}
+
+@keyframes testimonial-pan {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@media (max-width: 768px) {
+  .testimonial-pan-track {
+    gap: 1rem;
+    animation-duration: 40s;
+  }
+
+  .partner-logo-slot {
+    width: 160px;
+    min-width: 160px;
+    height: 38px;
+  }
+
+  .partner-marquee-group {
+    gap: 2rem;
+  }
+
+  .testimonial-pan-card {
+    width: min(88vw, 340px);
+    min-height: 560px;
+    padding: 1.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .testimonial-pan-track {
+    animation: none;
+  }
+}
+  </style>
+</head>
+<body><div class="grain-overlay"></div><div class="min-h-screen bg-[#eeefea]"><!-- Header + Hero -->
+<section id="top-hero" class="relative overflow-hidden min-h-screen bg-[#0a0a0a]">
+  <header class="fixed top-0 left-0 right-0 z-40 top-nav text-white">
+    <div class="max-w-[1440px] mx-auto px-6 lg:px-12 h-20 flex items-center justify-between">
+      <a href="./index.html" id="nav-logo" class="flex items-center gap-3 is-visible">
+        <img src="https://vgbujcuwptvheqijyjbe.supabase.co/storage/v1/object/public/hmac-uploads/uploads/14a0654e-e3ac-4ce2-b825-740077280921/1770822350896-be5a1f26/logo.png" alt="Lo" class="h-8 w-auto"/>
+      </a>
+      <nav class="hidden md:flex items-center gap-10 text-white">
+        <a href="./content-creation.html" id="nav-for-brands" class="nav-link text-sm font-medium tracking-wide uppercase text-white">For Brands</a>
+        <a href="./foodie-experience.html" id="nav-plan-trip" class="nav-link text-sm font-medium tracking-wide uppercase text-white">Plan your trip</a>
+        <a href="./portfolio.html" id="nav-portfolio" class="nav-link text-sm font-medium tracking-wide uppercase text-white">Portfolio</a>
+        <a href="./about.html" id="nav-about" class="nav-link text-sm font-medium tracking-wide uppercase text-white">About</a>
+      </nav>
+      <a href="./content-creation.html#contact-form" id="cta-book-call" class="hidden md:inline-flex items-center">
+        <img src="./assets/book_a_call2.png" alt="Book a Call" class="book-call-image"/>
+      </a>
+      <button id="mobile-menu-btn" class="md:hidden p-2 text-white"><iconify-icon icon="lucide:menu" class="text-2xl"></iconify-icon></button>
+    </div>
+  </header>
+
+  <section class="hero-logo-stage relative z-10 px-6 lg:px-12">
+    <div id="hero-brand-lockup" class="hero-brand-lockup">
+      <img src="https://vgbujcuwptvheqijyjbe.supabase.co/storage/v1/object/public/hmac-uploads/uploads/14a0654e-e3ac-4ce2-b825-740077280921/1770822350896-be5a1f26/logo.png" alt="The Stroller" class="hero-logo-main"/>
+      <a href="#selector" id="hero-scroll-cue" class="hero-scroll-cue" aria-label="Scroll down to discover services">
+        <span>Scroll down</span>
+        <iconify-icon icon="lucide:arrow-down" class="text-3xl"></iconify-icon>
+      </a>
+    </div>
+  </section>
+
+  <div class="hero-running-strip" aria-hidden="true">
+    <div class="hero-running-track">
+      <span class="hero-running-item">Turning Lisbon's food scene into stories and real-life experiences</span>
+    </div>
+  </div>
+</section><!-- The Selector -->
+<section id="selector" class="py-28 px-6 lg:px-12 max-w-[1240px] mx-auto">
+  <div class="mb-16 lg:mb-20">
+    <p class="text-sm font-semibold tracking-[0.18em] text-gray-400 mb-5 uppercase">How can I help you?</p>
+    <h2 class="text-[clamp(3.2rem,7vw,5.4rem)] leading-[0.94] font-bold tracking-tight">Choose your path</h2>
+  </div>
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <a href="./content-creation.html" id="selector-b2b" class="selector-card selector-card-luxe group relative selector-theme-b2b text-white overflow-hidden aspect-square flex flex-col justify-between">
+      <span aria-hidden="true" class="selector-stroll selector-stroll-red"></span>
+      <div class="relative z-10">
+        <span class="selector-pill inline-flex items-center bg-[#ee7963] text-[#0a0a0a] text-xs font-bold uppercase mb-10">For Brands</span>
+      </div>
+      <div class="relative z-10">
+        <h3 class="selector-headline text-[clamp(3rem,5vw,4.8rem)] font-bold mb-5 leading-[0.9]">I have a<br/>hospitality venue</h3>
+        <div class="flex items-center gap-3 text-white font-semibold">
+          <span class="text-base tracking-[0.05em] uppercase">Explore Services</span>
+          <iconify-icon icon="lucide:arrow-right" class="selector-arrow text-2xl"></iconify-icon>
+        </div>
+      </div>
+    </a>
+    <a href="./foodie-experience.html" id="selector-b2c" class="selector-card selector-card-luxe group relative selector-theme-b2c text-white overflow-hidden aspect-square flex flex-col justify-between border border-white/20">
+      <span aria-hidden="true" class="selector-stroll selector-stroll-blue"></span>
+      <div class="relative z-10">
+        <span class="selector-pill inline-flex items-center bg-[#00a8f0] text-[#0a0a0a] text-xs font-bold uppercase mb-10">For Travelers</span>
+      </div>
+      <div class="relative z-10">
+        <h3 class="selector-headline text-[clamp(3rem,5vw,4.8rem)] font-bold mb-5 leading-[0.9]">I'm visiting Lisbon<br/><span class="block text-[clamp(1.8rem,2.8vw,2.6rem)]">(through my belly)</span></h3>
+        <div class="flex items-center gap-3 text-white font-semibold">
+          <span class="text-base tracking-[0.05em] uppercase">Discover Experiences</span>
+          <iconify-icon icon="lucide:arrow-right" class="selector-arrow text-2xl"></iconify-icon>
+        </div>
+      </div>
+    </a>
+  </div>
+</section>
+<!-- Social Proof Bar -->
+<section class="border-y border-black/10 py-8 overflow-hidden bg-[#eeefea]">
+  <div class="marquee-track flex items-center whitespace-nowrap">
+    <div class="partner-marquee-group">
+      <span class="partner-logo-slot"><img src="./assets/partner_gulbenkian.png" alt="Calouste Gulbenkian" class="partner-logo"/></span>
+      <span class="partner-logo-slot"><img src="./assets/partner_capture_111532.png" alt="Partner logo" class="partner-logo"/></span>
+      <span class="partner-logo-slot"><img src="./assets/partner_li_restaurant_week.png" alt="LI Restaurant Week" class="partner-logo"/></span>
+      <span class="partner-logo-slot"><img src="./assets/partner_gulbenkian.png" alt="Calouste Gulbenkian" class="partner-logo"/></span>
+      <span class="partner-logo-slot"><img src="./assets/partner_capture_111532.png" alt="Partner logo" class="partner-logo"/></span>
+      <span class="partner-logo-slot"><img src="./assets/partner_li_restaurant_week.png" alt="LI Restaurant Week" class="partner-logo"/></span>
+      <span class="partner-logo-slot"><img src="./assets/partner_gulbenkian.png" alt="Calouste Gulbenkian" class="partner-logo"/></span>
+      <span class="partner-logo-slot"><img src="./assets/partner_capture_111532.png" alt="Partner logo" class="partner-logo"/></span>
+      <span class="partner-logo-slot"><img src="./assets/partner_li_restaurant_week.png" alt="LI Restaurant Week" class="partner-logo"/></span>
+    </div>
+    <div class="partner-marquee-group" aria-hidden="true">
+      <span class="partner-logo-slot"><img src="./assets/partner_gulbenkian.png" alt="Calouste Gulbenkian" class="partner-logo"/></span>
+      <span class="partner-logo-slot"><img src="./assets/partner_capture_111532.png" alt="Partner logo" class="partner-logo"/></span>
+      <span class="partner-logo-slot"><img src="./assets/partner_li_restaurant_week.png" alt="LI Restaurant Week" class="partner-logo"/></span>
+      <span class="partner-logo-slot"><img src="./assets/partner_gulbenkian.png" alt="Calouste Gulbenkian" class="partner-logo"/></span>
+      <span class="partner-logo-slot"><img src="./assets/partner_capture_111532.png" alt="Partner logo" class="partner-logo"/></span>
+      <span class="partner-logo-slot"><img src="./assets/partner_li_restaurant_week.png" alt="LI Restaurant Week" class="partner-logo"/></span>
+      <span class="partner-logo-slot"><img src="./assets/partner_gulbenkian.png" alt="Calouste Gulbenkian" class="partner-logo"/></span>
+      <span class="partner-logo-slot"><img src="./assets/partner_capture_111532.png" alt="Partner logo" class="partner-logo"/></span>
+      <span class="partner-logo-slot"><img src="./assets/partner_li_restaurant_week.png" alt="LI Restaurant Week" class="partner-logo"/></span>
+    </div>
+  </div>
+</section>
+<!-- Latest Content Grid -->
+<section id="latest-content" class="py-24 px-6 lg:px-12 max-w-[1440px] mx-auto bg-[#eeefea]">
+  <div class="flex items-end justify-between mb-12">
+    <div>
+      <p class="text-sm font-semibold tracking-widest text-gray-400 mb-4 uppercase">My Latest Work</p>
+      <h2 class="text-4xl lg:text-5xl font-bold tracking-tight">Fresh from the feed</h2>
+    </div>
+    <a href="./portfolio.html" id="view-all-content" class="hidden md:flex items-center gap-2 text-sm font-bold hover:text-[#5db689] transition-colors uppercase tracking-[0.08em]">
+      View All
+      <iconify-icon icon="lucide:arrow-right"></iconify-icon>
+    </a>
+  </div>
+
+  <div id="fresh-feed-viewport" class="fresh-feed-viewport">
+  <div id="fresh-feed-track" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 lg:gap-10">
+    <article class="fresh-feed-slide phone-preview-card group cursor-pointer" data-video-card>
+      <div class="phone-preview-screen">
+        <video src="./assets/v24044gl0000cva16uvog65op1lc7l1g.mp4" poster="./assets/feed_poster_1.jpg" autoplay muted loop playsinline preload="metadata" class="object-center" data-video></video>
+        <div class="phone-preview-overlay"></div>
+        <div class="phone-preview-controls">
+          <input class="phone-preview-progress" data-progress type="range" min="0" max="100" step="0.1" value="0" aria-label="Video progress"/>
+          <div class="phone-preview-row">
+            <div class="phone-preview-left">
+              <button type="button" class="phone-preview-control-btn" data-action="play" aria-label="Play video">
+                <iconify-icon data-icon-play icon="lucide:play" class="text-[1.1rem]"></iconify-icon>
+              </button>
+              <span class="phone-preview-time" data-time>0:00 / 0:00</span>
+            </div>
+            <div class="phone-preview-right">
+              <button type="button" class="phone-preview-control-btn" data-action="mute" aria-label="Mute video">
+                <iconify-icon data-icon-mute icon="lucide:volume-2" class="text-[1.08rem]"></iconify-icon>
+              </button>
+              <button type="button" class="phone-preview-control-btn" data-action="fullscreen" aria-label="Fullscreen">
+                <iconify-icon icon="lucide:maximize" class="text-[1.08rem]"></iconify-icon>
+              </button>
+              <div class="relative">
+                <button type="button" class="phone-preview-control-btn" data-action="settings" aria-label="Playback settings" aria-haspopup="menu" aria-expanded="false">
+                  <iconify-icon icon="lucide:more-vertical" class="text-[1.08rem]"></iconify-icon>
+                </button>
+                <div class="phone-preview-settings" data-settings hidden role="menu" aria-label="Playback speed">
+                  <button type="button" data-rate-option="0.75">0.75x</button>
+                  <button type="button" data-rate-option="1">1x</button>
+                  <button type="button" data-rate-option="1.25">1.25x</button>
+                  <button type="button" data-rate-option="1.5">1.5x</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="fresh-feed-slide phone-preview-card group cursor-pointer" data-video-card>
+      <div class="phone-preview-screen">
+        <video src="./assets/v24044gl0000cuuuatvog65pse75l20g.MP4" poster="./assets/feed_poster_2.jpg" autoplay muted loop playsinline preload="metadata" class="object-center" data-video></video>
+        <div class="phone-preview-overlay"></div>
+        <div class="phone-preview-controls">
+          <input class="phone-preview-progress" data-progress type="range" min="0" max="100" step="0.1" value="0" aria-label="Video progress"/>
+          <div class="phone-preview-row">
+            <div class="phone-preview-left">
+              <button type="button" class="phone-preview-control-btn" data-action="play" aria-label="Play video">
+                <iconify-icon data-icon-play icon="lucide:play" class="text-[1.1rem]"></iconify-icon>
+              </button>
+              <span class="phone-preview-time" data-time>0:00 / 0:00</span>
+            </div>
+            <div class="phone-preview-right">
+              <button type="button" class="phone-preview-control-btn" data-action="mute" aria-label="Mute video">
+                <iconify-icon data-icon-mute icon="lucide:volume-2" class="text-[1.08rem]"></iconify-icon>
+              </button>
+              <button type="button" class="phone-preview-control-btn" data-action="fullscreen" aria-label="Fullscreen">
+                <iconify-icon icon="lucide:maximize" class="text-[1.08rem]"></iconify-icon>
+              </button>
+              <div class="relative">
+                <button type="button" class="phone-preview-control-btn" data-action="settings" aria-label="Playback settings" aria-haspopup="menu" aria-expanded="false">
+                  <iconify-icon icon="lucide:more-vertical" class="text-[1.08rem]"></iconify-icon>
+                </button>
+                <div class="phone-preview-settings" data-settings hidden role="menu" aria-label="Playback speed">
+                  <button type="button" data-rate-option="0.75">0.75x</button>
+                  <button type="button" data-rate-option="1">1x</button>
+                  <button type="button" data-rate-option="1.25">1.25x</button>
+                  <button type="button" data-rate-option="1.5">1.5x</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="fresh-feed-slide phone-preview-card group cursor-pointer" data-video-card>
+      <div class="phone-preview-screen">
+        <video src="./assets/v24044gl0000cv3fo6vog65q0cmic3tg.MP4" poster="./assets/feed_poster_3.jpg" autoplay muted loop playsinline preload="metadata" class="object-center" data-video></video>
+        <div class="phone-preview-overlay"></div>
+        <div class="phone-preview-controls">
+          <input class="phone-preview-progress" data-progress type="range" min="0" max="100" step="0.1" value="0" aria-label="Video progress"/>
+          <div class="phone-preview-row">
+            <div class="phone-preview-left">
+              <button type="button" class="phone-preview-control-btn" data-action="play" aria-label="Play video">
+                <iconify-icon data-icon-play icon="lucide:play" class="text-[1.1rem]"></iconify-icon>
+              </button>
+              <span class="phone-preview-time" data-time>0:00 / 0:00</span>
+            </div>
+            <div class="phone-preview-right">
+              <button type="button" class="phone-preview-control-btn" data-action="mute" aria-label="Mute video">
+                <iconify-icon data-icon-mute icon="lucide:volume-2" class="text-[1.08rem]"></iconify-icon>
+              </button>
+              <button type="button" class="phone-preview-control-btn" data-action="fullscreen" aria-label="Fullscreen">
+                <iconify-icon icon="lucide:maximize" class="text-[1.08rem]"></iconify-icon>
+              </button>
+              <div class="relative">
+                <button type="button" class="phone-preview-control-btn" data-action="settings" aria-label="Playback settings" aria-haspopup="menu" aria-expanded="false">
+                  <iconify-icon icon="lucide:more-vertical" class="text-[1.08rem]"></iconify-icon>
+                </button>
+                <div class="phone-preview-settings" data-settings hidden role="menu" aria-label="Playback speed">
+                  <button type="button" data-rate-option="0.75">0.75x</button>
+                  <button type="button" data-rate-option="1">1x</button>
+                  <button type="button" data-rate-option="1.25">1.25x</button>
+                  <button type="button" data-rate-option="1.5">1.5x</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>
+  </div>
+  <div class="fresh-feed-nav" aria-label="Fresh feed carousel controls">
+    <button id="fresh-feed-prev" type="button" class="fresh-feed-nav-btn" aria-label="Previous video">
+      <iconify-icon icon="lucide:chevron-left" class="text-xl"></iconify-icon>
+    </button>
+    <button id="fresh-feed-next" type="button" class="fresh-feed-nav-btn" aria-label="Next video">
+      <iconify-icon icon="lucide:chevron-right" class="text-xl"></iconify-icon>
+    </button>
+  </div>
+</section>
+<!-- Testimonial Section -->
+<section class="py-24 bg-[#eeefea] border-y border-black/10">
+  <div class="max-w-[1440px] mx-auto px-6 lg:px-12 mb-10">
+    <p class="text-sm font-semibold tracking-widest text-gray-400 mb-4 uppercase">Testimonials</p>
+    <h2 class="text-4xl lg:text-5xl font-bold tracking-tight">What clients are saying</h2>
+  </div>
+  <div class="testimonial-pan-wrap">
+    <div class="testimonial-pan-track px-6 lg:px-12">
+      <article class="testimonial-pan-card bg-[#00a8f0] text-[#0a0a0a]"><p class="testimonial-pan-quote">"Lo helped us turn quiet weekdays into fully booked evenings. In four weeks we had stronger table turnover, better repeat traffic, and short-form videos that felt premium while still showing the real pace and personality of our kitchen."</p><div><p class="text-4xl lg:text-5xl font-medium mb-2">Marta Silva</p><p class="text-xl lg:text-2xl font-medium">Founder, Mesa Nova</p></div></article>
+      <article class="testimonial-pan-card bg-[#5db689] text-[#0a0a0a]"><p class="testimonial-pan-quote">"Our hotel launch content was organized, fast, and beautifully shot. The team planned every angle in advance, captured guest moments naturally, and delivered assets we reused across social, paid ads, newsletters, and our booking pages."</p><div><p class="text-4xl lg:text-5xl font-medium mb-2">Daniel Brooks</p><p class="text-xl lg:text-2xl font-medium">Brand Manager, Casa Aurora Hotel</p></div></article>
+      <article class="testimonial-pan-card bg-[#ee7963] text-[#0a0a0a]"><p class="testimonial-pan-quote">"We booked the foodie itinerary for our anniversary and every stop landed. We skipped tourist traps, ate at places we would never have found alone, and still had a relaxed pace with thoughtful details between each reservation."</p><div><p class="text-4xl lg:text-5xl font-medium mb-2">Nora and Elias</p><p class="text-xl lg:text-2xl font-medium">Travelers from Berlin</p></div></article>
+      <article class="testimonial-pan-card bg-[#00a8f0] text-[#0a0a0a]"><p class="testimonial-pan-quote">"The team finally has a creator who understands operations and timing during service. Filming never slowed the floor, staff felt comfortable on camera, and the final edits looked editorial while still sounding like our brand voice."</p><div><p class="text-4xl lg:text-5xl font-medium mb-2">Ricardo Mendes</p><p class="text-xl lg:text-2xl font-medium">Co-owner, Bairro Brunch Club</p></div></article>
+      <article class="testimonial-pan-card bg-[#5db689] text-[#0a0a0a]"><p class="testimonial-pan-quote">"We needed story-led content for a seasonal menu and a short campaign window. In two weeks we received a complete set of videos and photos that lifted reservations, increased saves, and gave our team reusable creative for months."</p><div><p class="text-4xl lg:text-5xl font-medium mb-2">Claire Dubois</p><p class="text-xl lg:text-2xl font-medium">Marketing Lead, Atelier Mar</p></div></article>
+      <article class="testimonial-pan-card bg-[#ee7963] text-[#0a0a0a]"><p class="testimonial-pan-quote">"From planning to final delivery, every step felt clear and intentional. Communication was fast, timelines stayed realistic, and the final package included polished cuts for multiple formats so we could publish consistently without extra production."</p><div><p class="text-4xl lg:text-5xl font-medium mb-2">Hugo Almeida</p><p class="text-xl lg:text-2xl font-medium">Founder, Alfama Supper Series</p></div></article>
+
+      <article class="testimonial-pan-card bg-[#00a8f0] text-[#0a0a0a]"><p class="testimonial-pan-quote">"Lo helped us turn quiet weekdays into fully booked evenings. In four weeks we had stronger table turnover, better repeat traffic, and short-form videos that felt premium while still showing the real pace and personality of our kitchen."</p><div><p class="text-4xl lg:text-5xl font-medium mb-2">Marta Silva</p><p class="text-xl lg:text-2xl font-medium">Founder, Mesa Nova</p></div></article>
+      <article class="testimonial-pan-card bg-[#5db689] text-[#0a0a0a]"><p class="testimonial-pan-quote">"Our hotel launch content was organized, fast, and beautifully shot. The team planned every angle in advance, captured guest moments naturally, and delivered assets we reused across social, paid ads, newsletters, and our booking pages."</p><div><p class="text-4xl lg:text-5xl font-medium mb-2">Daniel Brooks</p><p class="text-xl lg:text-2xl font-medium">Brand Manager, Casa Aurora Hotel</p></div></article>
+      <article class="testimonial-pan-card bg-[#ee7963] text-[#0a0a0a]"><p class="testimonial-pan-quote">"We booked the foodie itinerary for our anniversary and every stop landed. We skipped tourist traps, ate at places we would never have found alone, and still had a relaxed pace with thoughtful details between each reservation."</p><div><p class="text-4xl lg:text-5xl font-medium mb-2">Nora and Elias</p><p class="text-xl lg:text-2xl font-medium">Travelers from Berlin</p></div></article>
+      <article class="testimonial-pan-card bg-[#00a8f0] text-[#0a0a0a]"><p class="testimonial-pan-quote">"The team finally has a creator who understands operations and timing during service. Filming never slowed the floor, staff felt comfortable on camera, and the final edits looked editorial while still sounding like our brand voice."</p><div><p class="text-4xl lg:text-5xl font-medium mb-2">Ricardo Mendes</p><p class="text-xl lg:text-2xl font-medium">Co-owner, Bairro Brunch Club</p></div></article>
+      <article class="testimonial-pan-card bg-[#5db689] text-[#0a0a0a]"><p class="testimonial-pan-quote">"We needed story-led content for a seasonal menu and a short campaign window. In two weeks we received a complete set of videos and photos that lifted reservations, increased saves, and gave our team reusable creative for months."</p><div><p class="text-4xl lg:text-5xl font-medium mb-2">Claire Dubois</p><p class="text-xl lg:text-2xl font-medium">Marketing Lead, Atelier Mar</p></div></article>
+      <article class="testimonial-pan-card bg-[#ee7963] text-[#0a0a0a]"><p class="testimonial-pan-quote">"From planning to final delivery, every step felt clear and intentional. Communication was fast, timelines stayed realistic, and the final package included polished cuts for multiple formats so we could publish consistently without extra production."</p><div><p class="text-4xl lg:text-5xl font-medium mb-2">Hugo Almeida</p><p class="text-xl lg:text-2xl font-medium">Founder, Alfama Supper Series</p></div></article>
+    </div>
+  </div>
+</section>
+<!-- Footer --><footer class="bg-[#0a0a0a] text-white pt-20 pb-8"><div class="max-w-[1440px] mx-auto px-6 lg:px-12"><div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16"><div class="lg:col-span-2"><img src="https://vgbujcuwptvheqijyjbe.supabase.co/storage/v1/object/public/hmac-uploads/uploads/14a0654e-e3ac-4ce2-b825-740077280921/1770822350896-be5a1f26/logo.png" alt="Lo" class="h-10 w-auto mb-6 brightness-0 invert"/><p class="text-gray-400 max-w-md mb-8">Content creator and foodie concierge based in Lisbon. Helping brands tell their story and travelers taste the real Portugal.</p><div class="flex gap-4"><a href="#" id="social-tiktok" class="w-10 h-10 border border-white/20 flex items-center justify-center hover:bg-[#5db689] hover:border-[#5db689] hover:text-[#0a0a0a] transition-all"><iconify-icon icon="lucide:music-2" class="text-lg"></iconify-icon></a><a href="#" id="social-instagram" class="w-10 h-10 border border-white/20 flex items-center justify-center hover:bg-[#5db689] hover:border-[#5db689] hover:text-[#0a0a0a] transition-all"><iconify-icon icon="lucide:instagram" class="text-lg"></iconify-icon></a><a href="https://linktr.ee/lisbonwithlo" id="social-linktree" aria-label="Linktree" target="_blank" rel="noopener noreferrer" class="w-10 h-10 border border-white/20 flex items-center justify-center hover:bg-[#5db689] hover:border-[#5db689] hover:text-[#0a0a0a] transition-all"><iconify-icon icon="lucide:link-2" class="text-lg"></iconify-icon></a></div></div><div><h4 class="font-semibold mb-6 text-sm tracking-widest uppercase">Services</h4><ul class="space-y-4 text-gray-400"><li><a href="./content-creation.html" id="footer-content" class="hover:text-[#5db689] transition-colors">Content Creation</a></li><li><a href="./foodie-experience.html#foodie-concierge" id="footer-concierge" class="hover:text-[#5db689] transition-colors">Foodie Concierge</a></li><li><a href="./foodie-experience.html#date-night-concierge" id="footer-date" class="hover:text-[#5db689] transition-colors">Date Night</a></li><li><a href="#" id="footer-guide" class="hover:text-[#5db689] transition-colors">Lisbon Food Guide</a></li></ul></div><div><h4 class="font-semibold mb-6 text-sm tracking-widest uppercase">Connect</h4><ul class="space-y-4 text-gray-400"><li><a href="./about.html" id="footer-about" class="hover:text-[#5db689] transition-colors">About Me</a></li><li><a href="#" id="footer-portfolio" class="hover:text-[#5db689] transition-colors">Portfolio</a></li><li><a href="./contact.html" id="footer-contact" class="hover:text-[#5db689] transition-colors">Contact</a></li><li><a href="#" id="footer-book" class="text-[#5db689] font-semibold">Book a Call →</a></li></ul></div></div><div class="border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-gray-500"><p>designed by Orson Everaert</p><div class="flex gap-6"><a href="#" id="footer-privacy" class="hover:text-white transition-colors">Privacy</a><a href="#" id="footer-terms" class="hover:text-white transition-colors">Terms</a></div></div></div></footer></div>
+<script>
+(() => {
+  const formatTime = (seconds) => {
+    if (!Number.isFinite(seconds) || seconds < 0) return "0:00";
+    const total = Math.floor(seconds);
+    const mins = Math.floor(total / 60);
+    const secs = String(total % 60).padStart(2, "0");
+    return `${mins}:${secs}`;
+  };
+
+  const closeAllMenus = () => {
+    document.querySelectorAll("[data-settings]").forEach((menu) => {
+      menu.hidden = true;
+      const trigger = menu.closest(".relative")?.querySelector('[data-action="settings"]');
+      if (trigger) trigger.setAttribute("aria-expanded", "false");
+    });
+  };
+
+  const topNav = document.querySelector("#top-hero .top-nav");
+  const topHero = document.querySelector("#top-hero");
+  const navLogo = document.querySelector("#nav-logo");
+
+  const syncTopNavLogo = () => {
+    if (!topNav || !navLogo || !topHero) return;
+    const navHeight = topNav.getBoundingClientRect().height || 80;
+    const heroBounds = topHero.getBoundingClientRect();
+    const onDarkHero = heroBounds.bottom > navHeight;
+
+    topNav.classList.toggle("is-dark", onDarkHero);
+    topNav.classList.toggle("is-light", !onDarkHero);
+    navLogo.classList.add("is-visible");
+    navLogo.classList.remove("is-hidden");
+  };
+
+  if (topNav && navLogo && topHero) {
+    syncTopNavLogo();
+    window.addEventListener("scroll", syncTopNavLogo, { passive: true });
+    window.addEventListener("resize", syncTopNavLogo);
+  }
+
+  const videos = Array.from(document.querySelectorAll("[data-video]"));
+  videos.forEach((video) => {
+    const card = video.closest("[data-video-card]");
+    if (!card) return;
+
+    const progress = card.querySelector("[data-progress]");
+    const time = card.querySelector("[data-time]");
+    const playBtn = card.querySelector('[data-action="play"]');
+    const muteBtn = card.querySelector('[data-action="mute"]');
+    const fsBtn = card.querySelector('[data-action="fullscreen"]');
+    const settingsBtn = card.querySelector('[data-action="settings"]');
+    const settingsMenu = card.querySelector("[data-settings]");
+    const playIcon = card.querySelector("[data-icon-play]");
+    const muteIcon = card.querySelector("[data-icon-mute]");
+    if (!progress || !time || !playBtn || !muteBtn || !fsBtn || !settingsBtn || !settingsMenu || !playIcon || !muteIcon) return;
+
+    const setProgress = () => {
+      const duration = Number.isFinite(video.duration) && video.duration > 0 ? video.duration : 0;
+      const current = Number.isFinite(video.currentTime) ? video.currentTime : 0;
+      const percent = duration ? (current / duration) * 100 : 0;
+      progress.value = String(percent);
+      progress.style.setProperty("--progress", `${percent}%`);
+      time.textContent = `${formatTime(current)} / ${formatTime(duration)}`;
+    };
+
+    const syncPlayUI = () => {
+      const paused = video.paused || video.ended;
+      playIcon.setAttribute("icon", paused ? "lucide:play" : "lucide:pause");
+      playBtn.setAttribute("aria-label", paused ? "Play video" : "Pause video");
+    };
+
+    const syncMuteUI = () => {
+      muteIcon.setAttribute("icon", video.muted ? "lucide:volume-x" : "lucide:volume-2");
+      muteBtn.setAttribute("aria-label", video.muted ? "Unmute video" : "Mute video");
+    };
+
+    const syncRateUI = () => {
+      const displayRate = Number(video.playbackRate.toFixed(2));
+      settingsBtn.title = `Speed ${displayRate}x`;
+      settingsBtn.setAttribute("aria-label", `Playback speed ${displayRate}x`);
+      settingsMenu.querySelectorAll("[data-rate-option]").forEach((btn) => {
+        btn.classList.toggle("is-active", Number(btn.dataset.rateOption) === displayRate);
+      });
+    };
+
+    const togglePlay = () => {
+      if (video.paused || video.ended) {
+        video.play().catch(() => {});
+      } else {
+        video.pause();
+      }
+    };
+
+    playBtn.addEventListener("click", (event) => {
+      event.stopPropagation();
+      togglePlay();
+    });
+
+    video.addEventListener("click", togglePlay);
+
+    muteBtn.addEventListener("click", (event) => {
+      event.stopPropagation();
+      video.muted = !video.muted;
+      syncMuteUI();
+    });
+
+    fsBtn.addEventListener("click", async (event) => {
+      event.stopPropagation();
+      const target = card.querySelector(".phone-preview-screen");
+      try {
+        if (document.fullscreenElement) {
+          await document.exitFullscreen();
+        } else if (target?.requestFullscreen) {
+          await target.requestFullscreen();
+        } else if (video.webkitEnterFullscreen) {
+          video.webkitEnterFullscreen();
+        }
+      } catch (_) {}
+    });
+
+    progress.addEventListener("input", (event) => {
+      event.stopPropagation();
+      const duration = Number.isFinite(video.duration) ? video.duration : 0;
+      if (!duration) return;
+      video.currentTime = (Number(progress.value) / 100) * duration;
+      setProgress();
+    });
+
+    settingsBtn.addEventListener("click", (event) => {
+      event.stopPropagation();
+      const willOpen = settingsMenu.hidden;
+      closeAllMenus();
+      settingsMenu.hidden = !willOpen;
+      settingsBtn.setAttribute("aria-expanded", String(willOpen));
+    });
+
+    settingsMenu.querySelectorAll("[data-rate-option]").forEach((btn) => {
+      btn.addEventListener("click", (event) => {
+        event.stopPropagation();
+        video.playbackRate = Number(btn.dataset.rateOption) || 1;
+        syncRateUI();
+        settingsMenu.hidden = true;
+        settingsBtn.setAttribute("aria-expanded", "false");
+      });
+    });
+
+    ["loadedmetadata", "durationchange", "timeupdate", "seeking"].forEach((name) => {
+      video.addEventListener(name, setProgress);
+    });
+    video.addEventListener("play", syncPlayUI);
+    ["pause", "ended"].forEach((name) => video.addEventListener(name, syncPlayUI));
+    video.addEventListener("volumechange", syncMuteUI);
+    video.addEventListener("ratechange", syncRateUI);
+
+    const tryAutoplay = async () => {
+      try {
+        await video.play();
+      } catch (_) {
+        video.pause();
+        video.currentTime = 0;
+        setProgress();
+        syncPlayUI();
+      }
+    };
+
+    video.muted = true;
+    video.playbackRate = 1;
+    video.controls = false;
+    syncPlayUI();
+    syncMuteUI();
+    syncRateUI();
+    setProgress();
+    tryAutoplay();
+  });
+
+  const latestContent = document.querySelector("#latest-content");
+  const feedViewport = latestContent?.querySelector("#fresh-feed-viewport");
+  const feedTrack = latestContent?.querySelector("#fresh-feed-track");
+  const feedSlides = feedTrack ? Array.from(feedTrack.querySelectorAll(".fresh-feed-slide")) : [];
+  const prevFeedBtn = latestContent?.querySelector("#fresh-feed-prev");
+  const nextFeedBtn = latestContent?.querySelector("#fresh-feed-next");
+
+  if (latestContent && feedViewport && feedTrack && prevFeedBtn && nextFeedBtn && feedSlides.length) {
+    let activeIndex = 0;
+    let slidesPerView = 1;
+    let carouselEnabled = false;
+    let swipeStartX = null;
+
+    const getSlidesPerView = () => (window.innerWidth >= 768 ? 2 : 1);
+    const getMaxIndex = () => Math.max(0, feedSlides.length - slidesPerView);
+
+    const updateFeedCarousel = () => {
+      carouselEnabled = window.innerWidth < 1280;
+      if (!carouselEnabled) {
+        activeIndex = 0;
+        feedTrack.style.transform = "";
+        prevFeedBtn.disabled = true;
+        nextFeedBtn.disabled = true;
+        return;
+      }
+
+      slidesPerView = getSlidesPerView();
+      activeIndex = Math.min(activeIndex, getMaxIndex());
+      const shiftPercent = (100 / slidesPerView) * activeIndex;
+      feedTrack.style.transform = `translate3d(-${shiftPercent}%, 0, 0)`;
+
+      prevFeedBtn.disabled = activeIndex <= 0;
+      nextFeedBtn.disabled = activeIndex >= getMaxIndex();
+    };
+
+    prevFeedBtn.addEventListener("click", () => {
+      if (!carouselEnabled) return;
+      activeIndex = Math.max(0, activeIndex - 1);
+      updateFeedCarousel();
+    });
+
+    nextFeedBtn.addEventListener("click", () => {
+      if (!carouselEnabled) return;
+      activeIndex = Math.min(getMaxIndex(), activeIndex + 1);
+      updateFeedCarousel();
+    });
+
+    feedViewport.addEventListener(
+      "touchstart",
+      (event) => {
+        if (!carouselEnabled) return;
+        swipeStartX = event.changedTouches[0].clientX;
+      },
+      { passive: true }
+    );
+
+    feedViewport.addEventListener(
+      "touchend",
+      (event) => {
+        if (!carouselEnabled || swipeStartX === null) return;
+        const deltaX = event.changedTouches[0].clientX - swipeStartX;
+        swipeStartX = null;
+        if (Math.abs(deltaX) < 40) return;
+
+        if (deltaX < 0 && activeIndex < getMaxIndex()) {
+          activeIndex += 1;
+        } else if (deltaX > 0 && activeIndex > 0) {
+          activeIndex -= 1;
+        }
+        updateFeedCarousel();
+      },
+      { passive: true }
+    );
+
+    window.addEventListener("resize", updateFeedCarousel);
+    updateFeedCarousel();
+  }
+
+  document.addEventListener("click", closeAllMenus);
+})();
+</script>
+</body>
+</html>

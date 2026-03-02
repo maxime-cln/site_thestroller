@@ -1,0 +1,1603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Foodie Experience | Lo</title>
+  <script src="https://cdn.tailwindcss.com/"></script>
+  <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+  <style>
+    :root {
+      --color-lime: #5db689;
+      --color-blue: #00a8f0;
+      --color-red: #ee7963;
+      --color-dark: #0a0a0a;
+      --color-light: #eeefea;
+    }
+
+    @font-face {
+      font-family: "Averia Serif Libre";
+      src: url("assets/fonts/AveriaSerifLibre-Light.ttf") format("truetype");
+      font-weight: 100 349;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: "Averia Serif Libre";
+      src: url("assets/fonts/AveriaSerifLibre-LightItalic.ttf") format("truetype");
+      font-weight: 100 349;
+      font-style: italic;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: "Averia Serif Libre";
+      src: url("assets/fonts/AveriaSerifLibre-Regular.ttf") format("truetype");
+      font-weight: 350 649;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: "Averia Serif Libre";
+      src: url("assets/fonts/AveriaSerifLibre-Italic.ttf") format("truetype");
+      font-weight: 350 649;
+      font-style: italic;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: "Averia Serif Libre";
+      src: url("assets/fonts/AveriaSerifLibre-Bold.ttf") format("truetype");
+      font-weight: 650 900;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: "Averia Serif Libre";
+      src: url("assets/fonts/AveriaSerifLibre-BoldItalic.ttf") format("truetype");
+      font-weight: 650 900;
+      font-style: italic;
+      font-display: swap;
+    }
+
+    html,
+    body,
+    body *:not(iconify-icon) {
+      font-family: "Averia Serif Libre", serif !important;
+      font-synthesis: none;
+    }
+
+    body {
+      margin: 0;
+      background: var(--color-light);
+      color: var(--color-dark);
+    }
+
+    body.modal-open {
+      overflow: hidden;
+    }
+
+    .grain-overlay {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 50;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    }
+
+    .nav-link {
+      position: relative;
+    }
+
+    .nav-link::after {
+      content: "";
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--color-lime);
+      transition: width 0.25s ease;
+    }
+
+    .nav-link:hover::after,
+    .nav-link.is-active::after {
+      width: 100%;
+    }
+
+    #page-header {
+      background: transparent;
+      border-bottom: 1px solid transparent;
+      transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+    }
+
+    #page-header.header-frosted {
+      background: rgba(250, 250, 247, 0.9);
+      border-bottom-color: rgba(10, 10, 10, 0.06);
+      backdrop-filter: blur(8px);
+    }
+
+    #page-header.header-on-dark {
+      background: rgba(10, 10, 10, 0.66);
+      border-bottom-color: rgba(255, 255, 255, 0.14);
+      backdrop-filter: blur(8px);
+    }
+
+    #page-header.header-on-dark .nav-link,
+    #page-header.header-on-dark #nav-services {
+      color: #ffffff;
+    }
+
+    #cta-book-call {
+      padding: 0;
+      border: 0;
+      background: transparent;
+    }
+
+    #cta-book-call .book-call-image {
+      display: block;
+      height: 1.4rem;
+      width: auto;
+      transition: filter 0.3s ease;
+      filter: brightness(0);
+    }
+
+    #page-header.header-on-dark #cta-book-call .book-call-image {
+      filter: none;
+    }
+
+    #cta-book-call:hover .book-call-image {
+      filter: brightness(0);
+    }
+
+    .intro-copy {
+      max-width: 72ch;
+      font-size: clamp(1.08rem, 1.42vw, 1.33rem);
+      line-height: 1.54;
+      color: rgba(10, 10, 10, 0.85);
+    }
+
+    .intro-copy strong,
+    .intro-copy .accent {
+      color: var(--color-lime);
+    }
+
+    @keyframes guideBadgePulse {
+      0%, 78%, 100% {
+        transform: rotate(11deg) scale(1);
+        box-shadow: 0 10px 24px rgba(238, 121, 99, 0.22);
+      }
+      82% {
+        transform: rotate(11deg) scale(1.07);
+        box-shadow: 0 16px 34px rgba(238, 121, 99, 0.34);
+      }
+      86% {
+        transform: rotate(11deg) scale(0.985);
+        box-shadow: 0 10px 24px rgba(238, 121, 99, 0.24);
+      }
+      90% {
+        transform: rotate(11deg) scale(1.045);
+        box-shadow: 0 14px 30px rgba(238, 121, 99, 0.3);
+      }
+    }
+
+    .gumroad-guide-badge {
+      width: 8.85rem;
+      height: 8.85rem;
+      border-radius: 999px;
+      background: #ee7963;
+      color: #ffffff;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      line-height: 1.02;
+      text-transform: uppercase;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 0 10px 24px rgba(238, 121, 99, 0.22);
+      animation: guideBadgePulse 8.5s ease-in-out infinite;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+      position: relative;
+      z-index: 2;
+      overflow: hidden;
+    }
+
+    .gumroad-guide-badge::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.14), transparent 52%);
+      pointer-events: none;
+    }
+
+    .gumroad-guide-badge:hover {
+      filter: brightness(1.02);
+      transform: rotate(11deg) scale(1.03);
+      box-shadow: 0 18px 34px rgba(238, 121, 99, 0.34);
+    }
+
+    .gumroad-guide-badge-label {
+      position: relative;
+      z-index: 1;
+      font-size: 1.02rem;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .gumroad-guide-badge {
+        animation: none;
+      }
+    }
+
+    .offer-section {
+      border-radius: 28px;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      box-shadow: 0 18px 40px rgba(10, 10, 10, 0.12);
+      color: #ffffff;
+      overflow: hidden;
+    }
+
+    .offer-section--blue { background: #00a8f0; }
+    .offer-section--green { background: #5db689; }
+
+    .offers-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      align-items: start;
+    }
+
+    .offers-grid > .offer-section {
+      align-self: start;
+    }
+
+    .offer-toggle {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.25rem;
+      border: 0;
+      background: transparent;
+      color: inherit;
+      padding: 0;
+      margin: 0;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .offer-toggle:focus-visible {
+      outline: 2px solid rgba(255, 255, 255, 0.95);
+      outline-offset: 8px;
+    }
+
+    .offer-summary {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .offer-plus {
+      flex: 0 0 auto;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: clamp(2rem, 3vw, 2.7rem);
+      line-height: 1;
+      font-weight: 400;
+      color: #ffffff;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    .offer-toggle:hover .offer-plus {
+      opacity: 0.84;
+    }
+
+    .offer-section[data-open="true"] .offer-plus {
+      transform: rotate(45deg);
+    }
+
+    .offer-collapsible {
+      display: none;
+      margin-top: 1.35rem;
+      padding-top: 1.15rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.28);
+    }
+
+    .offer-section[data-open="true"] .offer-collapsible {
+      display: block;
+    }
+
+    .offer-label {
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.84);
+    }
+
+    .offer-title {
+      font-size: clamp(2.15rem, 4.4vw, 4.2rem);
+      line-height: 0.96;
+      letter-spacing: -0.02em;
+      color: #ffffff;
+      max-width: 13ch;
+    }
+
+    .offer-subtitle {
+      font-size: clamp(1.2rem, 1.9vw, 1.8rem);
+      line-height: 1.28;
+      color: rgba(255, 255, 255, 0.97);
+      max-width: 40ch;
+      text-wrap: balance;
+    }
+
+    .offer-body {
+      font-size: clamp(1rem, 1.16vw, 1.14rem);
+      line-height: 1.58;
+      color: rgba(255, 255, 255, 0.95);
+      max-width: 72ch;
+    }
+
+    .offer-body p { margin: 0; }
+
+    .offer-layout {
+      display: grid;
+      gap: 1.15rem;
+      align-items: start;
+    }
+
+    .offer-overview {
+      display: grid;
+      gap: 0.95rem;
+      align-content: start;
+    }
+
+    .offer-body-panel {
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      background: rgba(255, 255, 255, 0.08);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+      padding: 1.05rem 1.1rem;
+      border-radius: 12px;
+    }
+
+    .offer-detail-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.85rem;
+      align-items: start;
+    }
+
+    .offer-detail-stack {
+      display: grid;
+      gap: 0.85rem;
+      align-content: start;
+    }
+
+    .offer-detail-card {
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.34);
+      background: rgba(255, 255, 255, 0.14);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      padding: 1.15rem 1.2rem 1.2rem;
+      min-height: 100%;
+      display: grid;
+      align-content: start;
+      gap: 0.15rem;
+    }
+
+    .offer-detail-kicker {
+      display: block;
+      margin-bottom: 0.65rem;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.84);
+    }
+
+    .offer-detail-copy {
+      margin: 0;
+      font-size: clamp(1rem, 1.08vw, 1.12rem);
+      line-height: 1.47;
+      color: rgba(255, 255, 255, 0.97);
+    }
+
+    .offer-list,
+    .offer-steps,
+    .offer-paces {
+      margin: 0;
+      padding-left: 0;
+      list-style: none;
+      display: grid;
+      gap: 0.62rem;
+      color: rgba(255, 255, 255, 0.97);
+      font-size: clamp(0.98rem, 1.05vw, 1.08rem);
+      line-height: 1.44;
+    }
+
+    .offer-list li,
+    .offer-steps li,
+    .offer-paces li {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0.65rem;
+      align-items: start;
+      padding-top: 0.38rem;
+    }
+
+    .offer-list li:first-child,
+    .offer-steps li:first-child,
+    .offer-paces li:first-child {
+      padding-top: 0;
+    }
+
+    .offer-list li + li,
+    .offer-steps li + li,
+    .offer-paces li + li {
+      border-top: 1px solid rgba(255, 255, 255, 0.13);
+    }
+
+    .offer-list--split {
+      gap: 0.62rem;
+    }
+
+    .offer-list li::before {
+      content: "✓";
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.95);
+      line-height: 1.15;
+    }
+
+    .offer-steps {
+      counter-reset: step;
+      gap: 0.6rem;
+    }
+
+    .offer-steps li {
+      grid-template-columns: auto 1fr;
+    }
+
+    .offer-steps li::before {
+      counter-increment: step;
+      content: counter(step) ".";
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.95);
+      line-height: 1.2;
+      min-width: 1.35rem;
+    }
+
+    .offer-paces li::before {
+      content: "—";
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.95);
+      line-height: 1.15;
+      min-width: 0.9rem;
+    }
+
+    .offer-cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.9rem 1rem;
+      margin-top: 1.1rem;
+      padding-top: 1.2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.32);
+    }
+
+    .offer-cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      background: #ffffff;
+      color: #0a0a0a;
+      border: 1px solid #ffffff;
+      padding: 0.78rem 1rem;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: background-color 0.2s ease, border-color 0.2s ease;
+      text-decoration: none;
+    }
+
+    .offer-cta-btn:hover {
+      background: rgba(255, 255, 255, 0.86);
+      border-color: rgba(255, 255, 255, 0.86);
+    }
+
+    .offer-cta-note {
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.84);
+      line-height: 1.35;
+      max-width: 52ch;
+    }
+
+    .process-card {
+      border: 1px solid rgba(10, 10, 10, 0.12);
+      border-radius: 0;
+      padding: 1.6rem;
+      background: #ffffff;
+      min-height: 100%;
+    }
+
+    .faq-shell {
+      position: relative;
+      overflow: hidden;
+      border-radius: 0;
+      background: #f3f1eb;
+      border: 1px solid rgba(10, 10, 10, 0.08);
+    }
+
+    .faq-item {
+      border-radius: 0;
+      border: 1px solid rgba(10, 10, 10, 0.09);
+      background: rgba(255, 255, 255, 0.74);
+      transition: border-color 0.2s ease;
+    }
+
+    .faq-item[data-open="true"] {
+      border-color: rgba(93, 182, 137, 0.8);
+      background: #ffffff;
+    }
+
+    .faq-question {
+      width: 100%;
+      border: 0;
+      background: transparent;
+      text-align: left;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1.25rem 1.4rem;
+      font-size: clamp(1.05rem, 1.35vw, 1.5rem);
+      line-height: 1.2;
+      cursor: pointer;
+      color: #1b1b1b;
+    }
+
+    .faq-plus {
+      font-size: 1.9rem;
+      line-height: 1;
+      flex: 0 0 auto;
+      transition: transform 0.2s ease;
+      color: rgba(10, 10, 10, 0.9);
+    }
+
+    .faq-item[data-open="true"] .faq-plus {
+      transform: rotate(45deg);
+    }
+
+    .faq-answer {
+      padding: 0 1.4rem 1.3rem;
+      font-size: clamp(0.98rem, 1.02vw, 1.1rem);
+      line-height: 1.55;
+      color: rgba(10, 10, 10, 0.82);
+      display: none;
+      max-width: 74ch;
+    }
+
+    .faq-item[data-open="true"] .faq-answer {
+      display: block;
+    }
+
+    .contact-input,
+    .contact-select,
+    .contact-textarea {
+      width: 100%;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      background: rgba(255, 255, 255, 0.07);
+      color: #ffffff;
+      border-radius: 12px;
+      padding: 0.95rem 1rem;
+      outline: none;
+      transition: border-color 0.2s ease, background-color 0.2s ease;
+    }
+
+    .contact-input:focus,
+    .contact-select:focus,
+    .contact-textarea:focus {
+      border-color: var(--color-lime);
+      background: rgba(255, 255, 255, 0.13);
+    }
+
+    .contact-input::placeholder,
+    .contact-textarea::placeholder {
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .contact-select option {
+      color: #111;
+    }
+
+    .questionnaire-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 80;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      background: rgba(10, 10, 10, 0.55);
+      backdrop-filter: blur(5px);
+    }
+
+    .questionnaire-overlay[data-open="true"] {
+      display: flex;
+    }
+
+    .questionnaire-shell {
+      width: min(860px, 100%);
+      max-height: min(90vh, 980px);
+      overflow: auto;
+      border: 1px solid rgba(10, 10, 10, 0.12);
+      background: #eeefea;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.28);
+      color: #0a0a0a;
+    }
+
+    .questionnaire-shell-inner {
+      padding: 1.15rem;
+    }
+
+    .questionnaire-topbar {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 0.9rem;
+    }
+
+    .questionnaire-kicker {
+      margin: 0 0 0.35rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #5db689;
+    }
+
+    .questionnaire-title {
+      margin: 0;
+      font-size: clamp(1.5rem, 3vw, 2.15rem);
+      line-height: 1.02;
+      letter-spacing: -0.02em;
+    }
+
+    .questionnaire-subtitle {
+      margin: 0.35rem 0 0;
+      font-size: 0.98rem;
+      line-height: 1.4;
+      color: rgba(10, 10, 10, 0.7);
+      max-width: 58ch;
+    }
+
+    .questionnaire-close {
+      border: 1px solid rgba(10, 10, 10, 0.14);
+      background: rgba(255, 255, 255, 0.8);
+      color: #0a0a0a;
+      width: 2.35rem;
+      height: 2.35rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background-color 0.2s ease, border-color 0.2s ease;
+      flex: 0 0 auto;
+    }
+
+    .questionnaire-close:hover {
+      border-color: rgba(10, 10, 10, 0.22);
+      background: #ffffff;
+    }
+
+    .questionnaire-progress {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.85rem;
+      border-bottom: 1px solid rgba(10, 10, 10, 0.08);
+    }
+
+    .questionnaire-progress-track {
+      flex: 1 1 auto;
+      height: 6px;
+      background: rgba(10, 10, 10, 0.08);
+      overflow: hidden;
+    }
+
+    .questionnaire-progress-fill {
+      display: block;
+      width: var(--progress, 50%);
+      height: 100%;
+      background: #5db689;
+    }
+
+    .questionnaire-progress-label {
+      font-size: 0.8rem;
+      color: rgba(10, 10, 10, 0.62);
+      white-space: nowrap;
+    }
+
+    .questionnaire-panel[hidden] {
+      display: none !important;
+    }
+
+    .questionnaire-form {
+      display: grid;
+      gap: 0.85rem;
+    }
+
+    .questionnaire-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.85rem;
+    }
+
+    .questionnaire-block {
+      border: 1px solid rgba(10, 10, 10, 0.1);
+      background: rgba(255, 255, 255, 0.75);
+      padding: 0.95rem 0.95rem 1rem;
+    }
+
+    .questionnaire-label {
+      display: block;
+      margin-bottom: 0.55rem;
+      font-size: 1.05rem;
+      line-height: 1.2;
+      font-weight: 700;
+      color: #0f0f0f;
+    }
+
+    .questionnaire-help {
+      display: block;
+      margin-bottom: 0.55rem;
+      font-size: 0.82rem;
+      line-height: 1.35;
+      color: rgba(10, 10, 10, 0.62);
+    }
+
+    .questionnaire-input,
+    .questionnaire-select,
+    .questionnaire-textarea {
+      width: 100%;
+      border: 1px solid rgba(10, 10, 10, 0.13);
+      background: #ffffff;
+      color: #0a0a0a;
+      padding: 0.8rem 0.9rem;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .questionnaire-input:focus,
+    .questionnaire-select:focus,
+    .questionnaire-textarea:focus {
+      border-color: rgba(93, 182, 137, 0.9);
+      box-shadow: 0 0 0 3px rgba(93, 182, 137, 0.16);
+    }
+
+    .questionnaire-textarea {
+      min-height: 96px;
+      resize: vertical;
+    }
+
+    .questionnaire-choice-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 0.55rem;
+    }
+
+    .questionnaire-choice {
+      position: relative;
+      display: block;
+      cursor: pointer;
+    }
+
+    .questionnaire-choice input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .questionnaire-choice span {
+      display: block;
+      border: 1px solid rgba(10, 10, 10, 0.12);
+      background: rgba(255, 255, 255, 0.92);
+      padding: 0.7rem 0.75rem;
+      font-size: 0.9rem;
+      line-height: 1.2;
+      transition: border-color 0.2s ease, background-color 0.2s ease;
+    }
+
+    .questionnaire-choice input:checked + span {
+      border-color: rgba(93, 182, 137, 0.95);
+      background: rgba(93, 182, 137, 0.12);
+    }
+
+    .questionnaire-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.75rem 0.9rem;
+      padding-top: 0.4rem;
+    }
+
+    .questionnaire-submit {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      border: 1px solid #0a0a0a;
+      background: #0a0a0a;
+      color: #ffffff;
+      padding: 0.85rem 1rem;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background-color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .questionnaire-submit:hover {
+      background: #5db689;
+      border-color: #5db689;
+      color: #0a0a0a;
+    }
+
+    .questionnaire-secondary {
+      border: 1px solid rgba(10, 10, 10, 0.14);
+      background: rgba(255, 255, 255, 0.9);
+      color: #0a0a0a;
+      padding: 0.85rem 1rem;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    .questionnaire-footnote {
+      font-size: 0.82rem;
+      line-height: 1.35;
+      color: rgba(10, 10, 10, 0.58);
+      max-width: 46ch;
+    }
+
+    .questionnaire-success {
+      border: 1px solid rgba(93, 182, 137, 0.45);
+      background: rgba(93, 182, 137, 0.12);
+      color: #0a0a0a;
+      padding: 0.75rem 0.85rem;
+      font-size: 0.9rem;
+      line-height: 1.35;
+      margin-bottom: 0.4rem;
+    }
+
+    .questionnaire-success[hidden] {
+      display: none;
+    }
+
+    @media (max-width: 1024px) {
+      .offer-detail-card {
+        padding: 1rem;
+      }
+
+      .offer-plus {
+        width: 3.15rem;
+        height: 3.15rem;
+        font-size: 2rem;
+      }
+
+      .questionnaire-shell {
+        width: min(760px, 100%);
+      }
+    }
+
+    @media (min-width: 1100px) {
+      .offer-layout {
+        gap: 1.05rem;
+      }
+
+      .offer-overview {
+        gap: 1rem;
+      }
+
+      .offer-detail-grid {
+        gap: 0.9rem;
+      }
+    }
+
+    @media (min-width: 1280px) {
+      .offers-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1.5rem;
+      }
+
+    }
+
+    @media (max-width: 768px) {
+      #cta-book-call {
+        display: none;
+      }
+
+      .gumroad-guide-badge {
+        width: 7.4rem;
+        height: 7.4rem;
+        padding: 0.85rem;
+      }
+
+      .gumroad-guide-badge-label {
+        font-size: 0.88rem;
+      }
+
+      .offer-toggle {
+        gap: 0.8rem;
+        align-items: flex-start;
+      }
+
+      .offer-plus {
+        width: 2.85rem;
+        height: 2.85rem;
+        font-size: 1.9rem;
+      }
+
+      .offer-collapsible {
+        margin-top: 1rem;
+        padding-top: 0.95rem;
+      }
+
+      .faq-question {
+        padding: 1.05rem 1.1rem;
+      }
+
+      .faq-answer {
+        padding: 0 1.1rem 1.1rem;
+      }
+
+      .questionnaire-shell-inner {
+        padding: 0.9rem;
+      }
+
+      .questionnaire-choice-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="grain-overlay"></div>
+  <div class="min-h-screen bg-[#eeefea]">
+    <header id="page-header" class="fixed top-0 left-0 right-0 z-40">
+      <div class="max-w-[1440px] mx-auto px-6 lg:px-12 h-20 flex items-center justify-between">
+        <a href="./index.html" id="nav-logo" class="flex items-center gap-3">
+          <img src="https://vgbujcuwptvheqijyjbe.supabase.co/storage/v1/object/public/hmac-uploads/uploads/14a0654e-e3ac-4ce2-b825-740077280921/1770822350896-be5a1f26/logo.png" alt="Lo" class="h-8 w-auto" />
+        </a>
+
+        <nav class="hidden md:flex items-center gap-10">
+          <a href="./content-creation.html" id="nav-for-brands" class="nav-link text-sm font-medium tracking-wide uppercase">For Brands</a>
+          <a href="./foodie-experience.html" id="nav-plan-trip" class="nav-link is-active text-sm font-medium tracking-wide uppercase">Plan your trip</a>
+          <a href="./portfolio.html" id="nav-portfolio" class="nav-link text-sm font-medium tracking-wide uppercase">Portfolio</a>
+          <a href="./about.html" id="nav-about" class="nav-link text-sm font-medium tracking-wide uppercase">About</a>
+        </nav>
+
+        <a href="#foodie-contact" id="cta-book-call" class="hidden md:inline-flex items-center">
+          <img src="./assets/book_a_call2.png" alt="Book a Call" class="book-call-image" />
+        </a>
+      </div>
+    </header>
+
+    <main class="pt-32">
+      <section class="relative px-6 lg:px-12 lg:pr-56 max-w-[1440px] mx-auto pb-16 lg:pb-20">
+        <p class="text-sm font-semibold tracking-[0.18em] text-gray-400 mb-5 uppercase">Foodie Experience</p>
+        <a
+          href="https://loeveraert.gumroad.com/l/thestroller?layout=discover&recommended_by=search"
+          class="gumroad-guide-badge ml-auto mb-6 lg:mb-0 lg:absolute lg:top-6 lg:right-8"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Buy my 3-day Lisbon guide on Gumroad"
+        >
+          <span class="gumroad-guide-badge-label">Buy my<br />3-day<br />Lisbon<br />guide</span>
+        </a>
+        <h1 class="text-[clamp(2.7rem,6.2vw,5.6rem)] leading-[0.94] tracking-tight font-bold max-w-[14ch] mb-8">Lisbon tastes better when someone else does the planning.</h1>
+        <div class="intro-copy space-y-5">
+          <p>You know the feeling. You are in one of the most exciting food cities in Europe, and you are still standing on a street corner, scrolling through reviews, trying to figure out where to eat. That is not a trip. That is homework.</p>
+          <p>I am Lo, foodie, local, and the person your friends wish they had in their pocket when they travel. I know Lisbon&apos;s food scene from the inside: the tiny tascas with no Instagram, the hard-to-book tables, the dishes locals actually order.</p>
+          <p>No more research rabbit holes. No more “this looked better on Google.” No more settling.</p>
+          <p>Whether you are visiting for a week or living here and looking to rediscover the city through its best date nights, you just show up hungry. <span class="accent">I handle everything else.</span></p>
+        </div>
+      </section>
+
+      <section class="offers-grid px-6 lg:px-12 max-w-[1440px] mx-auto pb-20">
+        <article id="foodie-concierge" class="offer-section offer-section--blue px-7 py-8 md:px-12 md:py-12 lg:py-14" data-accordion="offer" data-open="false">
+          <button class="offer-toggle" type="button" aria-expanded="false">
+            <div class="offer-summary">
+              <p class="offer-label mb-3">Offer 01</p>
+              <h2 class="offer-title font-bold mb-3">Foodie Concierge</h2>
+              <p class="offer-subtitle">Your personal food guide to Lisbon, before you even land.</p>
+            </div>
+            <span class="offer-plus">+</span>
+          </button>
+
+          <div class="offer-collapsible">
+            <div class="offer-layout">
+              <div class="offer-overview">
+                <div class="offer-body-panel">
+                  <div class="offer-body space-y-4">
+                    <p>Lisbon has over 6,000 restaurants and welcomes over 9 million tourists a year. Finding the good ones should not feel like a second job.</p>
+                    <p>Tell me about your trip, your tastes, dietary needs, budget, and the kind of memories you want to bring home. I will build you a personalized day-by-day food itinerary around the spots that actually matter. No tourist traps. No generic lists. Just the real Lisbon.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="offer-detail-grid">
+                <div class="offer-detail-card">
+                  <span class="offer-detail-kicker">What you get</span>
+                  <ul class="offer-list offer-list--split">
+                    <li>A personalized day-by-day itinerary built around your tastes</li>
+                    <li>All reservations handled, including hard-to-book spots</li>
+                    <li>My complete 23-page Lisbon guide as your foundation</li>
+                    <li>Insider tips on timing, ordering, and local food etiquette</li>
+                    <li>Real-time WhatsApp support throughout your trip</li>
+                    <li>Bonus recommendations for coffee breaks, markets, and cultural stops between meals</li>
+                  </ul>
+                </div>
+
+                <div class="offer-detail-card">
+                  <span class="offer-detail-kicker">How it works</span>
+                  <ol class="offer-steps">
+                    <li>Fill out a short form: tell me about your tastes, your group, your budget.</li>
+                    <li>I build your itinerary within 48 hours.</li>
+                    <li>You arrive in Lisbon with confirmed reservations and zero stress.</li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+
+          <div class="offer-cta-row">
+            <a href="#" class="offer-cta-btn" data-open-questionnaire="foodie">Start your food journey <iconify-icon icon="lucide:arrow-right" class="text-lg"></iconify-icon></a>
+          </div>
+          </div>
+        </article>
+
+        <article id="date-night-concierge" class="offer-section offer-section--green px-7 py-8 md:px-12 md:py-12 lg:py-14" data-accordion="offer" data-open="false">
+          <button class="offer-toggle" type="button" aria-expanded="false">
+            <div class="offer-summary">
+              <p class="offer-label mb-3">Offer 02</p>
+              <h2 class="offer-title font-bold mb-3">Date Night Concierge</h2>
+              <p class="offer-subtitle">Because the best dates happen when you are both actually present.</p>
+            </div>
+            <span class="offer-plus">+</span>
+          </button>
+
+          <div class="offer-collapsible">
+            <div class="offer-layout">
+              <div class="offer-overview">
+                <div class="offer-body-panel">
+                  <div class="offer-body space-y-4">
+                    <p>You know you should go out more. But somewhere between the “where should we go?” back-and-forth, the scrolling through reviews, the dietary restrictions, and the booking, what was supposed to be spontaneous romance starts feeling like project management.</p>
+                    <p>So you stay home. Again.</p>
+                    <p>What if someone else handled all of that for you? Tell me about you two, your tastes, your budget, the neighborhoods you love, and the mood you are going for. Cozy and intimate? Lively and fun? Something new every time? I will take it from there.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="offer-detail-grid">
+                <div class="offer-detail-card">
+                  <span class="offer-detail-kicker">What you get</span>
+                  <ul class="offer-list offer-list--split">
+                    <li>3 months of curated date nights, booked and confirmed</li>
+                    <li>Personalized restaurant picks based on your preferences (not generic romantic lists)</li>
+                    <li>All reservations handled, including hard-to-book spots</li>
+                    <li>Dietary needs covered: allergies, preferences, all sorted</li>
+                    <li>Insider intel: what to order, best time to go, and the vibe to expect</li>
+                    <li>Flexible rebooking via WhatsApp if plans change</li>
+                    <li>Bonus suggestions: pre-dinner drinks, post-dinner walks, unexpected gems nearby</li>
+                  </ul>
+                </div>
+
+                <div class="offer-detail-stack">
+                  <div class="offer-detail-card">
+                    <span class="offer-detail-kicker">Choose your pace</span>
+                    <ul class="offer-paces">
+                      <li>Weekly Dates — 12 reservations over 3 months</li>
+                      <li>Bi-Weekly Dates — 6 reservations over 3 months</li>
+                      <li>Monthly Dates — 3 reservations over 3 months</li>
+                    </ul>
+                  </div>
+                  <div class="offer-detail-card">
+                    <span class="offer-detail-kicker">What I handle</span>
+                    <p class="offer-detail-copy">Reservations, timing, dietary notes, local recommendations, and the little details that make the evening feel easy instead of planned to death.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          <div class="offer-cta-row">
+            <a href="#" class="offer-cta-btn" data-open-questionnaire="date-night">Plan your next 3 months <iconify-icon icon="lucide:arrow-right" class="text-lg"></iconify-icon></a>
+          </div>
+          </div>
+        </article>
+      </section>
+
+      <section class="px-6 lg:px-12 max-w-[1440px] mx-auto pb-20">
+        <div class="mb-10 lg:mb-12">
+          <p class="text-sm font-semibold tracking-[0.18em] text-gray-400 mb-4 uppercase">Process</p>
+          <h2 class="text-[clamp(2.1rem,5vw,4.2rem)] leading-[0.98] tracking-tight font-bold">Three simple steps</h2>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-7">
+          <article class="process-card">
+            <p class="text-sm font-semibold tracking-[0.14em] text-[#5db689] uppercase mb-3">01 - Tell me about you</p>
+            <p class="text-[clamp(1rem,1.15vw,1.1rem)] leading-[1.55] text-black/85">Whether you are planning a trip or looking to finally go out more as a couple, it starts with a simple form to fill in: your tastes, your budget, your mood, and your dietary needs.</p>
+          </article>
+
+          <article class="process-card">
+            <p class="text-sm font-semibold tracking-[0.14em] text-[#00a8f0] uppercase mb-3">02 - I curate</p>
+            <p class="text-[clamp(1rem,1.15vw,1.1rem)] leading-[1.55] text-black/85">I go to work. I tap into my network, my personal knowledge of Lisbon&apos;s food scene, and my relationships with restaurant owners to build something that actually fits you. Every spot is chosen with intention.</p>
+          </article>
+
+          <article class="process-card">
+            <p class="text-sm font-semibold tracking-[0.14em] text-[#ee7963] uppercase mb-3">03 - You just show up</p>
+            <p class="text-[clamp(1rem,1.15vw,1.1rem)] leading-[1.55] text-black/85">You receive your itinerary or your confirmed reservations, along with insider tips on what to order, when to go, and what to expect. All you have to do is show up hungry and be present with the people you are with.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="faq" class="px-6 lg:px-12 max-w-[1440px] mx-auto pb-20">
+        <div class="faq-shell p-5 md:p-7 lg:p-10">
+          <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
+            <div class="hidden lg:block pt-4">
+              <p class="text-sm font-semibold tracking-[0.18em] text-gray-500 mb-4 uppercase">FAQ</p>
+              <h2 class="text-[clamp(2rem,3.4vw,3.3rem)] leading-[1.03] tracking-tight font-bold max-w-[12ch]">Questions before you book?</h2>
+            </div>
+
+            <div class="space-y-3" id="faq-list">
+              <article class="faq-item" data-open="false">
+                <button class="faq-question" type="button" aria-expanded="false">
+                  <span>Do you only work with visitors or also with Lisbon locals?</span>
+                  <span class="faq-plus">+</span>
+                </button>
+                <div class="faq-answer">Both. The Foodie Concierge is perfect if you are coming to Lisbon and want to make every meal count. The Date Night Concierge is designed for people who already live here but want someone to handle the planning so they can actually enjoy going out again.</div>
+              </article>
+
+              <article class="faq-item" data-open="false">
+                <button class="faq-question" type="button" aria-expanded="false">
+                  <span>How long does it take to receive my itinerary?</span>
+                  <span class="faq-plus">+</span>
+                </button>
+                <div class="faq-answer">Once you have filled out the form, you will have your personalized itinerary within 48 hours. For the Date Night Concierge, we will set a rhythm together and you will receive your confirmed reservations for the next 3 months upfront.</div>
+              </article>
+
+              <article class="faq-item" data-open="false">
+                <button class="faq-question" type="button" aria-expanded="false">
+                  <span>What if I have dietary restrictions or allergies?</span>
+                  <span class="faq-plus">+</span>
+                </button>
+                <div class="faq-answer">That is exactly the kind of detail I am here to handle. Whether it is vegetarian, vegan, gluten-free, or specific allergies, everything is taken into account from the start. You will not have to mention it again at every restaurant.</div>
+              </article>
+
+              <article class="faq-item" data-open="false">
+                <button class="faq-question" type="button" aria-expanded="false">
+                  <span>What if my plans change last minute?</span>
+                  <span class="faq-plus">+</span>
+                </button>
+                <div class="faq-answer">No stress. Both services include flexible rebooking via WhatsApp. If something shifts, just message me and I will sort it out.</div>
+              </article>
+
+              <article class="faq-item" data-open="false">
+                <button class="faq-question" type="button" aria-expanded="false">
+                  <span>Are these places you have actually been to yourself?</span>
+                  <span class="faq-plus">+</span>
+                </button>
+                <div class="faq-answer">Always. I never recommend somewhere I have not personally vetted. Every spot comes from my own exploration of Lisbon&apos;s food scene, my relationships with restaurant owners, and my local knowledge, not from a sponsored list or a Google search.</div>
+              </article>
+
+              <article class="faq-item" data-open="false">
+                <button class="faq-question" type="button" aria-expanded="false">
+                  <span>What makes this different from just using Google or a food guide?</span>
+                  <span class="faq-plus">+</span>
+                </button>
+                <div class="faq-answer">A food guide gives you the same list as everyone else. I give you something built around you: your tastes, your pace, your budget. And I handle the reservations, the logistics, and the insider details that no guide will ever tell you.</div>
+              </article>
+
+              <article class="faq-item" data-open="false">
+                <button class="faq-question" type="button" aria-expanded="false">
+                  <span>Is there a minimum budget required?</span>
+                  <span class="faq-plus">+</span>
+                </button>
+                <div class="faq-answer">No minimum. I work with your budget, whatever it is. My job is to find the best possible experience within the parameters you give me.</div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="foodie-contact" class="bg-[#0a0a0a] text-white py-20">
+        <div class="max-w-[1100px] mx-auto px-6 lg:px-12">
+          <div class="mb-9">
+            <h2 class="text-[clamp(2.1rem,4.4vw,3.6rem)] leading-[1.03] tracking-tight font-bold mb-4">Tell me what you are craving, and I will recommend the right experience.</h2>
+            <p class="text-white/75 max-w-[70ch] text-[1.04rem]">Use the buttons below to open the built-in questionnaires and tell me exactly what you are looking for.</p>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-8">
+            <a href="#" data-open-questionnaire="foodie" class="inline-flex items-center justify-between gap-3 border border-white/15 bg-white text-[#0a0a0a] px-6 py-4 text-sm font-bold tracking-wide uppercase hover:bg-[#5db689] hover:border-[#5db689] transition-colors">
+              Foodie Concierge Questionnaire
+              <iconify-icon icon="lucide:arrow-right" class="text-xl"></iconify-icon>
+            </a>
+            <a href="#" data-open-questionnaire="date-night" class="inline-flex items-center justify-between gap-3 border border-white/20 bg-transparent text-white px-6 py-4 text-sm font-bold tracking-wide uppercase hover:bg-white hover:text-[#0a0a0a] transition-colors">
+              Date Night Questionnaire
+              <iconify-icon icon="lucide:arrow-right" class="text-xl"></iconify-icon>
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div id="questionnaire-overlay" class="questionnaire-overlay" data-open="false" hidden>
+      <div class="questionnaire-shell" role="dialog" aria-modal="true" aria-labelledby="questionnaire-title">
+        <div class="questionnaire-shell-inner">
+          <div class="questionnaire-topbar">
+            <div>
+              <p class="questionnaire-kicker" id="questionnaire-kicker">Questionnaire</p>
+              <h3 class="questionnaire-title" id="questionnaire-title">Tell me what you are looking for</h3>
+              <p class="questionnaire-subtitle" id="questionnaire-subtitle">A few quick questions so I can build something that actually fits you.</p>
+            </div>
+            <button type="button" class="questionnaire-close" data-questionnaire-close aria-label="Close questionnaire">
+              <iconify-icon icon="lucide:x" class="text-xl"></iconify-icon>
+            </button>
+          </div>
+
+          <div class="questionnaire-progress">
+            <div class="questionnaire-progress-track" aria-hidden="true">
+              <span class="questionnaire-progress-fill" id="questionnaire-progress-fill"></span>
+            </div>
+            <span class="questionnaire-progress-label" id="questionnaire-progress-label">Intake form</span>
+          </div>
+
+          <div class="questionnaire-panel" data-questionnaire-panel="foodie" hidden>
+            <form class="questionnaire-form" data-questionnaire-form="foodie">
+              <div class="questionnaire-success" data-questionnaire-success hidden>
+                Thanks. Your Foodie Concierge questionnaire was captured in this prototype. Next step: connect this form to your email/backend or CRM.
+              </div>
+
+              <div class="questionnaire-grid md:grid-cols-2">
+                <div class="questionnaire-block">
+                  <label class="questionnaire-label" for="q-foodie-name">What should I call you?</label>
+                  <input id="q-foodie-name" name="name" type="text" class="questionnaire-input" placeholder="Your name" required />
+                </div>
+                <div class="questionnaire-block">
+                  <label class="questionnaire-label" for="q-foodie-email">Where should I send your itinerary?</label>
+                  <input id="q-foodie-email" name="email" type="email" class="questionnaire-input" placeholder="you@example.com" required />
+                </div>
+              </div>
+
+              <div class="questionnaire-grid md:grid-cols-2">
+                <div class="questionnaire-block">
+                  <label class="questionnaire-label" for="q-foodie-dates">When are you in Lisbon?</label>
+                  <span class="questionnaire-help">Travel dates, approximate dates, or “already in Lisbon”.</span>
+                  <input id="q-foodie-dates" name="dates" type="text" class="questionnaire-input" placeholder="April 10-14" required />
+                </div>
+                <div class="questionnaire-block">
+                  <label class="questionnaire-label" for="q-foodie-group">Who are you traveling with?</label>
+                  <span class="questionnaire-help">Solo, couple, family, friends, group size.</span>
+                  <input id="q-foodie-group" name="group" type="text" class="questionnaire-input" placeholder="2 adults / group of 4 friends" />
+                </div>
+              </div>
+
+              <div class="questionnaire-block">
+                <label class="questionnaire-label" for="q-foodie-budget">What is your budget comfort zone?</label>
+                <span class="questionnaire-help">I can work with any budget. This just helps me choose the right mix.</span>
+                <select id="q-foodie-budget" name="budget" class="questionnaire-select">
+                  <option value="">Select one</option>
+                  <option>Budget-friendly / local spots</option>
+                  <option>Mixed (casual + a few splurges)</option>
+                  <option>Mostly premium</option>
+                  <option>Not sure yet</option>
+                </select>
+              </div>
+
+              <div class="questionnaire-block">
+                <label class="questionnaire-label" for="q-foodie-tastes">What do you love eating (and what do you want to avoid)?</label>
+                <span class="questionnaire-help">Favorite cuisines, must-try dishes, dislikes, deal breakers.</span>
+                <textarea id="q-foodie-tastes" name="tastes" class="questionnaire-textarea" placeholder="Seafood, natural wine, pastries, no tourist traps, etc." required></textarea>
+              </div>
+
+              <div class="questionnaire-grid md:grid-cols-2">
+                <div class="questionnaire-block">
+                  <label class="questionnaire-label" for="q-foodie-diet">Dietary restrictions or allergies?</label>
+                  <input id="q-foodie-diet" name="dietary" type="text" class="questionnaire-input" placeholder="Vegetarian / gluten-free / allergies..." />
+                </div>
+                <div class="questionnaire-block">
+                  <label class="questionnaire-label" for="q-foodie-vibe">What kind of vibe are you after?</label>
+                  <input id="q-foodie-vibe" name="vibe" type="text" class="questionnaire-input" placeholder="Classic tascas, romantic, trendy, hidden gems..." />
+                </div>
+              </div>
+
+              <div class="questionnaire-block">
+                <label class="questionnaire-label" for="q-foodie-notes">Anything else I should know?</label>
+                <span class="questionnaire-help">Special occasion, neighborhoods you are staying in, pacing, walking preferences, etc.</span>
+                <textarea id="q-foodie-notes" name="notes" class="questionnaire-textarea" placeholder="We are staying near Principe Real, celebrating a birthday, love long lunches..." ></textarea>
+              </div>
+
+              <div class="questionnaire-actions">
+                <button type="submit" class="questionnaire-submit">
+                  Send Foodie Questionnaire
+                  <iconify-icon icon="lucide:arrow-right" class="text-lg"></iconify-icon>
+                </button>
+                <button type="button" class="questionnaire-secondary" data-questionnaire-close>Close</button>
+                <p class="questionnaire-footnote">Prototype popup form. I can connect this to email, Formspree, Airtable, or a custom endpoint next.</p>
+              </div>
+            </form>
+          </div>
+
+          <div class="questionnaire-panel" data-questionnaire-panel="date-night" hidden>
+            <form class="questionnaire-form" data-questionnaire-form="date-night">
+              <div class="questionnaire-success" data-questionnaire-success hidden>
+                Thanks. Your Date Night Concierge questionnaire was captured in this prototype. Next step: connect this form to your backend / inbox workflow.
+              </div>
+
+              <div class="questionnaire-grid md:grid-cols-2">
+                <div class="questionnaire-block">
+                  <label class="questionnaire-label" for="q-date-name">What should I call you?</label>
+                  <input id="q-date-name" name="name" type="text" class="questionnaire-input" placeholder="Your name" required />
+                </div>
+                <div class="questionnaire-block">
+                  <label class="questionnaire-label" for="q-date-email">Best email for confirmations?</label>
+                  <input id="q-date-email" name="email" type="email" class="questionnaire-input" placeholder="you@example.com" required />
+                </div>
+              </div>
+
+              <div class="questionnaire-block">
+                <label class="questionnaire-label">What rhythm feels right?</label>
+                <span class="questionnaire-help">You can change later. This helps me plan the next 3 months.</span>
+                <div class="questionnaire-choice-grid">
+                  <label class="questionnaire-choice">
+                    <input type="radio" name="rhythm" value="weekly" required />
+                    <span>Weekly dates</span>
+                  </label>
+                  <label class="questionnaire-choice">
+                    <input type="radio" name="rhythm" value="bi-weekly" />
+                    <span>Bi-weekly dates</span>
+                  </label>
+                  <label class="questionnaire-choice">
+                    <input type="radio" name="rhythm" value="monthly" />
+                    <span>Monthly dates</span>
+                  </label>
+                </div>
+              </div>
+
+              <div class="questionnaire-grid md:grid-cols-2">
+                <div class="questionnaire-block">
+                  <label class="questionnaire-label" for="q-date-budget">Budget comfort zone</label>
+                  <select id="q-date-budget" name="budget" class="questionnaire-select">
+                    <option value="">Select one</option>
+                    <option>Relaxed / local spots</option>
+                    <option>Mixed (casual + special nights)</option>
+                    <option>Premium</option>
+                    <option>Varies by week</option>
+                  </select>
+                </div>
+                <div class="questionnaire-block">
+                  <label class="questionnaire-label" for="q-date-neighborhoods">Neighborhoods you love (or want to discover)</label>
+                  <input id="q-date-neighborhoods" name="neighborhoods" type="text" class="questionnaire-input" placeholder="Chiado, Alfama, Campo de Ourique..." />
+                </div>
+              </div>
+
+              <div class="questionnaire-grid md:grid-cols-2">
+                <div class="questionnaire-block">
+                  <label class="questionnaire-label" for="q-date-vibe">What kind of date mood are you after?</label>
+                  <input id="q-date-vibe" name="mood" type="text" class="questionnaire-input" placeholder="Cozy, lively, elegant, surprise us..." required />
+                </div>
+                <div class="questionnaire-block">
+                  <label class="questionnaire-label" for="q-date-days">Preferred days / timing</label>
+                  <input id="q-date-days" name="days" type="text" class="questionnaire-input" placeholder="Fridays after 8pm / Sundays lunch..." />
+                </div>
+              </div>
+
+              <div class="questionnaire-grid md:grid-cols-2">
+                <div class="questionnaire-block">
+                  <label class="questionnaire-label" for="q-date-diet">Dietary needs or restrictions?</label>
+                  <input id="q-date-diet" name="dietary" type="text" class="questionnaire-input" placeholder="Allergies, vegetarian, preferences..." />
+                </div>
+                <div class="questionnaire-block">
+                  <label class="questionnaire-label" for="q-date-whatsapp">WhatsApp (optional)</label>
+                  <span class="questionnaire-help">Useful for flexible rebooking and quick updates.</span>
+                  <input id="q-date-whatsapp" name="whatsapp" type="text" class="questionnaire-input" placeholder="+351 ..." />
+                </div>
+              </div>
+
+              <div class="questionnaire-block">
+                <label class="questionnaire-label" for="q-date-notes">Anything else that makes the planning better?</label>
+                <span class="questionnaire-help">Special occasions, places you already tried, “not too loud”, “good wine list”, etc.</span>
+                <textarea id="q-date-notes" name="notes" class="questionnaire-textarea" placeholder="We love low-key places, natural wine, and long dinners. Avoid overly touristy spots." ></textarea>
+              </div>
+
+              <div class="questionnaire-actions">
+                <button type="submit" class="questionnaire-submit">
+                  Send Date Night Questionnaire
+                  <iconify-icon icon="lucide:arrow-right" class="text-lg"></iconify-icon>
+                </button>
+                <button type="button" class="questionnaire-secondary" data-questionnaire-close>Close</button>
+                <p class="questionnaire-footnote">Prototype popup form. I can connect this to email, Formspree, Airtable, or a custom endpoint next.</p>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="bg-[#0a0a0a] text-white pb-8" id="page-footer">
+      <div class="max-w-[1100px] mx-auto px-6 lg:px-12 border-t border-white/12 pt-7 text-sm text-gray-400 flex flex-col md:flex-row items-center justify-between gap-3">
+        <p>designed by Orson Everaert</p>
+        <div class="flex items-center gap-5">
+          <a href="./index.html" class="hover:text-white transition-colors">Back to Home</a>
+          <a href="./portfolio.html" class="hover:text-white transition-colors">Portfolio</a>
+          <a href="./about.html" class="hover:text-white transition-colors">About</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    (() => {
+      const pageHeader = document.querySelector("#page-header");
+      const darkSurfaceSections = [document.querySelector("#foodie-contact"), document.querySelector("#page-footer")].filter(Boolean);
+      const questionnaireOverlay = document.querySelector("#questionnaire-overlay");
+      const questionnairePanels = Array.from(document.querySelectorAll("[data-questionnaire-panel]"));
+      const questionnaireOpeners = Array.from(document.querySelectorAll("[data-open-questionnaire]"));
+      const questionnaireClosers = Array.from(document.querySelectorAll("[data-questionnaire-close]"));
+      const questionnaireKicker = document.querySelector("#questionnaire-kicker");
+      const questionnaireTitle = document.querySelector("#questionnaire-title");
+      const questionnaireSubtitle = document.querySelector("#questionnaire-subtitle");
+      const questionnaireProgressFill = document.querySelector("#questionnaire-progress-fill");
+      const questionnaireProgressLabel = document.querySelector("#questionnaire-progress-label");
+      let lastQuestionnaireTrigger = null;
+
+      const questionnaireMeta = {
+        foodie: {
+          kicker: "Foodie Concierge",
+          title: "Start your food journey",
+          subtitle: "Tell me about your trip, your tastes, and your budget so I can build a day-by-day itinerary that actually fits you.",
+          progress: "60%",
+          label: "Trip intake form"
+        },
+        "date-night": {
+          kicker: "Date Night Concierge",
+          title: "Plan your next 3 months",
+          subtitle: "A few questions about your tastes, rhythm, and budget so I can curate date nights without the planning fatigue.",
+          progress: "72%",
+          label: "Date night intake form"
+        }
+      };
+
+      const syncHeaderContrast = () => {
+        if (!pageHeader) return;
+        const headerHeight = pageHeader.getBoundingClientRect().height || 80;
+        const onDarkSurface = darkSurfaceSections.some((section) => {
+          const rect = section.getBoundingClientRect();
+          return rect.top < headerHeight && rect.bottom > 0;
+        });
+        const isScrolled = window.scrollY > 6;
+
+        pageHeader.classList.toggle("text-white", onDarkSurface);
+        pageHeader.classList.toggle("header-on-dark", onDarkSurface);
+        pageHeader.classList.toggle("header-frosted", isScrolled && !onDarkSurface);
+      };
+
+      const openQuestionnaire = (kind, trigger) => {
+        if (!questionnaireOverlay) return;
+        const selectedKind = questionnaireMeta[kind] ? kind : "foodie";
+        const meta = questionnaireMeta[selectedKind];
+        lastQuestionnaireTrigger = trigger || null;
+
+        questionnairePanels.forEach((panel) => {
+          const isMatch = panel.getAttribute("data-questionnaire-panel") === selectedKind;
+          panel.hidden = !isMatch;
+          if (isMatch) {
+            panel.querySelectorAll("[data-questionnaire-success]").forEach((msg) => { msg.hidden = true; });
+          }
+        });
+
+        if (questionnaireKicker) questionnaireKicker.textContent = meta.kicker;
+        if (questionnaireTitle) questionnaireTitle.textContent = meta.title;
+        if (questionnaireSubtitle) questionnaireSubtitle.textContent = meta.subtitle;
+        if (questionnaireProgressFill) questionnaireProgressFill.style.setProperty("--progress", meta.progress);
+        if (questionnaireProgressLabel) questionnaireProgressLabel.textContent = meta.label;
+
+        questionnaireOverlay.hidden = false;
+        questionnaireOverlay.setAttribute("data-open", "true");
+        document.body.classList.add("modal-open");
+
+        requestAnimationFrame(() => {
+          const firstField = questionnaireOverlay.querySelector(`[data-questionnaire-panel="${selectedKind}"] .questionnaire-input, [data-questionnaire-panel="${selectedKind}"] .questionnaire-select, [data-questionnaire-panel="${selectedKind}"] .questionnaire-textarea`);
+          if (firstField) firstField.focus();
+        });
+      };
+
+      const closeQuestionnaire = () => {
+        if (!questionnaireOverlay) return;
+        questionnaireOverlay.setAttribute("data-open", "false");
+        questionnaireOverlay.hidden = true;
+        document.body.classList.remove("modal-open");
+        if (lastQuestionnaireTrigger && typeof lastQuestionnaireTrigger.focus === "function") {
+          lastQuestionnaireTrigger.focus();
+        }
+      };
+
+      const initAccordion = (itemSelector, triggerSelector) => {
+        const items = Array.from(document.querySelectorAll(itemSelector));
+        items.forEach((item) => {
+          const button = item.querySelector(triggerSelector);
+          if (!button) return;
+
+          button.addEventListener("click", () => {
+            const isOpen = item.getAttribute("data-open") === "true";
+            items.forEach((entry) => {
+              entry.setAttribute("data-open", "false");
+              const trigger = entry.querySelector(".faq-question");
+              if (trigger) trigger.setAttribute("aria-expanded", "false");
+            });
+
+            if (!isOpen) {
+              item.setAttribute("data-open", "true");
+              button.setAttribute("aria-expanded", "true");
+            }
+          });
+        });
+      };
+
+      const initQuestionnaires = () => {
+        questionnaireOpeners.forEach((opener) => {
+          opener.addEventListener("click", (event) => {
+            event.preventDefault();
+            openQuestionnaire(opener.getAttribute("data-open-questionnaire"), opener);
+          });
+        });
+
+        questionnaireClosers.forEach((closer) => {
+          closer.addEventListener("click", () => closeQuestionnaire());
+        });
+
+        if (questionnaireOverlay) {
+          questionnaireOverlay.addEventListener("click", (event) => {
+            if (event.target === questionnaireOverlay) {
+              closeQuestionnaire();
+            }
+          });
+        }
+
+        document.addEventListener("keydown", (event) => {
+          if (event.key === "Escape" && questionnaireOverlay && questionnaireOverlay.getAttribute("data-open") === "true") {
+            closeQuestionnaire();
+          }
+        });
+
+        document.querySelectorAll("[data-questionnaire-form]").forEach((form) => {
+          form.addEventListener("submit", (event) => {
+            event.preventDefault();
+            const success = form.querySelector("[data-questionnaire-success]");
+            if (success) success.hidden = false;
+            form.reset();
+          });
+        });
+      };
+
+      initAccordion(".faq-item", ".faq-question");
+      initAccordion('[data-accordion="offer"]', ".offer-toggle");
+      initQuestionnaires();
+      window.addEventListener("scroll", syncHeaderContrast, { passive: true });
+      window.addEventListener("resize", syncHeaderContrast);
+      syncHeaderContrast();
+    })();
+  </script>
+</body>
+</html>

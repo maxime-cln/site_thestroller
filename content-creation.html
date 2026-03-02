@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Content Creation | Lo</title>
+  <script src="https://cdn.tailwindcss.com/"></script>
+  <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+  <style>
+    :root {
+      --color-lime: #5db689;
+      --color-blue: #00a8f0;
+      --color-red: #ee7963;
+      --color-dark: #0a0a0a;
+      --color-light: #eeefea;
+    }
+
+    @font-face {
+      font-family: "Averia Serif Libre";
+      src: url("assets/fonts/AveriaSerifLibre-Light.ttf") format("truetype");
+      font-weight: 100 349;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: "Averia Serif Libre";
+      src: url("assets/fonts/AveriaSerifLibre-LightItalic.ttf") format("truetype");
+      font-weight: 100 349;
+      font-style: italic;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: "Averia Serif Libre";
+      src: url("assets/fonts/AveriaSerifLibre-Regular.ttf") format("truetype");
+      font-weight: 350 649;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: "Averia Serif Libre";
+      src: url("assets/fonts/AveriaSerifLibre-Italic.ttf") format("truetype");
+      font-weight: 350 649;
+      font-style: italic;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: "Averia Serif Libre";
+      src: url("assets/fonts/AveriaSerifLibre-Bold.ttf") format("truetype");
+      font-weight: 650 900;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: "Averia Serif Libre";
+      src: url("assets/fonts/AveriaSerifLibre-BoldItalic.ttf") format("truetype");
+      font-weight: 650 900;
+      font-style: italic;
+      font-display: swap;
+    }
+
+    html,
+    body,
+    body *:not(iconify-icon) {
+      font-family: "Averia Serif Libre", serif !important;
+      font-synthesis: none;
+    }
+
+    body {
+      margin: 0;
+      background: var(--color-light);
+      color: var(--color-dark);
+    }
+
+    .grain-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 50;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    }
+
+    .nav-link {
+      position: relative;
+    }
+
+    .nav-link::after {
+      content: "";
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--color-lime);
+      transition: width 0.3s ease;
+    }
+
+    #page-header {
+      background: transparent;
+      border-bottom: 1px solid transparent;
+      transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+    }
+
+    #page-header.header-frosted {
+      background: rgba(250, 250, 247, 0.9);
+      border-bottom-color: rgba(10, 10, 10, 0.06);
+      backdrop-filter: blur(8px);
+    }
+
+    #page-header.header-on-dark {
+      background: rgba(10, 10, 10, 0.66);
+      border-bottom-color: rgba(255, 255, 255, 0.14);
+      backdrop-filter: blur(8px);
+    }
+
+    #page-header.header-on-dark .nav-link,
+    #page-header.header-on-dark #nav-services {
+      color: #ffffff;
+    }
+
+    .nav-link:hover::after,
+    .nav-link.is-active::after {
+      width: 100%;
+    }
+
+    #cta-book-call {
+      padding: 0;
+      border: 0;
+      background: transparent;
+    }
+
+    #cta-book-call .book-call-image {
+      display: block;
+      height: 1.4rem;
+      width: auto;
+      transition: filter 0.3s ease;
+    }
+
+    #cta-book-call .book-call-image {
+      filter: brightness(0);
+    }
+
+    header.text-white #cta-book-call .book-call-image,
+    #page-header.header-on-dark #cta-book-call .book-call-image {
+      filter: none;
+    }
+
+    #cta-book-call:hover .book-call-image {
+      filter: brightness(0);
+    }
+
+    .intro-copy {
+      max-width: 72ch;
+      font-size: clamp(1.15rem, 1.55vw, 1.5rem);
+      line-height: 1.55;
+      color: rgba(10, 10, 10, 0.85);
+    }
+
+    .service-section {
+      position: relative;
+      overflow: hidden;
+      border-radius: 28px;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      box-shadow: 0 18px 40px rgba(10, 10, 10, 0.13);
+      color: #ffffff;
+    }
+
+    .service-section--blue {
+      background: #00a8f0;
+    }
+
+    .service-section--green {
+      background: #5db689;
+    }
+
+    .service-section--red {
+      background: #ee7963;
+    }
+
+    .service-label {
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.86);
+    }
+
+    .service-title {
+      font-size: clamp(2.2rem, 4.5vw, 4.2rem);
+      line-height: 0.95;
+      letter-spacing: -0.02em;
+      color: #ffffff;
+    }
+
+    .service-subtitle {
+      font-size: clamp(1.35rem, 2.1vw, 1.95rem);
+      line-height: 1.3;
+      max-width: 46ch;
+      color: rgba(255, 255, 255, 0.97);
+    }
+
+    .service-badge {
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.48);
+      background: rgba(255, 255, 255, 0.16);
+      color: #ffffff;
+      padding: 0.35rem 0.78rem;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .service-content {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .service-toggle {
+      width: 100%;
+      border: 0;
+      background: transparent;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.25rem;
+      text-align: left;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .service-summary {
+      max-width: 52rem;
+    }
+
+    .service-plus {
+      font-size: clamp(2.9rem, 5vw, 5rem);
+      line-height: 1;
+      width: clamp(3.2rem, 5.6vw, 5.4rem);
+      height: clamp(3.2rem, 5.6vw, 5.4rem);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 auto;
+      color: rgba(255, 255, 255, 0.92);
+      transition: transform 0.2s ease;
+      margin-top: 0;
+      user-select: none;
+    }
+
+    .service-section[data-open="true"] .service-plus {
+      transform: rotate(45deg);
+    }
+
+    .service-details {
+      display: none;
+      margin-top: 1.6rem;
+      padding-top: 1.6rem;
+      border-top: 2px solid rgba(255, 255, 255, 0.72);
+    }
+
+    .service-section[data-open="true"] .service-details {
+      display: block;
+    }
+
+    .service-detail-card {
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.34);
+      background: rgba(255, 255, 255, 0.14);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      padding: 1.15rem 1.2rem 1.2rem;
+      min-height: 100%;
+    }
+
+    .service-detail-kicker {
+      display: block;
+      margin-bottom: 0.55rem;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.78);
+    }
+
+    .service-detail {
+      font-size: clamp(1rem, 1.2vw, 1.16rem);
+      line-height: 1.52;
+      color: rgba(255, 255, 255, 0.97);
+    }
+
+    .service-detail strong {
+      color: #ffffff;
+    }
+
+
+    .process-card {
+      border: 1px solid rgba(10, 10, 10, 0.12);
+      border-radius: 0;
+      padding: 1.6rem;
+      background: #ffffff;
+      min-height: 100%;
+    }
+
+    .faq-shell {
+      position: relative;
+      overflow: hidden;
+      border-radius: 0;
+      background: #f3f1eb;
+      border: 1px solid rgba(10, 10, 10, 0.08);
+    }
+
+    .faq-item {
+      border-radius: 0;
+      border: 1px solid rgba(10, 10, 10, 0.09);
+      background: rgba(255, 255, 255, 0.74);
+      transition: border-color 0.2s ease;
+    }
+
+    .faq-item[data-open="true"] {
+      border-color: rgba(93, 182, 137, 0.8);
+      background: #ffffff;
+    }
+
+    .faq-question {
+      width: 100%;
+      border: 0;
+      background: transparent;
+      text-align: left;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1.3rem 1.5rem;
+      font-size: clamp(1.15rem, 1.55vw, 1.8rem);
+      line-height: 1.2;
+      cursor: pointer;
+      color: #1b1b1b;
+    }
+
+    .faq-plus {
+      font-size: 2rem;
+      line-height: 1;
+      flex: 0 0 auto;
+      transition: transform 0.2s ease;
+      color: rgba(10, 10, 10, 0.9);
+    }
+
+    .faq-item[data-open="true"] .faq-plus {
+      transform: rotate(45deg);
+    }
+
+    .faq-answer {
+      padding: 0 1.5rem 1.35rem;
+      font-size: clamp(1rem, 1.14vw, 1.15rem);
+      line-height: 1.55;
+      color: rgba(10, 10, 10, 0.82);
+      display: none;
+      max-width: 74ch;
+    }
+
+    .faq-item[data-open="true"] .faq-answer {
+      display: block;
+    }
+
+    .contact-input,
+    .contact-select,
+    .contact-textarea {
+      width: 100%;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      background: rgba(255, 255, 255, 0.07);
+      color: #ffffff;
+      border-radius: 12px;
+      padding: 0.95rem 1rem;
+      outline: none;
+      transition: border-color 0.2s ease, background-color 0.2s ease;
+    }
+
+    .contact-input:focus,
+    .contact-select:focus,
+    .contact-textarea:focus {
+      border-color: var(--color-lime);
+      background: rgba(255, 255, 255, 0.13);
+    }
+
+    .contact-input::placeholder,
+    .contact-textarea::placeholder {
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .contact-select option {
+      color: #111;
+    }
+
+    @media (max-width: 1024px) {
+      .service-detail-card {
+        padding: 1rem;
+      }
+
+    }
+
+    @media (max-width: 768px) {
+      #cta-book-call {
+        display: none;
+      }
+
+      .service-plus {
+        font-size: 2.65rem;
+      }
+
+      .faq-question {
+        padding: 1.05rem 1.1rem;
+      }
+
+      .faq-answer {
+        padding: 0 1.1rem 1.1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="grain-overlay"></div>
+  <div class="min-h-screen bg-[#eeefea]">
+    <header id="page-header" class="fixed top-0 left-0 right-0 z-40">
+      <div class="max-w-[1440px] mx-auto px-6 lg:px-12 h-20 flex items-center justify-between">
+        <a href="./index.html" id="nav-logo" class="flex items-center gap-3">
+          <img src="https://vgbujcuwptvheqijyjbe.supabase.co/storage/v1/object/public/hmac-uploads/uploads/14a0654e-e3ac-4ce2-b825-740077280921/1770822350896-be5a1f26/logo.png" alt="Lo" class="h-8 w-auto" />
+        </a>
+
+        <nav class="hidden md:flex items-center gap-10">
+          <a href="./content-creation.html" id="nav-for-brands" class="nav-link is-active text-sm font-medium tracking-wide uppercase">For Brands</a>
+          <a href="./foodie-experience.html" id="nav-plan-trip" class="nav-link text-sm font-medium tracking-wide uppercase">Plan your trip</a>
+          <a href="./portfolio.html" id="nav-portfolio" class="nav-link text-sm font-medium tracking-wide uppercase">Portfolio</a>
+          <a href="./about.html" id="nav-about" class="nav-link text-sm font-medium tracking-wide uppercase">About</a>
+          <a href="./contact.html" id="nav-contact" class="nav-link text-sm font-medium tracking-wide uppercase">Contact</a>
+        </nav>
+
+        <a href="#contact-form" id="cta-book-call" class="hidden md:inline-flex items-center">
+          <img src="./assets/book_a_call2.png" alt="Book a Call" class="book-call-image" />
+        </a>
+      </div>
+    </header>
+
+    <main class="pt-32">
+      <section class="px-6 lg:px-12 max-w-[1440px] mx-auto pb-16 lg:pb-20">
+        <p class="text-sm font-semibold tracking-[0.18em] text-gray-400 mb-5 uppercase">Service</p>
+        <h1 class="text-[clamp(2.8rem,6.8vw,5.8rem)] leading-[0.94] tracking-tight font-bold max-w-[16ch] mb-9">Social Media Content Creation</h1>
+        <p class="text-[clamp(1.6rem,2.3vw,2.35rem)] leading-[1.2] font-semibold max-w-[28ch] mb-8 text-[#ee7963]">Did you know that people are checking your Instagram before they ever look at your menu?</p>
+        <div class="intro-copy space-y-6">
+          <p>I make videos people actually stop scrolling for: not because they are loud or flashy, but because they feel real.</p>
+          <p>Music and visuals are at the heart of everything I create. The right track can shift a mood, slow someone down, and make them feel something before they even realize what they are watching. That is the difference between content that gets skipped and content that sticks.</p>
+          <p>I do not make ads that scream "buy this." I make videos that pull you in, hold your attention, and make you care, even if just for a few seconds. Because in those few seconds, everything changes.</p>
+        </div>
+      </section>
+
+      <section class="px-6 lg:px-12 max-w-[1440px] mx-auto space-y-8 lg:space-y-10 pb-20">
+        <article class="service-section service-section--blue px-7 py-10 md:px-12 md:py-14" data-accordion="service" data-open="false">
+          <div class="service-content">
+            <button class="service-toggle" type="button" aria-expanded="false">
+              <div class="service-summary">
+                <p class="service-label mb-4">Service 01</p>
+                <h2 class="service-title font-bold mb-4">Starter Content</h2>
+                <p class="service-subtitle">One video, one moment, one product</p>
+              </div>
+              <span class="service-plus">+</span>
+            </button>
+
+            <div class="service-details">
+              <div class="grid grid-cols-1 lg:grid-cols-2 gap-7 lg:gap-10">
+                <div class="service-detail-card">
+                  <span class="service-detail-kicker">What it is</span>
+                  <p class="service-detail">A single optimized video for Instagram and TikTok.</p>
+                </div>
+                <div class="service-detail-card">
+                  <span class="service-detail-kicker">Perfect for</span>
+                  <p class="service-detail">Showcasing something specific: a dish, a product, an atmosphere.</p>
+                </div>
+                <div class="service-detail-card">
+                  <span class="service-detail-kicker">For example</span>
+                  <p class="service-detail">Three angles that tell the story of your croissant (where it is made, how it is made, why it is different).</p>
+                </div>
+                <div class="service-detail-card">
+                  <span class="service-detail-kicker">Timeline</span>
+                  <p class="service-detail">1-hour shoot, delivered in 3-5 days.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="service-section service-section--green px-7 py-10 md:px-12 md:py-14" data-accordion="service" data-open="false">
+          <div class="service-content">
+            <button class="service-toggle" type="button" aria-expanded="false">
+              <div class="service-summary">
+                <div class="flex flex-wrap items-center gap-3 mb-3">
+                  <p class="service-label">Service 02</p>
+                  <span class="service-badge">Most popular</span>
+                </div>
+                <h2 class="service-title font-bold mb-4">Signature Shoot</h2>
+                <p class="service-subtitle">The full picture: not just what you sell, but who you are</p>
+              </div>
+              <span class="service-plus">+</span>
+            </button>
+
+            <div class="service-details">
+              <div class="grid grid-cols-1 lg:grid-cols-2 gap-7 lg:gap-10">
+                <div class="service-detail-card">
+                  <span class="service-detail-kicker">What it is</span>
+                  <p class="service-detail">5 videos + 10 photos, all optimized for social.</p>
+                </div>
+                <div class="service-detail-card">
+                  <span class="service-detail-kicker">Perfect for</span>
+                  <p class="service-detail">Telling your real story and building a content foundation that actually reflects your brand.</p>
+                </div>
+                <div class="service-detail-card">
+                  <span class="service-detail-kicker">For example</span>
+                  <p class="service-detail">Maybe you are not just a bakery: you are the neighborhood hub. Your croissants are legendary, sure, but people also come for the ambiance, the terrace, and the fact that you are open late. I capture all of it.</p>
+                </div>
+                <div class="service-detail-card">
+                  <span class="service-detail-kicker">Timeline</span>
+                  <p class="service-detail">2-3 hour shoot, delivered within a week.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="service-section service-section--red px-7 py-10 md:px-12 md:py-14" data-accordion="service" data-open="false">
+          <div class="service-content">
+            <button class="service-toggle" type="button" aria-expanded="false">
+              <div class="service-summary">
+                <p class="service-label mb-4">Service 03</p>
+                <h2 class="service-title font-bold mb-4">Targeted Ads</h2>
+                <p class="service-subtitle">Built to convert, not just to look good</p>
+              </div>
+              <span class="service-plus">+</span>
+            </button>
+
+            <div class="service-details">
+              <div class="grid grid-cols-1 lg:grid-cols-2 gap-7 lg:gap-10">
+                <div class="service-detail-card">
+                  <span class="service-detail-kicker">What it is</span>
+                  <p class="service-detail">Custom video ads + full campaign setup and management.</p>
+                </div>
+                <div class="service-detail-card">
+                  <span class="service-detail-kicker">Perfect for</span>
+                  <p class="service-detail">Getting in front of the right people, fast.</p>
+                </div>
+                <div class="service-detail-card">
+                  <span class="service-detail-kicker">For example</span>
+                  <p class="service-detail">We target 25-45 year-olds within 10km who have never heard of you, using videos designed to stop the scroll and turn viewers into visitors.</p>
+                </div>
+                <div class="service-detail-card">
+                  <span class="service-detail-kicker">How it works</span>
+                  <p class="service-detail">Strategic audience targeting, budget optimization, ongoing tweaks, and reporting by a senior traffic manager.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section class="px-6 lg:px-12 max-w-[1440px] mx-auto pb-20">
+        <div class="mb-10 lg:mb-12">
+          <p class="text-sm font-semibold tracking-[0.18em] text-gray-400 mb-4 uppercase">My Process</p>
+          <h2 class="text-[clamp(2.2rem,5.2vw,4.4rem)] leading-[0.98] tracking-tight font-bold">Three simple steps</h2>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-7">
+          <article class="process-card">
+            <p class="text-sm font-semibold tracking-[0.14em] text-[#5db689] uppercase mb-3">01 - Briefing</p>
+            <p class="text-[clamp(1rem,1.2vw,1.15rem)] leading-[1.55] text-black/85">Whether you are going for a single video or a full brand shoot, we start with a quick call. I want to understand your place, your atmosphere, and what you want people to feel when they watch. From there, I build a clear plan: what we are shooting, how long we need, and what the final content will look like. No jargon, no lengthy forms. Just a real conversation.</p>
+          </article>
+
+          <article class="process-card">
+            <p class="text-sm font-semibold tracking-[0.14em] text-[#00a8f0] uppercase mb-3">02 - Shooting</p>
+            <p class="text-[clamp(1rem,1.2vw,1.15rem)] leading-[1.55] text-black/85">I show up, blend in, and get to work. No big crew, no disruption to your service. Depending on your offer, we are looking at 1 hour for a focused product story, 2-3 hours to capture the full picture of who you are, or a dedicated session built around your ad campaign. Either way, every minute on set is intentional.</p>
+          </article>
+
+          <article class="process-card">
+            <p class="text-sm font-semibold tracking-[0.14em] text-[#ee7963] uppercase mb-3">03 - Content Delivery</p>
+            <p class="text-[clamp(1rem,1.2vw,1.15rem)] leading-[1.55] text-black/85">Your content arrives ready to post: optimized for Instagram and TikTok, and delivered with clear posting recommendations. For the Signature Shoot, that means 5 videos and 10 photos handed over within a week. For Targeted Ads, you also get full campaign setup, audience targeting, and ongoing performance tracking by a senior traffic manager.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="px-6 lg:px-12 max-w-[1440px] mx-auto pb-20">
+        <div class="faq-shell p-5 md:p-7 lg:p-10">
+          <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
+            <div class="hidden lg:block pt-4">
+              <p class="text-sm font-semibold tracking-[0.18em] text-gray-500 mb-4 uppercase">FAQ</p>
+              <h2 class="text-[clamp(2rem,3.4vw,3.3rem)] leading-[1.03] tracking-tight font-bold max-w-[11ch]">Questions before we shoot?</h2>
+            </div>
+
+            <div class="space-y-3" id="faq-list">
+              <article class="faq-item" data-open="false">
+                <button class="faq-question" type="button" aria-expanded="false">
+                  <span>Do I need to prepare anything before the shoot?</span>
+                  <span class="faq-plus">+</span>
+                </button>
+                <div class="faq-answer">Not much. I will send you the shots I would like to take in your place to make sure we are aligned with the vision. Just make sure your space is in its usual state, it is the everyday atmosphere I want to capture, not an overly staged version of it.</div>
+              </article>
+
+              <article class="faq-item" data-open="false">
+                <button class="faq-question" type="button" aria-expanded="false">
+                  <span>Will the shoot disrupt my service?</span>
+                  <span class="faq-plus">+</span>
+                </button>
+                <div class="faq-answer">Not at all. I work alone, sometimes with a light setup, and I adapt to the rhythm of your place. Your customers will not even notice I am there.</div>
+              </article>
+
+              <article class="faq-item" data-open="false">
+                <button class="faq-question" type="button" aria-expanded="false">
+                  <span>How long until I receive my content?</span>
+                  <span class="faq-plus">+</span>
+                </button>
+                <div class="faq-answer">For the Starter Content, expect 3 to 5 days. For the Signature Shoot, a week at most. For Targeted Ads, we will set a launch timeline together based on your campaign goals.</div>
+              </article>
+
+              <article class="faq-item" data-open="false">
+                <button class="faq-question" type="button" aria-expanded="false">
+                  <span>Will the videos be ready to post?</span>
+                  <span class="faq-plus">+</span>
+                </button>
+                <div class="faq-answer">Yes. Everything is delivered optimized for Instagram and TikTok: right format, right length, and posting recommendations included. All you have to do is hit publish.</div>
+              </article>
+
+              <article class="faq-item" data-open="false">
+                <button class="faq-question" type="button" aria-expanded="false">
+                  <span>What if I do not know which offer is right for me?</span>
+                  <span class="faq-plus">+</span>
+                </button>
+                <div class="faq-answer">That is completely normal. Most clients start with Starter Content to see what it feels like, then move on to Signature Shoot once they see the results. We will talk it through and I will point you toward what fits your needs and budget best.</div>
+              </article>
+
+              <article class="faq-item" data-open="false">
+                <button class="faq-question" type="button" aria-expanded="false">
+                  <span>Do you manage social media accounts?</span>
+                  <span class="faq-plus">+</span>
+                </button>
+                <div class="faq-answer">No. I create the content, not the day-to-day editorial strategy. With Targeted Ads, you get full campaign management, from audience targeting to performance reporting.</div>
+              </article>
+
+              <article class="faq-item" data-open="false">
+                <button class="faq-question" type="button" aria-expanded="false">
+                  <span>Do you only work with restaurants?</span>
+                  <span class="faq-plus">+</span>
+                </button>
+                <div class="faq-answer">I specialize in hospitality in the broadest sense: restaurants, cafes, hotels, bars, bakeries, and concept stores. If your place has a soul, I want to film it.</div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact-form" class="bg-[#0a0a0a] text-white py-20">
+        <div class="max-w-[1100px] mx-auto px-6 lg:px-12">
+          <div class="mb-9">
+            <h2 class="text-[clamp(2.1rem,4.4vw,3.6rem)] leading-[1.03] tracking-tight font-bold mb-4">Tell me about your place, and I will recommend the right offer.</h2>
+            <p class="text-white/75 max-w-[65ch] text-[1.06rem]">This is a dedicated inquiry form for social media content creation projects.</p>
+          </div>
+
+          <form class="space-y-5">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label for="contact-name" class="block text-sm font-semibold mb-2">Name</label>
+                <input id="contact-name" type="text" class="contact-input" placeholder="Your name" />
+              </div>
+              <div>
+                <label for="contact-email" class="block text-sm font-semibold mb-2">Email</label>
+                <input id="contact-email" type="email" class="contact-input" placeholder="you@example.com" />
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label for="contact-business" class="block text-sm font-semibold mb-2">Venue / Brand</label>
+                <input id="contact-business" type="text" class="contact-input" placeholder="Business name" />
+              </div>
+              <div>
+                <label for="contact-offer" class="block text-sm font-semibold mb-2">Offer interest</label>
+                <select id="contact-offer" class="contact-select">
+                  <option value="">Select one</option>
+                  <option value="starter-content">Starter Content</option>
+                  <option value="signature-shoot">Signature Shoot</option>
+                  <option value="targeted-ads">Targeted Ads</option>
+                  <option value="not-sure">Not sure yet</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label for="contact-message" class="block text-sm font-semibold mb-2">Message</label>
+              <textarea id="contact-message" rows="5" class="contact-textarea" placeholder="Tell me your goals, timeline, and what you want people to feel when they see your content."></textarea>
+            </div>
+
+            <button type="submit" class="inline-flex items-center gap-3 bg-[#5db689] text-[#0a0a0a] px-7 py-3.5 text-sm font-bold tracking-wide uppercase hover:bg-[#00a8f0] transition-colors">
+              Send Inquiry
+              <iconify-icon icon="lucide:arrow-right" class="text-xl"></iconify-icon>
+            </button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="bg-[#0a0a0a] text-white pb-8">
+      <div class="max-w-[1100px] mx-auto px-6 lg:px-12 border-t border-white/12 pt-7 text-sm text-gray-400 flex flex-col md:flex-row items-center justify-between gap-3">
+        <p>designed by Orson Everaert</p>
+        <a href="./index.html" class="hover:text-white transition-colors">Back to Home</a>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    (() => {
+      const pageHeader = document.querySelector("#page-header");
+      const darkSurfaceSections = [document.querySelector("#contact-form"), document.querySelector("footer")].filter(Boolean);
+
+      const syncHeaderContrast = () => {
+        if (!pageHeader || !darkSurfaceSections.length) return;
+        const headerHeight = pageHeader.getBoundingClientRect().height || 80;
+        const onDarkSurface = darkSurfaceSections.some((section) => {
+          const rect = section.getBoundingClientRect();
+          return rect.top < headerHeight && rect.bottom > 0;
+        });
+
+        const isScrolled = window.scrollY > 6;
+        pageHeader.classList.toggle("text-white", onDarkSurface);
+        pageHeader.classList.toggle("header-on-dark", onDarkSurface);
+        pageHeader.classList.toggle("header-frosted", isScrolled && !onDarkSurface);
+      };
+
+      const initAccordion = (itemSelector, triggerSelector) => {
+        const items = Array.from(document.querySelectorAll(itemSelector));
+        items.forEach((item) => {
+          const button = item.querySelector(triggerSelector);
+          if (!button) return;
+
+          button.addEventListener("click", () => {
+            const isOpen = item.getAttribute("data-open") === "true";
+            items.forEach((entry) => {
+              entry.setAttribute("data-open", "false");
+              const trigger = entry.querySelector(triggerSelector);
+              if (trigger) trigger.setAttribute("aria-expanded", "false");
+            });
+
+            if (!isOpen) {
+              item.setAttribute("data-open", "true");
+              button.setAttribute("aria-expanded", "true");
+            }
+          });
+        });
+      };
+
+      initAccordion(".faq-item", ".faq-question");
+      initAccordion('[data-accordion="service"]', ".service-toggle");
+      window.addEventListener("scroll", syncHeaderContrast, { passive: true });
+      window.addEventListener("resize", syncHeaderContrast);
+      syncHeaderContrast();
+    })();
+  </script>
+</body>
+</html>
