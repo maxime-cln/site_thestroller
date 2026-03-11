@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Portfolio | The Stroller</title>
+  <title>The Stroller</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
   <style>
@@ -364,6 +364,35 @@
       white-space: nowrap;
     }
 
+    .portfolio-sound-toggle {
+      position: absolute;
+      top: 0.45rem;
+      left: 0.45rem;
+      z-index: 4;
+      width: 1.95rem;
+      height: 1.95rem;
+      border-radius: 999px;
+      border: 1px solid rgba(18, 18, 18, 0.08);
+      background: rgba(255, 255, 255, 0.92);
+      color: #1b1b1b;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+    }
+
+    .portfolio-sound-toggle:hover {
+      background: #5db689;
+      border-color: #5db689;
+      color: #0a0a0a;
+    }
+
+    .portfolio-sound-toggle iconify-icon {
+      pointer-events: none;
+      font-size: 1rem;
+    }
+
     .portfolio-meta {
       padding: 0.6rem 0.42rem 0.2rem;
     }
@@ -498,7 +527,7 @@
       <header id="page-header" class="topbar fixed top-0 left-0 right-0 z-40">
         <div class="max-w-[1440px] mx-auto px-6 lg:px-12 h-20 flex items-center justify-between">
           <a href="./index.html" id="nav-logo" class="flex items-center gap-3" aria-label="Back to home">
-            <img src="https://vgbujcuwptvheqijyjbe.supabase.co/storage/v1/object/public/hmac-uploads/uploads/14a0654e-e3ac-4ce2-b825-740077280921/1770822350896-be5a1f26/logo.png" alt="The Stroller" class="h-8 w-auto" />
+            <img src="./assets/the_stroller_logo_cleaned.png" alt="The Stroller" class="h-8 w-auto" />
           </a>
 
           <nav class="hidden md:flex items-center gap-10">
@@ -508,7 +537,7 @@
             <a href="./about.html" id="nav-about" class="nav-link text-sm font-medium tracking-wide uppercase">About</a>
           </nav>
 
-          <a href="./content-creation.html#contact-form" id="cta-book-call" class="hidden md:inline-flex items-center" aria-label="Book a call">
+          <a href="./bookme.html#contact-form" id="cta-book-call" class="hidden md:inline-flex items-center" aria-label="Book me">
             <img src="./assets/book_me.png" alt="Book me" class="book-call-image" />
           </a>
 
@@ -522,15 +551,14 @@
         <a href="./foodie-experience.html" class="mobile-menu-link">Plan your trip</a>
         <a href="./portfolio.html" class="mobile-menu-link">Portfolio</a>
         <a href="./about.html" class="mobile-menu-link">About</a>
-        <a href="./contact.html" class="mobile-menu-link">Contact</a>
-        <a href="./content-creation.html#contact-form" class="mobile-menu-cta">Book a Call</a>
+        <a href="./bookme.html#contact-form" class="mobile-menu-cta">Book me</a>
       </nav>
 
       <main class="pt-20">
       <section class="portfolio-header max-w-[1440px] mx-auto px-6 lg:px-12">
         <h1>Portfolio</h1>
         <p>
-          A selection of short-form video work across hospitality, lifestyle, and UGC formats.
+          A selection of short-form video work across hospitality venues, lifestyle, and brand formats.
           Use the filters to explore different angles, formats and brand goals.
         </p>
       </section>
@@ -538,46 +566,44 @@
       <section class="filter-row max-w-[1440px] mx-auto px-6 lg:px-12" aria-label="Portfolio filters">
         <div class="filter-scroller" id="portfolio-filters">
           <button class="filter-chip is-active" type="button" data-filter="all">All</button>
-          <button class="filter-chip" type="button" data-filter="lifestyle">Lifestyle</button>
-          <button class="filter-chip" type="button" data-filter="beauty">Beauty & Makeup</button>
-          <button class="filter-chip" type="button" data-filter="apps">Apps & Software</button>
-          <button class="filter-chip" type="button" data-filter="food">Food</button>
-          <button class="filter-chip" type="button" data-filter="ugc">UGC</button>
+          <button class="filter-chip" type="button" data-filter="restaurant">Restaurant</button>
+          <button class="filter-chip" type="button" data-filter="cafe">Cafe</button>
+          <button class="filter-chip" type="button" data-filter="hotel">Hotel</button>
         </div>
       </section>
 
       <section class="portfolio-grid-wrap max-w-[1440px] mx-auto px-6 lg:px-12">
         <div class="portfolio-grid" id="portfolio-grid">
-          <article class="portfolio-card" data-tags="lifestyle,beauty,ugc">
+          <article class="portfolio-card" data-tags="cafe">
             <div class="portfolio-media portfolio-media--vertical">
-              <span class="portfolio-pill">Lifestyle</span>
-              <video controls muted loop playsinline preload="metadata" poster="./assets/portfolio_p2_1.jpg">
+              <span class="portfolio-pill">Cafe</span>
+              <video muted loop playsinline preload="metadata" poster="./assets/portfolio_p2_1.jpg">
                 <source src="./assets/v24044gl0000cuuuatvog65pse75l20g.MP4" type="video/mp4" />
               </video>
             </div>
             <div class="portfolio-meta">
               <p class="portfolio-title">Creator Talkthrough</p>
-              <p class="portfolio-sub">Lifestyle / 16s</p>
+              <p class="portfolio-sub">Short-form / 16s</p>
             </div>
           </article>
 
-          <article class="portfolio-card" data-tags="apps,ugc">
+          <article class="portfolio-card" data-tags="hotel">
             <div class="portfolio-media portfolio-media--vertical">
-              <span class="portfolio-pill">Apps & Software</span>
-              <video controls muted loop playsinline preload="metadata" poster="./assets/portfolio_p1_2.jpg">
+              <span class="portfolio-pill">Hotel</span>
+              <video muted loop playsinline preload="metadata" poster="./assets/portfolio_p1_2.jpg">
                 <source src="./assets/v24044gl0000cva16uvog65op1lc7l1g.mp4" type="video/mp4" />
               </video>
             </div>
             <div class="portfolio-meta">
-              <p class="portfolio-title">Hook-First UGC Demo</p>
+              <p class="portfolio-title">Hook-First Demo</p>
               <p class="portfolio-sub">Product demo / 16s</p>
             </div>
           </article>
 
-          <article class="portfolio-card" data-tags="food,lifestyle,ugc">
+          <article class="portfolio-card" data-tags="restaurant">
             <div class="portfolio-media portfolio-media--vertical">
-              <span class="portfolio-pill">Food</span>
-              <video controls muted loop playsinline preload="metadata" poster="./assets/portfolio_p3_1.jpg">
+              <span class="portfolio-pill">Restaurant</span>
+              <video muted loop playsinline preload="metadata" poster="./assets/portfolio_p3_1.jpg">
                 <source src="./assets/v24044gl0000cv3fo6vog65q0cmic3tg.MP4" type="video/mp4" />
               </video>
             </div>
@@ -587,111 +613,107 @@
             </div>
           </article>
 
-          <article class="portfolio-card" data-tags="beauty,lifestyle,ugc">
+          <article class="portfolio-card" data-tags="restaurant">
             <div class="portfolio-media portfolio-media--vertical">
-              <span class="portfolio-pill">Beauty & Makeup</span>
-              <video controls muted loop playsinline preload="metadata" poster="./assets/portfolio_p2_3.jpg">
-                <source src="./assets/v24044gl0000cuuuatvog65pse75l20g.MP4" type="video/mp4" />
+              <span class="portfolio-pill">Restaurant</span>
+              <video muted loop playsinline preload="metadata" poster="./assets/portfolio-smash/badassery.jpg">
+                <source src="./assets/portfolio-smash/badassery.mp4" type="video/mp4" />
               </video>
             </div>
             <div class="portfolio-meta">
-              <p class="portfolio-title">Routine Sequence</p>
-              <p class="portfolio-sub">Beauty / 16s</p>
+              <p class="portfolio-title">Badassery</p>
+              <p class="portfolio-sub">Venue reel / 28s</p>
             </div>
           </article>
 
-          <article class="portfolio-card portfolio-card--stack" data-tags="lifestyle,ugc">
-            <div class="portfolio-card-stack">
-              <div class="portfolio-stack-panel">
-                <span class="portfolio-pill">UGC</span>
-                <img src="./assets/portfolio_p1_1.jpg" alt="UGC still frame" />
-              </div>
-              <div class="portfolio-stack-panel">
-                <span class="portfolio-pill">Lifestyle</span>
-                <img src="./assets/portfolio_p2_2.jpg" alt="Lifestyle still frame" />
-              </div>
-            </div>
-            <div class="portfolio-meta">
-              <p class="portfolio-title">Storyboard / Split Concepts</p>
-              <p class="portfolio-sub">Mood references & cuts</p>
-            </div>
-          </article>
-
-          <article class="portfolio-card" data-tags="food,ugc">
+          <article class="portfolio-card" data-tags="cafe">
             <div class="portfolio-media portfolio-media--vertical">
-              <span class="portfolio-pill">Food</span>
-              <video controls muted loop playsinline preload="metadata" poster="./assets/portfolio_p3_2.jpg">
-                <source src="./assets/v24044gl0000cv3fo6vog65q0cmic3tg.MP4" type="video/mp4" />
+              <span class="portfolio-pill">Cafe</span>
+              <video muted loop playsinline preload="metadata" poster="./assets/portfolio-smash/cobaia.jpg">
+                <source src="./assets/portfolio-smash/cobaia.mp4" type="video/mp4" />
               </video>
             </div>
             <div class="portfolio-meta">
-              <p class="portfolio-title">Texture & Steam Cut</p>
-              <p class="portfolio-sub">Food close-up / 11s</p>
+              <p class="portfolio-title">Cobaia</p>
+              <p class="portfolio-sub">Social cut / 25s</p>
             </div>
           </article>
 
-          <article class="portfolio-card" data-tags="apps,ugc">
+          <article class="portfolio-card" data-tags="restaurant">
             <div class="portfolio-media portfolio-media--vertical">
-              <span class="portfolio-pill">Apps & Software</span>
-              <video controls muted loop playsinline preload="metadata" poster="./assets/portfolio_p1_3.jpg">
-                <source src="./assets/v24044gl0000cva16uvog65op1lc7l1g.mp4" type="video/mp4" />
+              <span class="portfolio-pill">Restaurant</span>
+              <video muted loop playsinline preload="metadata" poster="./assets/portfolio-smash/comadre.jpg">
+                <source src="./assets/portfolio-smash/comadre.mp4" type="video/mp4" />
               </video>
             </div>
             <div class="portfolio-meta">
-              <p class="portfolio-title">Quick Problem/Solution</p>
-              <p class="portfolio-sub">Voiceover-friendly cut</p>
+              <p class="portfolio-title">Comadre</p>
+              <p class="portfolio-sub">Story-driven reel / 34s</p>
             </div>
           </article>
 
-          <article class="portfolio-card" data-tags="lifestyle,ugc">
+          <article class="portfolio-card" data-tags="cafe">
             <div class="portfolio-media portfolio-media--vertical">
-              <span class="portfolio-pill">Lifestyle</span>
-              <video controls muted loop playsinline preload="metadata" poster="./assets/portfolio_p2_1.jpg">
-                <source src="./assets/v24044gl0000cuuuatvog65pse75l20g.MP4" type="video/mp4" />
+              <span class="portfolio-pill">Cafe</span>
+              <video muted loop playsinline preload="metadata" poster="./assets/portfolio-smash/croissants-sales.jpg">
+                <source src="./assets/portfolio-smash/croissants-sales.mp4" type="video/mp4" />
               </video>
             </div>
             <div class="portfolio-meta">
-              <p class="portfolio-title">Talking Head Variation</p>
-              <p class="portfolio-sub">UGC / 16s</p>
+              <p class="portfolio-title">Croissants Sales</p>
+              <p class="portfolio-sub">Product focus / 26s</p>
             </div>
           </article>
 
-          <article class="portfolio-card" data-tags="beauty,ugc,lifestyle">
+          <article class="portfolio-card" data-tags="restaurant">
             <div class="portfolio-media portfolio-media--vertical">
-              <span class="portfolio-pill">Beauty & Makeup</span>
-              <video controls muted loop playsinline preload="metadata" poster="./assets/portfolio_p2_2.jpg">
-                <source src="./assets/v24044gl0000cuuuatvog65pse75l20g.MP4" type="video/mp4" />
+              <span class="portfolio-pill">Restaurant</span>
+              <video muted loop playsinline preload="metadata" poster="./assets/portfolio-smash/o-gambuzino.jpg">
+                <source src="./assets/portfolio-smash/o-gambuzino.mp4" type="video/mp4" />
               </video>
             </div>
             <div class="portfolio-meta">
-              <p class="portfolio-title">Makeup Hook Variation</p>
-              <p class="portfolio-sub">UGC / 16s</p>
+              <p class="portfolio-title">O Gambuzino</p>
+              <p class="portfolio-sub">Atmosphere edit / 30s</p>
             </div>
           </article>
 
-          <article class="portfolio-card" data-tags="apps,ugc">
+          <article class="portfolio-card" data-tags="restaurant">
             <div class="portfolio-media portfolio-media--vertical">
-              <span class="portfolio-pill">Apps & Software</span>
-              <video controls muted loop playsinline preload="metadata" poster="./assets/portfolio_p1_1.jpg">
-                <source src="./assets/v24044gl0000cva16uvog65op1lc7l1g.mp4" type="video/mp4" />
+              <span class="portfolio-pill">Restaurant</span>
+              <video muted loop playsinline preload="metadata" poster="./assets/portfolio-smash/taberna-albricoque.jpg">
+                <source src="./assets/portfolio-smash/taberna-albricoque.mp4" type="video/mp4" />
               </video>
             </div>
             <div class="portfolio-meta">
-              <p class="portfolio-title">Desktop Context Shot</p>
-              <p class="portfolio-sub">B-roll sequence / 16s</p>
+              <p class="portfolio-title">Taberna Albricoque</p>
+              <p class="portfolio-sub">Venue highlight / 25s</p>
             </div>
           </article>
 
-          <article class="portfolio-card portfolio-card--wide" data-tags="lifestyle,food,ugc">
-            <div class="portfolio-media portfolio-media--wide">
-              <span class="portfolio-pill">Lifestyle</span>
-              <video controls muted loop playsinline preload="metadata" poster="./assets/top_hero_bg.png">
-                <source src="./assets/v24044gl0000cv3fo6vog65q0cmic3tg.MP4" type="video/mp4" />
+          <article class="portfolio-card" data-tags="cafe">
+            <div class="portfolio-media portfolio-media--vertical">
+              <span class="portfolio-pill">Cafe</span>
+              <video muted loop playsinline preload="metadata" poster="./assets/portfolio-smash/tarte-choco-caramel.jpg">
+                <source src="./assets/portfolio-smash/tarte-choco-caramel.mp4" type="video/mp4" />
               </video>
             </div>
             <div class="portfolio-meta">
-              <p class="portfolio-title">Wide Hero Edit (Landscape Cut)</p>
-              <p class="portfolio-sub">Campaign variant / repurposed for web hero and ads</p>
+              <p class="portfolio-title">Tarte Choco Caramel</p>
+              <p class="portfolio-sub">Dessert close-up / 18s</p>
+            </div>
+          </article>
+
+          <article class="portfolio-card" data-tags="restaurant">
+            <div class="portfolio-media portfolio-media--vertical">
+              <span class="portfolio-pill">Restaurant</span>
+              <video muted loop playsinline preload="metadata" poster="./assets/portfolio-smash/the-plate.jpg">
+                <source src="./assets/portfolio-smash/the-plate.mp4" type="video/mp4" />
+              </video>
+            </div>
+            <div class="portfolio-meta">
+              <p class="portfolio-title">The Plate</p>
+              <p class="portfolio-sub">Hero plating edit / 33s</p>
             </div>
           </article>
         </div>
@@ -703,7 +725,7 @@
         <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
             <div class="lg:col-span-2">
-              <img src="https://vgbujcuwptvheqijyjbe.supabase.co/storage/v1/object/public/hmac-uploads/uploads/14a0654e-e3ac-4ce2-b825-740077280921/1770822350896-be5a1f26/logo.png" alt="Lo" class="h-10 w-auto mb-6 brightness-0 invert"/>
+              <img src="./assets/the_stroller_logo_cleaned.png" alt="Lo" class="h-10 w-auto mb-6 brightness-0 invert"/>
               <p class="text-gray-400 max-w-md mb-8">Content creator and foodie concierge based in Lisbon. Helping brands tell their story and travelers taste the real Portugal.</p>
               <div class="flex gap-4">
                 <a href="#" id="social-tiktok" class="w-10 h-10 border border-white/20 flex items-center justify-center hover:bg-[#5db689] hover:border-[#5db689] hover:text-[#0a0a0a] transition-all"><iconify-icon icon="lucide:music-2" class="text-lg"></iconify-icon></a>
@@ -727,8 +749,8 @@
               <ul class="space-y-4 text-gray-400">
                 <li><a href="./about.html" id="footer-about" class="hover:text-[#5db689] transition-colors">About Me</a></li>
                 <li><a href="./portfolio.html" id="footer-portfolio" class="hover:text-[#5db689] transition-colors">Portfolio</a></li>
-                <li><a href="./contact.html" id="footer-contact" class="hover:text-[#5db689] transition-colors">Contact</a></li>
-                <li><a href="./content-creation.html#contact-form" id="footer-book" class="text-[#5db689] font-semibold">Book a Call →</a></li>
+                
+                <li><a href="./bookme.html#contact-form" id="footer-book" class="text-[#5db689] font-semibold">Book me →</a></li>
               </ul>
             </div>
           </div>
@@ -851,6 +873,21 @@
         video.loop = true;
         video.preload = 'metadata';
 
+        const soundToggle = document.createElement('button');
+        soundToggle.type = 'button';
+        soundToggle.className = 'portfolio-sound-toggle';
+        soundToggle.setAttribute('aria-label', 'Activate sound');
+        soundToggle.innerHTML = '<iconify-icon icon="lucide:volume-x"></iconify-icon>';
+        media.appendChild(soundToggle);
+
+        const syncSoundToggle = () => {
+          const icon = soundToggle.querySelector('iconify-icon');
+          if (!icon) return;
+          const isMuted = video.muted;
+          icon.setAttribute('icon', isMuted ? 'lucide:volume-x' : 'lucide:volume-2');
+          soundToggle.setAttribute('aria-label', isMuted ? 'Activate sound' : 'Deactivate sound');
+        };
+
         const startPreview = () => {
           const playPromise = video.play();
           if (playPromise && typeof playPromise.catch === 'function') playPromise.catch(() => {});
@@ -877,6 +914,20 @@
             stopPreview();
           }
         });
+
+        soundToggle.addEventListener('pointerdown', (event) => {
+          event.stopPropagation();
+        });
+
+        soundToggle.addEventListener('click', (event) => {
+          event.stopPropagation();
+          video.muted = !video.muted;
+          syncSoundToggle();
+          if (video.paused && !video.muted) startPreview();
+        });
+
+        video.addEventListener('volumechange', syncSoundToggle);
+        syncSoundToggle();
       });
 
       window.addEventListener('scroll', syncHeaderContrast, { passive: true });

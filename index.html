@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lo | Lisbon Foodie Concierge</title>
+  <title>The Stroller</title>
   <script src="https://cdn.tailwindcss.com/"></script>
   <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
   <script src="https://unpkg.com/petite-vue@0.4.1/dist/petite-vue.iife.js"></script>
@@ -260,6 +260,10 @@ body.mobile-menu-open {
   padding-inline: 0.8rem;
   display: inline-block;
   white-space: nowrap;
+}
+
+.hero-running-break {
+  display: none;
 }
 
 .hero-scroll-cue {
@@ -589,8 +593,103 @@ body.mobile-menu-open {
   background: rgba(255, 255, 255, 0.23);
 }
 
-.fresh-feed-viewport {
-  overflow: visible;
+.fresh-feed-carousel-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 3rem;
+}
+
+.fresh-feed-carousel-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.fresh-feed-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+#latest-content .fresh-feed-carousel > .fresh-feed-nav {
+  position: absolute;
+  top: 50%;
+  left: -3rem;
+  right: -3rem;
+  transform: translateY(-50%);
+  justify-content: space-between;
+  pointer-events: none;
+  z-index: 16;
+}
+
+#latest-content .fresh-feed-carousel > .fresh-feed-nav .fresh-feed-nav-btn {
+  pointer-events: auto;
+}
+
+.fresh-feed-nav-btn {
+  width: 2.6rem;
+  height: 2.6rem;
+  border-radius: 999px;
+  border: 1px solid rgba(10, 10, 10, 0.2);
+  background: #ffffff;
+  color: #0a0a0a;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, opacity 0.2s ease;
+}
+
+.fresh-feed-nav-btn:hover:not(:disabled) {
+  background: #5db689;
+  border-color: #5db689;
+  color: #0a0a0a;
+}
+
+.fresh-feed-nav-btn:disabled {
+  opacity: 0.38;
+  cursor: not-allowed;
+}
+
+#latest-content {
+  --fresh-feed-gap: 1rem;
+  --fresh-feed-visible: 1;
+}
+
+#latest-content .fresh-feed-carousel {
+  position: relative;
+}
+
+#latest-content .fresh-feed-viewport {
+  overflow-x: auto;
+  overflow-y: hidden;
+  touch-action: pan-y pinch-zoom;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+#latest-content .fresh-feed-viewport::-webkit-scrollbar {
+  display: none;
+}
+
+#latest-content #fresh-feed-track {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: calc((100% - (var(--fresh-feed-visible) - 1) * var(--fresh-feed-gap)) / var(--fresh-feed-visible));
+  gap: var(--fresh-feed-gap);
+}
+
+#latest-content #fresh-feed-track > .fresh-feed-slide {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+#latest-content #fresh-feed-track > .fresh-feed-slide.phone-preview-card {
+  max-width: none;
+  margin: 0;
 }
 
 @media (max-width: 1024px) {
@@ -612,62 +711,17 @@ body.mobile-menu-open {
   }
 }
 
-@media (max-width: 1279px) {
-  #latest-content .fresh-feed-viewport {
-    overflow-x: auto;
-    overflow-y: hidden;
-    margin-inline: 0;
-    touch-action: pan-y pinch-zoom;
-    scroll-snap-type: x mandatory;
-    scroll-behavior: smooth;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-  }
-
-  #latest-content .fresh-feed-viewport::-webkit-scrollbar {
-    display: none;
-  }
-
-  #latest-content #fresh-feed-track {
-    display: flex;
-    gap: 0.85rem;
-    transition: none;
-    will-change: auto;
-    transform: none !important;
-  }
-
-  #latest-content #fresh-feed-track > .fresh-feed-slide {
-    flex: 0 0 100%;
-    max-width: 100%;
-    padding-inline: 0;
-    scroll-snap-align: start;
-    scroll-snap-stop: always;
-  }
-
-  #latest-content #fresh-feed-track > .fresh-feed-slide.phone-preview-card {
-    max-width: none;
-    margin: 0;
-  }
-
-  #latest-content #fresh-feed-track > .fresh-feed-slide.is-loop-clone {
-    pointer-events: none;
-  }
-
-  #latest-content #fresh-feed-track > .fresh-feed-slide.is-loop-clone .phone-preview-controls {
-    display: none;
-  }
-}
-
-@media (min-width: 768px) and (max-width: 1279px) {
-  #latest-content #fresh-feed-track > .fresh-feed-slide {
-    flex-basis: 50%;
-    max-width: 50%;
-  }
-}
-
 @media (min-width: 768px) {
-  #latest-content #fresh-feed-track > .fresh-feed-slide.is-loop-clone {
-    display: none;
+  #latest-content {
+    --fresh-feed-visible: 2;
+    --fresh-feed-gap: 1.1rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  #latest-content {
+    --fresh-feed-visible: 3;
+    --fresh-feed-gap: 1.25rem;
   }
 }
 
@@ -724,23 +778,60 @@ body.mobile-menu-open {
 }
 
 @media (max-width: 767px) {
+  .hero-running-strip {
+    height: auto;
+    min-height: 3.1rem;
+    padding: 0.42rem 0.75rem;
+  }
+
+  .hero-running-item {
+    display: block;
+    margin: 0 auto;
+    padding-inline: 0;
+    white-space: normal;
+    text-align: center;
+    line-height: 1.28;
+    letter-spacing: 0.06em;
+    font-size: clamp(0.8rem, 3.4vw, 0.96rem);
+    text-wrap: balance;
+  }
+
+  .hero-running-break {
+    display: block;
+  }
+
   #latest-content {
     padding-left: 1rem;
     padding-right: 1rem;
   }
 
-  #fresh-feed-viewport {
-    padding-left: 1.25rem;
-    padding-right: 1.25rem;
+  #latest-content .fresh-feed-carousel-head {
+    margin-bottom: 1.5rem;
+  }
+
+  #latest-content .fresh-feed-viewport {
+    padding-inline: 1.2rem;
+  }
+
+  #latest-content .fresh-feed-nav-btn {
+    width: 2.35rem;
+    height: 2.35rem;
+  }
+
+  #latest-content .fresh-feed-carousel > .fresh-feed-nav {
+    position: static;
+    transform: none;
+    justify-content: center;
+    margin-top: 1rem;
+    pointer-events: auto;
   }
 
   #latest-content #fresh-feed-track {
+    grid-auto-columns: 78%;
     gap: 1rem;
   }
 
   #latest-content #fresh-feed-track > .fresh-feed-slide {
-    flex-basis: 84%;
-    max-width: 84%;
     scroll-snap-align: center;
   }
 
@@ -773,7 +864,7 @@ body.mobile-menu-open {
   }
 
   .phone-preview-card {
-    max-width: 290px;
+    max-width: 268px;
   }
 
   .phone-preview-screen {
@@ -793,7 +884,7 @@ body.mobile-menu-open {
   <header class="fixed top-0 left-0 right-0 z-40 top-nav text-white">
     <div class="max-w-[1440px] mx-auto px-6 lg:px-12 h-20 flex items-center justify-between">
       <a href="./index.html" id="nav-logo" class="flex items-center gap-3 is-visible">
-        <img src="https://vgbujcuwptvheqijyjbe.supabase.co/storage/v1/object/public/hmac-uploads/uploads/14a0654e-e3ac-4ce2-b825-740077280921/1770822350896-be5a1f26/logo.png" alt="Lo" class="h-8 w-auto"/>
+        <img src="./assets/the_stroller_logo_cleaned.png" alt="Lo" class="h-8 w-auto"/>
       </a>
       <nav class="hidden md:flex items-center gap-10 text-white">
         <a href="./content-creation.html" id="nav-for-brands" class="nav-link text-sm font-medium tracking-wide uppercase text-white">For venues &amp; brands</a>
@@ -801,7 +892,7 @@ body.mobile-menu-open {
         <a href="./portfolio.html" id="nav-portfolio" class="nav-link text-sm font-medium tracking-wide uppercase text-white">Portfolio</a>
         <a href="./about.html" id="nav-about" class="nav-link text-sm font-medium tracking-wide uppercase text-white">About</a>
       </nav>
-      <a href="./content-creation.html#contact-form" id="cta-book-call" class="hidden md:inline-flex items-center">
+      <a href="./bookme.html#contact-form" id="cta-book-call" class="hidden md:inline-flex items-center">
         <img src="./assets/book_me.png" alt="Book me" class="book-call-image"/>
       </a>
       <button id="mobile-menu-btn" class="md:hidden p-2 text-white" aria-label="Open menu" aria-controls="mobile-menu" aria-expanded="false"><iconify-icon icon="lucide:menu" class="text-2xl"></iconify-icon></button>
@@ -812,15 +903,14 @@ body.mobile-menu-open {
     <a href="./foodie-experience.html" class="mobile-menu-link">Plan your trip</a>
     <a href="./portfolio.html" class="mobile-menu-link">Portfolio</a>
     <a href="./about.html" class="mobile-menu-link">About</a>
-    <a href="./contact.html" class="mobile-menu-link">Contact</a>
-    <a href="./content-creation.html#contact-form" class="mobile-menu-cta">Book a Call</a>
+    <a href="./bookme.html#contact-form" class="mobile-menu-cta">Book me</a>
   </nav>
 
   <section class="hero-logo-stage relative z-10 px-6 lg:px-12">
     <div id="hero-brand-lockup" class="hero-brand-lockup">
-      <img src="https://vgbujcuwptvheqijyjbe.supabase.co/storage/v1/object/public/hmac-uploads/uploads/14a0654e-e3ac-4ce2-b825-740077280921/1770822350896-be5a1f26/logo.png" alt="The Stroller" class="hero-logo-main"/>
-      <a href="#selector" id="hero-scroll-cue" class="hero-scroll-cue" aria-label="Scroll down to discover services">
-        <span>Scroll down</span>
+      <img src="./assets/the_stroller_logo_cleaned.png" alt="The Stroller" class="hero-logo-main"/>
+      <a href="#selector" id="hero-scroll-cue" class="hero-scroll-cue" aria-label="Stroll down to discover services">
+        <span>Stroll down</span>
         <iconify-icon icon="lucide:arrow-down" class="text-3xl"></iconify-icon>
       </a>
     </div>
@@ -828,7 +918,7 @@ body.mobile-menu-open {
 
   <div class="hero-running-strip" aria-hidden="true">
     <div class="hero-running-track">
-      <span class="hero-running-item">Turning Lisbon's food scene into stories and real-life experiences</span>
+      <span class="hero-running-item">Turning Lisbon's food scene into stories <br class="hero-running-break" /> and real-life experiences</span>
     </div>
   </div>
 </section><!-- The Selector -->
@@ -861,45 +951,48 @@ body.mobile-menu-open {
     <div class="partner-marquee-group">
       <span class="partner-logo-slot"><img src="./assets/partner_gulbenkian.png" alt="Calouste Gulbenkian" class="partner-logo"/></span>
       <span class="partner-logo-slot"><img src="./assets/partner_capture_111532.png" alt="Partner logo" class="partner-logo"/></span>
-      <span class="partner-logo-slot"><img src="./assets/partner_li_restaurant_week.png" alt="LI Restaurant Week" class="partner-logo"/></span>
+      <span class="partner-logo-slot"><img src="./assets/partner_li_restaurant_week.png" alt="Lisbon Insiders" class="partner-logo"/></span>
       <span class="partner-logo-slot"><img src="./assets/partner_gulbenkian.png" alt="Calouste Gulbenkian" class="partner-logo"/></span>
       <span class="partner-logo-slot"><img src="./assets/partner_capture_111532.png" alt="Partner logo" class="partner-logo"/></span>
-      <span class="partner-logo-slot"><img src="./assets/partner_li_restaurant_week.png" alt="LI Restaurant Week" class="partner-logo"/></span>
+      <span class="partner-logo-slot"><img src="./assets/partner_li_restaurant_week.png" alt="Lisbon Insiders" class="partner-logo"/></span>
       <span class="partner-logo-slot"><img src="./assets/partner_gulbenkian.png" alt="Calouste Gulbenkian" class="partner-logo"/></span>
       <span class="partner-logo-slot"><img src="./assets/partner_capture_111532.png" alt="Partner logo" class="partner-logo"/></span>
-      <span class="partner-logo-slot"><img src="./assets/partner_li_restaurant_week.png" alt="LI Restaurant Week" class="partner-logo"/></span>
+      <span class="partner-logo-slot"><img src="./assets/partner_li_restaurant_week.png" alt="Lisbon Insiders" class="partner-logo"/></span>
     </div>
     <div class="partner-marquee-group" aria-hidden="true">
       <span class="partner-logo-slot"><img src="./assets/partner_gulbenkian.png" alt="Calouste Gulbenkian" class="partner-logo"/></span>
       <span class="partner-logo-slot"><img src="./assets/partner_capture_111532.png" alt="Partner logo" class="partner-logo"/></span>
-      <span class="partner-logo-slot"><img src="./assets/partner_li_restaurant_week.png" alt="LI Restaurant Week" class="partner-logo"/></span>
+      <span class="partner-logo-slot"><img src="./assets/partner_li_restaurant_week.png" alt="Lisbon Insiders" class="partner-logo"/></span>
       <span class="partner-logo-slot"><img src="./assets/partner_gulbenkian.png" alt="Calouste Gulbenkian" class="partner-logo"/></span>
       <span class="partner-logo-slot"><img src="./assets/partner_capture_111532.png" alt="Partner logo" class="partner-logo"/></span>
-      <span class="partner-logo-slot"><img src="./assets/partner_li_restaurant_week.png" alt="LI Restaurant Week" class="partner-logo"/></span>
+      <span class="partner-logo-slot"><img src="./assets/partner_li_restaurant_week.png" alt="Lisbon Insiders" class="partner-logo"/></span>
       <span class="partner-logo-slot"><img src="./assets/partner_gulbenkian.png" alt="Calouste Gulbenkian" class="partner-logo"/></span>
       <span class="partner-logo-slot"><img src="./assets/partner_capture_111532.png" alt="Partner logo" class="partner-logo"/></span>
-      <span class="partner-logo-slot"><img src="./assets/partner_li_restaurant_week.png" alt="LI Restaurant Week" class="partner-logo"/></span>
+      <span class="partner-logo-slot"><img src="./assets/partner_li_restaurant_week.png" alt="Lisbon Insiders" class="partner-logo"/></span>
     </div>
   </div>
 </section>
 <!-- Latest Content Grid -->
 <section id="latest-content" class="py-24 px-6 lg:px-12 max-w-[1440px] mx-auto bg-[#eeefea]">
-  <div class="flex items-end justify-between mb-12">
+  <div class="fresh-feed-carousel-head">
     <div>
       <p class="text-sm font-semibold tracking-widest text-gray-400 mb-4 uppercase">My Latest Work</p>
       <h2 class="text-4xl lg:text-5xl font-bold tracking-tight">Fresh from the feed</h2>
     </div>
-    <a href="./portfolio.html" id="view-all-content" class="hidden md:flex items-center gap-2 text-sm font-bold hover:text-[#5db689] transition-colors uppercase tracking-[0.08em]">
-      View All
-      <iconify-icon icon="lucide:arrow-right"></iconify-icon>
-    </a>
+    <div class="fresh-feed-carousel-controls">
+      <a href="./portfolio.html" id="view-all-content" class="hidden md:flex items-center gap-2 text-sm font-bold hover:text-[#5db689] transition-colors uppercase tracking-[0.08em]">
+        View All
+        <iconify-icon icon="lucide:arrow-right"></iconify-icon>
+      </a>
+    </div>
   </div>
 
+  <div class="fresh-feed-carousel">
   <div id="fresh-feed-viewport" class="fresh-feed-viewport">
-  <div id="fresh-feed-track" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 lg:gap-10">
+  <div id="fresh-feed-track" class="fresh-feed-track">
     <article class="fresh-feed-slide phone-preview-card group cursor-pointer" data-video-card>
       <div class="phone-preview-screen">
-        <video src="./assets/v24044gl0000cva16uvog65op1lc7l1g.mp4" poster="./assets/feed_poster_1.jpg" autoplay muted loop playsinline preload="metadata" class="object-center" data-video></video>
+        <video src="./assets/portfolio-smash/the-plate.mp4" poster="./assets/portfolio-smash/the-plate.jpg" autoplay muted loop playsinline preload="metadata" class="object-center" data-video></video>
         <div class="phone-preview-overlay"></div>
         <div class="phone-preview-controls">
           <input class="phone-preview-progress" data-progress type="range" min="0" max="100" step="0.1" value="0" aria-label="Video progress"/>
@@ -936,7 +1029,7 @@ body.mobile-menu-open {
 
     <article class="fresh-feed-slide phone-preview-card group cursor-pointer" data-video-card>
       <div class="phone-preview-screen">
-        <video src="./assets/v24044gl0000cuuuatvog65pse75l20g.MP4" poster="./assets/feed_poster_2.jpg" autoplay muted loop playsinline preload="metadata" class="object-center" data-video></video>
+        <video src="./assets/portfolio-smash/tarte-choco-caramel.mp4" poster="./assets/portfolio-smash/tarte-choco-caramel.jpg" autoplay muted loop playsinline preload="metadata" class="object-center" data-video></video>
         <div class="phone-preview-overlay"></div>
         <div class="phone-preview-controls">
           <input class="phone-preview-progress" data-progress type="range" min="0" max="100" step="0.1" value="0" aria-label="Video progress"/>
@@ -973,7 +1066,7 @@ body.mobile-menu-open {
 
     <article class="fresh-feed-slide phone-preview-card group cursor-pointer" data-video-card>
       <div class="phone-preview-screen">
-        <video src="./assets/v24044gl0000cv3fo6vog65q0cmic3tg.MP4" poster="./assets/feed_poster_3.jpg" autoplay muted loop playsinline preload="metadata" class="object-center" data-video></video>
+        <video src="./assets/portfolio-smash/taberna-albricoque.mp4" poster="./assets/portfolio-smash/taberna-albricoque.jpg" autoplay muted loop playsinline preload="metadata" class="object-center" data-video></video>
         <div class="phone-preview-overlay"></div>
         <div class="phone-preview-controls">
           <input class="phone-preview-progress" data-progress type="range" min="0" max="100" step="0.1" value="0" aria-label="Video progress"/>
@@ -1007,6 +1100,89 @@ body.mobile-menu-open {
         </div>
       </div>
     </article>
+
+    <article class="fresh-feed-slide phone-preview-card group cursor-pointer" data-video-card>
+      <div class="phone-preview-screen">
+        <video src="./assets/portfolio-smash/o-gambuzino.mp4" poster="./assets/portfolio-smash/o-gambuzino.jpg" autoplay muted loop playsinline preload="metadata" class="object-center" data-video></video>
+        <div class="phone-preview-overlay"></div>
+        <div class="phone-preview-controls">
+          <input class="phone-preview-progress" data-progress type="range" min="0" max="100" step="0.1" value="0" aria-label="Video progress"/>
+          <div class="phone-preview-row">
+            <div class="phone-preview-left">
+              <button type="button" class="phone-preview-control-btn" data-action="play" aria-label="Play video">
+                <iconify-icon data-icon-play icon="lucide:play" class="text-[1.1rem]"></iconify-icon>
+              </button>
+              <span class="phone-preview-time" data-time>0:00 / 0:00</span>
+            </div>
+            <div class="phone-preview-right">
+              <button type="button" class="phone-preview-control-btn" data-action="mute" aria-label="Mute video">
+                <iconify-icon data-icon-mute icon="lucide:volume-2" class="text-[1.08rem]"></iconify-icon>
+              </button>
+              <button type="button" class="phone-preview-control-btn" data-action="fullscreen" aria-label="Fullscreen">
+                <iconify-icon icon="lucide:maximize" class="text-[1.08rem]"></iconify-icon>
+              </button>
+              <div class="relative">
+                <button type="button" class="phone-preview-control-btn" data-action="settings" aria-label="Playback settings" aria-haspopup="menu" aria-expanded="false">
+                  <iconify-icon icon="lucide:more-vertical" class="text-[1.08rem]"></iconify-icon>
+                </button>
+                <div class="phone-preview-settings" data-settings hidden role="menu" aria-label="Playback speed">
+                  <button type="button" data-rate-option="0.75">0.75x</button>
+                  <button type="button" data-rate-option="1">1x</button>
+                  <button type="button" data-rate-option="1.25">1.25x</button>
+                  <button type="button" data-rate-option="1.5">1.5x</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="fresh-feed-slide phone-preview-card group cursor-pointer" data-video-card>
+      <div class="phone-preview-screen">
+        <video src="./assets/portfolio-smash/croissants-sales.mp4" poster="./assets/portfolio-smash/croissants-sales.jpg" autoplay muted loop playsinline preload="metadata" class="object-center" data-video></video>
+        <div class="phone-preview-overlay"></div>
+        <div class="phone-preview-controls">
+          <input class="phone-preview-progress" data-progress type="range" min="0" max="100" step="0.1" value="0" aria-label="Video progress"/>
+          <div class="phone-preview-row">
+            <div class="phone-preview-left">
+              <button type="button" class="phone-preview-control-btn" data-action="play" aria-label="Play video">
+                <iconify-icon data-icon-play icon="lucide:play" class="text-[1.1rem]"></iconify-icon>
+              </button>
+              <span class="phone-preview-time" data-time>0:00 / 0:00</span>
+            </div>
+            <div class="phone-preview-right">
+              <button type="button" class="phone-preview-control-btn" data-action="mute" aria-label="Mute video">
+                <iconify-icon data-icon-mute icon="lucide:volume-2" class="text-[1.08rem]"></iconify-icon>
+              </button>
+              <button type="button" class="phone-preview-control-btn" data-action="fullscreen" aria-label="Fullscreen">
+                <iconify-icon icon="lucide:maximize" class="text-[1.08rem]"></iconify-icon>
+              </button>
+              <div class="relative">
+                <button type="button" class="phone-preview-control-btn" data-action="settings" aria-label="Playback settings" aria-haspopup="menu" aria-expanded="false">
+                  <iconify-icon icon="lucide:more-vertical" class="text-[1.08rem]"></iconify-icon>
+                </button>
+                <div class="phone-preview-settings" data-settings hidden role="menu" aria-label="Playback speed">
+                  <button type="button" data-rate-option="0.75">0.75x</button>
+                  <button type="button" data-rate-option="1">1x</button>
+                  <button type="button" data-rate-option="1.25">1.25x</button>
+                  <button type="button" data-rate-option="1.5">1.5x</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>
+  </div>
+  <div class="fresh-feed-nav fresh-feed-nav--sides" role="group" aria-label="Fresh feed carousel controls">
+    <button type="button" class="fresh-feed-nav-btn" data-fresh-feed-prev aria-label="Show previous videos">
+      <iconify-icon icon="lucide:arrow-left" class="text-lg"></iconify-icon>
+    </button>
+    <button type="button" class="fresh-feed-nav-btn" data-fresh-feed-next aria-label="Show next videos">
+      <iconify-icon icon="lucide:arrow-right" class="text-lg"></iconify-icon>
+    </button>
   </div>
   </div>
 </section>
@@ -1035,7 +1211,7 @@ body.mobile-menu-open {
     </div>
   </div>
 </section>
-<!-- Footer --><footer class="bg-[#0a0a0a] text-white pt-20 pb-8"><div class="max-w-[1440px] mx-auto px-6 lg:px-12"><div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16"><div class="lg:col-span-2"><img src="https://vgbujcuwptvheqijyjbe.supabase.co/storage/v1/object/public/hmac-uploads/uploads/14a0654e-e3ac-4ce2-b825-740077280921/1770822350896-be5a1f26/logo.png" alt="Lo" class="h-10 w-auto mb-6 brightness-0 invert"/><p class="text-gray-400 max-w-md mb-8">Content creator and foodie concierge based in Lisbon. Helping brands tell their story and travelers taste the real Portugal.</p><div class="flex gap-4"><a href="#" id="social-tiktok" class="w-10 h-10 border border-white/20 flex items-center justify-center hover:bg-[#5db689] hover:border-[#5db689] hover:text-[#0a0a0a] transition-all"><iconify-icon icon="lucide:music-2" class="text-lg"></iconify-icon></a><a href="#" id="social-instagram" class="w-10 h-10 border border-white/20 flex items-center justify-center hover:bg-[#5db689] hover:border-[#5db689] hover:text-[#0a0a0a] transition-all"><iconify-icon icon="lucide:instagram" class="text-lg"></iconify-icon></a><a href="https://linktr.ee/lisbonwithlo" id="social-linktree" aria-label="Linktree" target="_blank" rel="noopener noreferrer" class="w-10 h-10 border border-white/20 flex items-center justify-center hover:bg-[#5db689] hover:border-[#5db689] hover:text-[#0a0a0a] transition-all"><iconify-icon icon="lucide:link-2" class="text-lg"></iconify-icon></a></div></div><div><h4 class="font-semibold mb-6 text-sm tracking-widest uppercase">Services</h4><ul class="space-y-4 text-gray-400"><li><a href="./content-creation.html" id="footer-content" class="hover:text-[#5db689] transition-colors">Content Creation</a></li><li><a href="./foodie-experience.html#foodie-concierge" id="footer-concierge" class="hover:text-[#5db689] transition-colors">Foodie Concierge</a></li><li><a href="./foodie-experience.html#date-night-concierge" id="footer-date" class="hover:text-[#5db689] transition-colors">Date Night</a></li><li><a href="#" id="footer-guide" class="hover:text-[#5db689] transition-colors">Lisbon Food Guide</a></li></ul></div><div><h4 class="font-semibold mb-6 text-sm tracking-widest uppercase">Connect</h4><ul class="space-y-4 text-gray-400"><li><a href="./about.html" id="footer-about" class="hover:text-[#5db689] transition-colors">About Me</a></li><li><a href="#" id="footer-portfolio" class="hover:text-[#5db689] transition-colors">Portfolio</a></li><li><a href="./contact.html" id="footer-contact" class="hover:text-[#5db689] transition-colors">Contact</a></li><li><a href="#" id="footer-book" class="text-[#5db689] font-semibold">Book a Call →</a></li></ul></div></div><div class="border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-gray-500"><div class="flex gap-6"><a href="#" id="footer-privacy" class="hover:text-white transition-colors">Privacy</a><a href="#" id="footer-terms" class="hover:text-white transition-colors">Terms</a></div></div></div></footer></div>
+<!-- Footer --><footer class="bg-[#0a0a0a] text-white pt-20 pb-8"><div class="max-w-[1440px] mx-auto px-6 lg:px-12"><div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16"><div class="lg:col-span-2"><img src="./assets/the_stroller_logo_cleaned.png" alt="Lo" class="h-10 w-auto mb-6 brightness-0 invert"/><p class="text-gray-400 max-w-md mb-8">Content creator and foodie concierge based in Lisbon. Helping brands tell their story and travelers taste the real Portugal.</p><div class="flex gap-4"><a href="#" id="social-tiktok" class="w-10 h-10 border border-white/20 flex items-center justify-center hover:bg-[#5db689] hover:border-[#5db689] hover:text-[#0a0a0a] transition-all"><iconify-icon icon="lucide:music-2" class="text-lg"></iconify-icon></a><a href="#" id="social-instagram" class="w-10 h-10 border border-white/20 flex items-center justify-center hover:bg-[#5db689] hover:border-[#5db689] hover:text-[#0a0a0a] transition-all"><iconify-icon icon="lucide:instagram" class="text-lg"></iconify-icon></a><a href="https://linktr.ee/lisbonwithlo" id="social-linktree" aria-label="Linktree" target="_blank" rel="noopener noreferrer" class="w-10 h-10 border border-white/20 flex items-center justify-center hover:bg-[#5db689] hover:border-[#5db689] hover:text-[#0a0a0a] transition-all"><iconify-icon icon="lucide:link-2" class="text-lg"></iconify-icon></a></div></div><div><h4 class="font-semibold mb-6 text-sm tracking-widest uppercase">Services</h4><ul class="space-y-4 text-gray-400"><li><a href="./content-creation.html" id="footer-content" class="hover:text-[#5db689] transition-colors">Content Creation</a></li><li><a href="./foodie-experience.html#foodie-concierge" id="footer-concierge" class="hover:text-[#5db689] transition-colors">Foodie Concierge</a></li><li><a href="./foodie-experience.html#date-night-concierge" id="footer-date" class="hover:text-[#5db689] transition-colors">Date Night</a></li><li><a href="#" id="footer-guide" class="hover:text-[#5db689] transition-colors">Lisbon Food Guide</a></li></ul></div><div><h4 class="font-semibold mb-6 text-sm tracking-widest uppercase">Connect</h4><ul class="space-y-4 text-gray-400"><li><a href="./about.html" id="footer-about" class="hover:text-[#5db689] transition-colors">About Me</a></li><li><a href="#" id="footer-portfolio" class="hover:text-[#5db689] transition-colors">Portfolio</a></li><li><a href="./bookme.html#contact-form" id="footer-book" class="text-[#5db689] font-semibold">Book me →</a></li></ul></div></div><div class="border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-gray-500"><div class="flex gap-6"><a href="#" id="footer-privacy" class="hover:text-white transition-colors">Privacy</a><a href="#" id="footer-terms" class="hover:text-white transition-colors">Terms</a></div></div></div></footer></div>
 <script>
 (() => {
   const formatTime = (seconds) => {
@@ -1270,108 +1446,55 @@ body.mobile-menu-open {
   const latestContent = document.querySelector("#latest-content");
   const feedViewport = latestContent?.querySelector("#fresh-feed-viewport");
   const feedTrack = latestContent?.querySelector("#fresh-feed-track");
+  const feedPrevBtn = latestContent?.querySelector("[data-fresh-feed-prev]");
+  const feedNextBtn = latestContent?.querySelector("[data-fresh-feed-next]");
   const baseFeedSlides = feedTrack ? Array.from(feedTrack.querySelectorAll(".fresh-feed-slide")) : [];
 
   if (latestContent && feedViewport && feedTrack && baseFeedSlides.length) {
-    const isMobileCarousel = () => window.innerWidth < 768;
-    let activeIndex = 0;
     let scrollSyncTimer = null;
-    let isLoopJumping = false;
-    let wasMobile = null;
+    const getStepSize = () => {
+      const firstSlide = baseFeedSlides[0];
+      if (!firstSlide) return feedViewport.clientWidth;
+      const trackStyles = window.getComputedStyle(feedTrack);
+      const gap = parseFloat(trackStyles.columnGap || trackStyles.gap || "0") || 0;
+      return firstSlide.getBoundingClientRect().width + gap;
+    };
 
-    if (baseFeedSlides.length > 1) {
-      const firstClone = baseFeedSlides[0].cloneNode(true);
-      const lastClone = baseFeedSlides[baseFeedSlides.length - 1].cloneNode(true);
-      firstClone.classList.add("is-loop-clone");
-      lastClone.classList.add("is-loop-clone");
-      firstClone.setAttribute("aria-hidden", "true");
-      lastClone.setAttribute("aria-hidden", "true");
-      feedTrack.insertBefore(lastClone, baseFeedSlides[0]);
-      feedTrack.appendChild(firstClone);
+    const scrollByStep = (direction) => {
+      feedViewport.scrollBy({
+        left: getStepSize() * direction,
+        top: 0,
+        behavior: "smooth"
+      });
+    };
+
+    const syncNavState = () => {
+      const maxScrollLeft = Math.max(0, feedViewport.scrollWidth - feedViewport.clientWidth);
+      const currentLeft = feedViewport.scrollLeft;
+      const edgeTolerance = 3;
+      if (feedPrevBtn) feedPrevBtn.disabled = currentLeft <= edgeTolerance;
+      if (feedNextBtn) feedNextBtn.disabled = currentLeft >= maxScrollLeft - edgeTolerance;
+    };
+
+    if (feedPrevBtn) {
+      feedPrevBtn.addEventListener("click", () => {
+        scrollByStep(-1);
+      });
     }
 
-    const getLoopSlides = () => Array.from(feedTrack.querySelectorAll(".fresh-feed-slide"));
-    const getMobileStartIndex = () => {
-      if (baseFeedSlides.length <= 1) return 0;
-      return 1;
-    };
-    const getSlideScrollLeft = (index) => {
-      const slides = getLoopSlides();
-      const slide = slides[index];
-      if (!slide) return 0;
-      const centeredOffset = (feedViewport.clientWidth - slide.clientWidth) / 2;
-      return Math.max(0, slide.offsetLeft - feedTrack.offsetLeft - centeredOffset);
-    };
-    const scrollToFeedIndex = (index, behavior = "smooth") => {
-      feedViewport.scrollTo({
-        left: getSlideScrollLeft(index),
-        top: 0,
-        behavior
+    if (feedNextBtn) {
+      feedNextBtn.addEventListener("click", () => {
+        scrollByStep(1);
       });
-    };
-    const jumpToIndex = (index) => {
-      isLoopJumping = true;
-      scrollToFeedIndex(index, "auto");
-      window.requestAnimationFrame(() => {
-        window.requestAnimationFrame(() => {
-          isLoopJumping = false;
-        });
-      });
-    };
-
-    const applyCarouselMode = () => {
-      const isMobile = isMobileCarousel();
-
-      if (!isMobile) {
-        activeIndex = 0;
-        feedViewport.scrollTo({ left: 0, top: 0, behavior: "auto" });
-        wasMobile = false;
-        return;
-      }
-
-      if (wasMobile !== true) {
-        activeIndex = getMobileStartIndex();
-      }
-      jumpToIndex(activeIndex);
-      wasMobile = true;
-    };
+    }
 
     feedViewport.addEventListener("scroll", () => {
-      if (!isMobileCarousel() || isLoopJumping) return;
       if (scrollSyncTimer) window.clearTimeout(scrollSyncTimer);
-
-      scrollSyncTimer = window.setTimeout(() => {
-        const slides = getLoopSlides();
-        const currentLeft = feedViewport.scrollLeft;
-        let nearestIndex = 0;
-        let nearestDistance = Number.POSITIVE_INFINITY;
-
-        slides.forEach((_, index) => {
-          const distance = Math.abs(getSlideScrollLeft(index) - currentLeft);
-          if (distance < nearestDistance) {
-            nearestDistance = distance;
-            nearestIndex = index;
-          }
-        });
-
-        activeIndex = nearestIndex;
-        if (baseFeedSlides.length > 1) {
-          if (activeIndex === 0) {
-            activeIndex = slides.length - 2;
-            jumpToIndex(activeIndex);
-            return;
-          }
-
-          if (activeIndex === slides.length - 1) {
-            activeIndex = 1;
-            jumpToIndex(activeIndex);
-          }
-        }
-      }, 70);
+      scrollSyncTimer = window.setTimeout(syncNavState, 40);
     }, { passive: true });
 
-    window.addEventListener("resize", applyCarouselMode);
-    applyCarouselMode();
+    window.addEventListener("resize", syncNavState);
+    syncNavState();
   }
 
   document.addEventListener("click", (event) => {

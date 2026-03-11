@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Stroller</title>
+  <script src="https://cdn.tailwindcss.com/"></script>
+  <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+  <style>
+    :root {
+      --color-lime: #5db689;
+      --color-blue: #00a8f0;
+      --color-red: #ee7963;
+      --color-dark: #0a0a0a;
+      --color-light: #eeefea;
+    }
+
+    @font-face {
+      font-family: "Averia Serif Libre";
+      src: url("assets/fonts/AveriaSerifLibre-Light.ttf") format("truetype");
+      font-weight: 100 349;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "Averia Serif Libre";
+      src: url("assets/fonts/AveriaSerifLibre-LightItalic.ttf") format("truetype");
+      font-weight: 100 349;
+      font-style: italic;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "Averia Serif Libre";
+      src: url("assets/fonts/AveriaSerifLibre-Regular.ttf") format("truetype");
+      font-weight: 350 649;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "Averia Serif Libre";
+      src: url("assets/fonts/AveriaSerifLibre-Italic.ttf") format("truetype");
+      font-weight: 350 649;
+      font-style: italic;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "Averia Serif Libre";
+      src: url("assets/fonts/AveriaSerifLibre-Bold.ttf") format("truetype");
+      font-weight: 650 900;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "Averia Serif Libre";
+      src: url("assets/fonts/AveriaSerifLibre-BoldItalic.ttf") format("truetype");
+      font-weight: 650 900;
+      font-style: italic;
+      font-display: swap;
+    }
+
+    html,
+    body,
+    body *:not(iconify-icon) {
+      font-family: "Averia Serif Libre", serif !important;
+      font-synthesis: none;
+    }
+
+    html {
+      font-size: 80%;
+    }
+
+    body {
+      margin: 0;
+      background: var(--color-light);
+      color: var(--color-dark);
+    }
+
+    .grain-overlay {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 50;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    }
+
+    .nav-link {
+      position: relative;
+    }
+
+    .nav-link::after {
+      content: "";
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--color-lime);
+      transition: width 0.25s ease;
+    }
+
+    .nav-link:hover::after,
+    .nav-link.is-active::after {
+      width: 100%;
+    }
+
+    #page-header {
+      background: transparent;
+      border-bottom: 1px solid transparent;
+      transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+    }
+
+    #page-header.header-frosted {
+      background: rgba(250, 250, 247, 0.9);
+      border-bottom-color: rgba(10, 10, 10, 0.06);
+      backdrop-filter: blur(8px);
+    }
+
+    #page-header.header-on-dark {
+      background: rgba(10, 10, 10, 0.66);
+      border-bottom-color: rgba(255, 255, 255, 0.14);
+      backdrop-filter: blur(8px);
+    }
+
+    #page-header.header-on-dark .nav-link,
+    #page-header.header-on-dark #nav-services {
+      color: #ffffff;
+    }
+
+    #page-header.header-on-dark #mobile-menu-btn {
+      color: #ffffff;
+    }
+
+    body.mobile-menu-open {
+      overflow: hidden;
+    }
+
+    .mobile-menu-panel {
+      position: fixed;
+      top: 5rem;
+      left: 0;
+      right: 0;
+      z-index: 39;
+      display: grid;
+      gap: 0.2rem;
+      padding: 0.9rem 1.5rem 1.15rem;
+      border-bottom: 1px solid rgba(10, 10, 10, 0.1);
+      background: rgba(250, 250, 247, 0.97);
+      backdrop-filter: blur(10px);
+      transform: translateY(-10px);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+    }
+
+    .mobile-menu-panel.is-dark {
+      border-bottom-color: rgba(255, 255, 255, 0.16);
+      background: rgba(10, 10, 10, 0.9);
+    }
+
+    .mobile-menu-panel.is-open {
+      transform: translateY(0);
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    .mobile-menu-link,
+    .mobile-menu-cta {
+      display: block;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 0.68rem 0.2rem;
+      border-bottom: 1px solid rgba(18, 18, 18, 0.12);
+      color: var(--color-dark);
+    }
+
+    .mobile-menu-panel.is-dark .mobile-menu-link,
+    .mobile-menu-panel.is-dark .mobile-menu-cta {
+      color: #ffffff;
+      border-bottom-color: rgba(255, 255, 255, 0.14);
+    }
+
+    .mobile-menu-cta {
+      border-bottom: 0;
+      color: var(--color-lime);
+    }
+
+    #cta-book-call {
+      padding: 0;
+      border: 0;
+      background: transparent;
+    }
+
+    #cta-book-call .book-call-image {
+      display: block;
+      height: 2rem;
+      width: auto;
+      transition: filter 0.3s ease;
+      filter: brightness(0);
+    }
+
+    #page-header.header-on-dark #cta-book-call .book-call-image {
+      filter: brightness(0) invert(1);
+    }
+
+    #cta-book-call:hover .book-call-image {
+      filter: brightness(0);
+    }
+
+    #page-header.header-on-dark #cta-book-call:hover .book-call-image {
+      filter: brightness(0) invert(1);
+    }
+
+    .intro-copy {
+      max-width: 70ch;
+      font-size: clamp(1.07rem, 1.35vw, 1.28rem);
+      line-height: 1.54;
+      color: rgba(10, 10, 10, 0.84);
+    }
+
+    .route-card {
+      border: 1px solid rgba(10, 10, 10, 0.1);
+      background: rgba(255, 255, 255, 0.78);
+      padding: 1rem 1.05rem;
+      color: inherit;
+      text-decoration: none;
+      display: grid;
+      gap: 0.35rem;
+      transition: border-color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
+      min-height: 100%;
+    }
+
+    .route-card:hover {
+      border-color: rgba(93, 182, 137, 0.75);
+      background: rgba(93, 182, 137, 0.08);
+      transform: translateY(-1px);
+    }
+
+    .contact-shell {
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.02);
+      padding: 1.15rem;
+    }
+
+    .contact-input,
+    .contact-select,
+    .contact-textarea {
+      width: 100%;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      background: rgba(255, 255, 255, 0.07);
+      color: #ffffff;
+      border-radius: 12px;
+      padding: 0.95rem 1rem;
+      outline: none;
+      transition: border-color 0.2s ease, background-color 0.2s ease;
+    }
+
+    .contact-input:focus,
+    .contact-select:focus,
+    .contact-textarea:focus {
+      border-color: var(--color-lime);
+      background: rgba(255, 255, 255, 0.13);
+    }
+
+    .contact-input::placeholder,
+    .contact-textarea::placeholder {
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .contact-select option {
+      color: #111;
+    }
+
+    .social-icon-link {
+      width: 2.8rem;
+      height: 2.8rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      color: #ffffff;
+      text-decoration: none;
+      transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+    }
+
+    .social-icon-link:hover {
+      transform: translateY(-1px);
+      background: rgba(93, 182, 137, 0.16);
+      border-color: rgba(93, 182, 137, 0.7);
+      color: #ffffff;
+    }
+
+    @media (max-width: 768px) {
+      #cta-book-call {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="grain-overlay"></div>
+  <div class="min-h-screen bg-[#eeefea]">
+    <header id="page-header" class="fixed top-0 left-0 right-0 z-40">
+      <div class="max-w-[1440px] mx-auto px-6 lg:px-12 h-20 flex items-center justify-between">
+        <a href="./index.html" id="nav-logo" class="flex items-center gap-3">
+          <img src="./assets/the_stroller_logo_cleaned.png" alt="Lo" class="h-8 w-auto" />
+        </a>
+
+        <nav class="hidden md:flex items-center gap-10">
+          <div class="relative group">
+            <button id="nav-services" class="nav-link text-sm font-medium tracking-wide flex items-center gap-2 uppercase">SERVICES<iconify-icon icon="lucide:chevron-down" class="text-xs transition-transform group-hover:rotate-180"></iconify-icon></button>
+            <div class="absolute top-full left-0 pt-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+              <div class="bg-white border border-black/10 shadow-xl rounded-sm p-2 min-w-[220px] text-[#0a0a0a]">
+                <a href="./content-creation.html" id="nav-content-creation" class="block px-4 py-3 text-sm hover:bg-[#5db689]/20 rounded-sm transition-colors">
+                  <span class="font-semibold block">Content Creation</span>
+                  <span class="text-xs text-gray-500">For brands &amp; restaurants</span>
+                </a>
+                <a href="./foodie-experience.html" id="nav-foodie-exp" class="block px-4 py-3 text-sm hover:bg-[#5db689]/20 rounded-sm transition-colors">
+                  <span class="font-semibold block">Foodie Experiences</span>
+                  <span class="text-xs text-gray-500">For travelers &amp; locals</span>
+                </a>
+              </div>
+            </div>
+          </div>
+          <a href="./portfolio.html" id="nav-portfolio" class="nav-link text-sm font-medium tracking-wide uppercase">PORTFOLIO</a>
+          <a href="./about.html" id="nav-about" class="nav-link text-sm font-medium tracking-wide uppercase">ABOUT</a>
+        </nav>
+
+        <a href="./bookme.html#contact-form" id="cta-book-call" class="hidden md:inline-flex items-center">
+          <img src="./assets/book_me.png" alt="Book me" class="book-call-image" />
+        </a>
+
+        <button id="mobile-menu-btn" class="md:hidden p-2" aria-label="Open menu" aria-controls="mobile-menu" aria-expanded="false">
+          <iconify-icon icon="lucide:menu" class="text-2xl"></iconify-icon>
+        </button>
+      </div>
+    </header>
+    <nav id="mobile-menu" class="mobile-menu-panel md:hidden" aria-label="Mobile menu">
+      <a href="./content-creation.html" class="mobile-menu-link">For venues &amp; brands</a>
+      <a href="./foodie-experience.html" class="mobile-menu-link">Plan your trip</a>
+      <a href="./portfolio.html" class="mobile-menu-link">Portfolio</a>
+      <a href="./about.html" class="mobile-menu-link">About</a>
+      <a href="./bookme.html#contact-form" class="mobile-menu-cta">Book me</a>
+    </nav>
+
+    <main class="pt-32">
+      <section class="px-6 lg:px-12 max-w-[1440px] mx-auto pb-16 lg:pb-20">
+        <p class="text-sm font-semibold tracking-[0.18em] text-gray-400 mb-5 uppercase">Contact</p>
+        <h1 class="text-[clamp(2.7rem,6.2vw,5.5rem)] leading-[0.94] tracking-tight font-bold max-w-[13ch] mb-7">Simple contact for questions, intros, and collaborations.</h1>
+        <div class="intro-copy space-y-5">
+          <p>This page is for general messages: collaborations, press, creator partnerships, venue intros, or if you are not sure yet which service is the right fit.</p>
+          <p>If you already know what you need, the dedicated service pages have more specific forms and questionnaires for faster recommendations.</p>
+        </div>
+      </section>
+
+      <section class="px-6 lg:px-12 max-w-[1440px] mx-auto pb-20">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <a href="./content-creation.html" class="route-card">
+            <p class="text-xs tracking-[0.14em] uppercase text-gray-500 m-0">Best for brands</p>
+            <p class="text-[1.25rem] leading-[1.15] font-bold m-0">Content Creation</p>
+            <p class="text-sm text-black/65 leading-[1.35] m-0">Restaurants, hotels, bakeries, hospitality venues, and social media content production.</p>
+            <span class="inline-flex items-center gap-2 text-sm font-semibold text-[#0a0a0a] mt-1">Go to service page <iconify-icon icon="lucide:arrow-right" class="text-base"></iconify-icon></span>
+          </a>
+          <a href="./foodie-experience.html" class="route-card">
+            <p class="text-xs tracking-[0.14em] uppercase text-gray-500 m-0">Best for visitors & locals</p>
+            <p class="text-[1.25rem] leading-[1.15] font-bold m-0">Foodie Experience</p>
+            <p class="text-sm text-black/65 leading-[1.35] m-0">Foodie concierge and date night curation in Lisbon with tailored recommendations.</p>
+            <span class="inline-flex items-center gap-2 text-sm font-semibold text-[#0a0a0a] mt-1">Go to service page <iconify-icon icon="lucide:arrow-right" class="text-base"></iconify-icon></span>
+          </a>
+        </div>
+      </section>
+
+      <section id="contact-form" class="bg-[#0a0a0a] text-white py-20">
+        <div class="max-w-[1180px] mx-auto px-6 lg:px-12">
+          <div class="grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] gap-10 lg:gap-12 items-start">
+            <div>
+              <h2 class="text-[clamp(2rem,4.4vw,3.8rem)] leading-[1.03] tracking-tight font-bold mb-4">Tell me what you need.</h2>
+              <p class="text-white/75 text-[1.03rem] leading-[1.52] max-w-[58ch] mb-7">For general contact cases, send a simple message here and I will point you to the right next step. If this should really be handled through a dedicated questionnaire, I will redirect you quickly.</p>
+
+              <div class="space-y-5 mb-8">
+                <div>
+                  <p class="text-xs tracking-[0.16em] uppercase text-white/55 mb-2">Typical use cases</p>
+                  <p class="text-white/88 text-[0.98rem] leading-[1.45]">Brand introductions, partnerships, press/media requests, collaborations, event invites, or "I am not sure where to start" messages.</p>
+                </div>
+                <div>
+                  <p class="text-xs tracking-[0.16em] uppercase text-white/55 mb-2">Prefer email for attachments?</p>
+                  <p class="text-white/88 text-[0.98rem] leading-[1.45]">If you prefer not to use the form, or if you want to send images / PDF files, email me directly at <a href="mailto:strollinglisbon@gmail.com" class="underline decoration-white/40 underline-offset-2 hover:text-[#5db689] transition-colors">strollinglisbon@gmail.com</a>.</p>
+                </div>
+                <div>
+                  <p class="text-xs tracking-[0.16em] uppercase text-white/55 mb-2">Socials</p>
+                  <div class="flex items-center gap-3">
+                    <a href="https://www.instagram.com/thestroller_lisbon" class="social-icon-link" aria-label="Instagram" target="_blank" rel="noopener noreferrer"><iconify-icon icon="lucide:instagram" class="text-xl"></iconify-icon></a>
+                    <a href="https://www.tiktok.com/@thestroller" class="social-icon-link" aria-label="TikTok" target="_blank" rel="noopener noreferrer"><iconify-icon icon="lucide:music-2" class="text-xl"></iconify-icon></a>
+                    <a href="https://linktr.ee/lisbonwithlo" class="social-icon-link" aria-label="Linktree" target="_blank" rel="noopener noreferrer"><iconify-icon icon="lucide:link-2" class="text-xl"></iconify-icon></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="contact-shell">
+              <form class="space-y-5" id="simple-contact-form">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label for="contact-name" class="block text-sm font-semibold mb-2">Name</label>
+                    <input id="contact-name" type="text" class="contact-input" placeholder="Your name" required />
+                  </div>
+                  <div>
+                    <label for="contact-email" class="block text-sm font-semibold mb-2">Email</label>
+                    <input id="contact-email" type="email" class="contact-input" placeholder="you@example.com" required />
+                  </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label for="contact-topic" class="block text-sm font-semibold mb-2">Topic</label>
+                    <select id="contact-topic" class="contact-select">
+                      <option value="">Select one</option>
+                      <option>General question</option>
+                      <option>Collaboration</option>
+                      <option>Press / media</option>
+                      <option>Venue intro</option>
+                      <option>Not sure yet</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label for="contact-whatsapp" class="block text-sm font-semibold mb-2">WhatsApp (optional)</label>
+                    <input id="contact-whatsapp" type="text" class="contact-input" placeholder="+351 ..." />
+                  </div>
+                </div>
+
+                <div>
+                  <label for="contact-message" class="block text-sm font-semibold mb-2">Message</label>
+                  <textarea id="contact-message" rows="6" class="contact-textarea" placeholder="Tell me what you need, your context, and what kind of help you are looking for." required></textarea>
+                </div>
+
+                <div id="contact-success" class="hidden border border-[#5db689]/40 bg-[#5db689]/10 text-white px-4 py-3 text-sm leading-[1.35]">
+                  Thanks. Your message is captured in this prototype page. Next step: connect this form to email/Formspree/Airtable/backend.
+                </div>
+
+                <button type="submit" class="inline-flex items-center gap-3 bg-[#5db689] text-[#0a0a0a] px-7 py-3.5 text-sm font-bold tracking-wide uppercase hover:bg-[#00a8f0] transition-colors">
+                  Send Message
+                  <iconify-icon icon="lucide:arrow-right" class="text-xl"></iconify-icon>
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="bg-[#0a0a0a] text-white pb-8" id="page-footer">
+      <div class="max-w-[1100px] mx-auto px-6 lg:px-12 border-t border-white/12 pt-7 text-sm text-gray-400 flex flex-col md:flex-row items-center justify-between gap-3">
+        
+        <div class="flex items-center gap-5">
+          <a href="./index.html" class="hover:text-white transition-colors">Back to Home</a>
+          <a href="./portfolio.html" class="hover:text-white transition-colors">Portfolio</a>
+          <a href="./about.html" class="hover:text-white transition-colors">About</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    (() => {
+      const pageHeader = document.querySelector("#page-header");
+      const darkSurfaceSections = [document.querySelector("#contact-form"), document.querySelector("#page-footer")].filter(Boolean);
+      const mobileMenuBtn = document.querySelector("#mobile-menu-btn");
+      const mobileMenu = document.querySelector("#mobile-menu");
+      const mobileMenuIcon = mobileMenuBtn?.querySelector("iconify-icon");
+      const form = document.querySelector("#simple-contact-form");
+      const success = document.querySelector("#contact-success");
+
+      const syncMobileMenuTheme = () => {
+        if (!mobileMenu || !pageHeader) return;
+        const onDarkSurface = pageHeader.classList.contains("header-on-dark");
+        mobileMenu.classList.toggle("is-dark", onDarkSurface);
+      };
+
+      const closeMobileMenu = () => {
+        if (!mobileMenuBtn || !mobileMenu) return;
+        mobileMenu.classList.remove("is-open");
+        mobileMenuBtn.setAttribute("aria-expanded", "false");
+        mobileMenuBtn.setAttribute("aria-label", "Open menu");
+        if (mobileMenuIcon) mobileMenuIcon.setAttribute("icon", "lucide:menu");
+        document.body.classList.remove("mobile-menu-open");
+      };
+
+      const openMobileMenu = () => {
+        if (!mobileMenuBtn || !mobileMenu) return;
+        syncMobileMenuTheme();
+        mobileMenu.classList.add("is-open");
+        mobileMenuBtn.setAttribute("aria-expanded", "true");
+        mobileMenuBtn.setAttribute("aria-label", "Close menu");
+        if (mobileMenuIcon) mobileMenuIcon.setAttribute("icon", "lucide:x");
+        document.body.classList.add("mobile-menu-open");
+      };
+
+      const syncHeaderContrast = () => {
+        if (!pageHeader) return;
+        const headerHeight = pageHeader.getBoundingClientRect().height || 80;
+        const onDarkSurface = darkSurfaceSections.some((section) => {
+          const rect = section.getBoundingClientRect();
+          return rect.top < headerHeight && rect.bottom > 0;
+        });
+        const isScrolled = window.scrollY > 6;
+        pageHeader.classList.toggle("text-white", onDarkSurface);
+        pageHeader.classList.toggle("header-on-dark", onDarkSurface);
+        pageHeader.classList.toggle("header-frosted", isScrolled && !onDarkSurface);
+        syncMobileMenuTheme();
+      };
+
+      if (form) {
+        form.addEventListener("submit", (event) => {
+          event.preventDefault();
+          if (success) success.classList.remove("hidden");
+          form.reset();
+        });
+      }
+
+      if (mobileMenuBtn && mobileMenu) {
+        mobileMenuBtn.addEventListener("click", (event) => {
+          event.stopPropagation();
+          if (mobileMenu.classList.contains("is-open")) {
+            closeMobileMenu();
+          } else {
+            openMobileMenu();
+          }
+        });
+
+        mobileMenu.addEventListener("click", (event) => {
+          event.stopPropagation();
+        });
+
+        mobileMenu.querySelectorAll("a").forEach((link) => {
+          link.addEventListener("click", closeMobileMenu);
+        });
+
+        window.addEventListener("resize", () => {
+          if (window.innerWidth >= 768) closeMobileMenu();
+        });
+
+        window.addEventListener("keydown", (event) => {
+          if (event.key === "Escape") closeMobileMenu();
+        });
+      }
+
+      window.addEventListener("scroll", syncHeaderContrast, { passive: true });
+      window.addEventListener("resize", syncHeaderContrast);
+      syncHeaderContrast();
+
+      document.addEventListener("click", (event) => {
+        if (!mobileMenuBtn || !mobileMenu || !mobileMenu.classList.contains("is-open")) return;
+        const clickedInsideMenu = mobileMenu.contains(event.target);
+        const clickedOnButton = mobileMenuBtn.contains(event.target);
+        if (!clickedInsideMenu && !clickedOnButton) {
+          closeMobileMenu();
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
