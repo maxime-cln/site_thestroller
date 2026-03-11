@@ -60,6 +60,7 @@ html, body, body *:not(iconify-icon) {
 }
 
 html {
+  font-size: 80%;
   scroll-behavior: smooth;
 }
 
@@ -255,95 +256,113 @@ html {
   filter: brightness(0);
 }
 
-.selector-theme-b2b {
-  background-color: #00a8f0;
-  background-image: url("./assets/fond_texture_bleu.png");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+#selector .selector-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
 }
 
-.selector-theme-b2c {
-  background-color: #5db689;
-  background-image: url("./assets/fond_texture_vert.png");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-#selector .selector-card-luxe {
+#selector .selector-option {
   position: relative;
   isolation: isolate;
+  display: block;
   border-radius: 30px;
-  border: 2px solid rgba(255, 255, 255, 0.22);
-  padding: clamp(1.75rem, 2.8vw, 2.75rem);
-  box-shadow: 0 20px 46px rgba(10, 10, 10, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.26);
+  padding: clamp(1.45rem, 2.25vw, 2.2rem);
+  color: #ffffff;
+  text-decoration: none;
+  box-shadow: 0 16px 34px rgba(10, 10, 10, 0.16);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  overflow: hidden;
 }
 
-#selector .selector-card-luxe:hover {
-  transform: translateY(-12px) scale(1.015);
-  box-shadow: 0 28px 64px rgba(10, 10, 10, 0.24);
+#selector .selector-option::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.16), transparent 58%);
+  pointer-events: none;
+  z-index: 0;
 }
 
-#selector .selector-pill {
-  letter-spacing: 0.08em;
-  border-radius: 9999px;
-  padding: 0.58rem 1.1rem;
-  box-shadow: 0 8px 18px rgba(10, 10, 10, 0.2);
+#selector .selector-option > * {
+  position: relative;
+  z-index: 1;
 }
 
-#selector .selector-card-copy {
-  max-width: 23ch;
+#selector .selector-option:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(10, 10, 10, 0.2);
 }
 
-#selector .selector-headline {
-  min-height: 2.7em;
+#selector .selector-option:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.96);
+  outline-offset: 6px;
+}
+
+#selector .selector-option--brands {
+  background: #00a8f0;
+}
+
+#selector .selector-option--travelers {
+  background: #5db689;
+}
+
+#selector .selector-option-copy {
+  min-width: 0;
+}
+
+#selector .selector-option-label {
+  margin: 0 0 0.55rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.86);
+}
+
+#selector .selector-option-title {
+  margin: 0 0 0.45rem;
+  font-size: clamp(2.2rem, 4.2vw, 3.9rem);
+  line-height: 0.94;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+}
+
+#selector .selector-option-subtitle {
+  margin: 0;
+  font-size: clamp(1.1rem, 1.7vw, 1.6rem);
+  line-height: 1.3;
+  color: rgba(255, 255, 255, 0.96);
+  text-wrap: balance;
 }
 
 .partner-marquee-group {
   display: flex;
   align-items: center;
   flex-wrap: nowrap;
-  gap: clamp(2rem, 3.2vw, 4rem);
+  gap: 2.25rem;
 }
 
 .partner-logo-slot {
   flex: 0 0 auto;
   -webkit-flex: 0 0 auto;
-  width: clamp(190px, 14vw, 240px);
-  min-width: clamp(190px, 14vw, 240px);
-  height: clamp(38px, 3vw, 52px);
+  width: 216px;
+  min-width: 216px;
+  height: 56px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .partner-logo {
-  width: auto;
-  max-width: 100%;
-  height: 100%;
+  width: 172px;
+  max-width: 172px;
+  height: 48px;
+  max-height: 48px;
   display: block;
   object-fit: contain;
   flex-shrink: 0;
-}
-
-#selector .selector-stroll {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  background-repeat: no-repeat;
-  background-size: 250% auto;
-  background-position: 62% 76%;
-  opacity: 0.96;
-}
-
-#selector .selector-stroll-red {
-  background-image: url("./assets/stroll_red.png");
-}
-
-#selector .selector-stroll-blue {
-  background-image: url("./assets/stroll_blue.png");
 }
 
 .phone-preview-card {
@@ -544,14 +563,13 @@ html {
 }
 
 @media (max-width: 1024px) {
-  #selector .selector-card-luxe {
-    border-radius: 22px;
-    padding: 1.9rem;
+  #selector .selector-list {
+    grid-template-columns: 1fr;
   }
 
-  #selector .selector-stroll {
-    background-size: 275% auto;
-    background-position: 64% 80%;
+  #selector .selector-option {
+    border-radius: 22px;
+    padding: 1.35rem 1.25rem;
   }
 
   .phone-preview-card {
@@ -659,13 +677,20 @@ html {
   }
 
   .partner-logo-slot {
-    width: 160px;
-    min-width: 160px;
-    height: 38px;
+    width: 154px;
+    min-width: 154px;
+    height: 40px;
+  }
+
+  .partner-logo {
+    width: 124px;
+    max-width: 124px;
+    height: 34px;
+    max-height: 34px;
   }
 
   .partner-marquee-group {
-    gap: 2rem;
+    gap: 1.45rem;
   }
 
   .testimonial-pan-card {
@@ -723,31 +748,20 @@ html {
     <p class="text-sm font-semibold tracking-[0.18em] text-gray-400 mb-5 uppercase">How can I help you?</p>
     <h2 class="text-[clamp(3.2rem,7vw,5.4rem)] leading-[0.94] font-bold tracking-tight">Choose your path</h2>
   </div>
-  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-    <a href="./content-creation.html" id="selector-b2b" class="selector-card selector-card-luxe group relative selector-theme-b2b text-white overflow-hidden aspect-square flex flex-col justify-between">
-      <span aria-hidden="true" class="selector-stroll selector-stroll-red"></span>
-      <div class="relative z-10">
-        <span class="selector-pill inline-flex items-center bg-[#ee7963] text-[#0a0a0a] text-xs font-bold uppercase mb-10">For Brands</span>
-      </div>
-      <div class="relative z-10">
-        <h3 class="selector-headline text-[clamp(3rem,5vw,4.8rem)] font-bold mb-5 leading-[0.9]">I have a<br/>hospitality venue</h3>
-        <div class="flex items-center gap-3 text-white font-semibold">
-          <span class="text-base tracking-[0.05em] uppercase">Explore Services</span>
-          <iconify-icon icon="lucide:arrow-right" class="selector-arrow text-2xl"></iconify-icon>
-        </div>
+  <div class="selector-list">
+    <a href="./content-creation.html" id="selector-b2b" class="selector-option selector-option--brands">
+      <div class="selector-option-copy">
+        <p class="selector-option-label">Service 01</p>
+        <h3 class="selector-option-title">For Brands</h3>
+        <p class="selector-option-subtitle">Social media content creation for hospitality venues.</p>
       </div>
     </a>
-    <a href="./foodie-experience.html" id="selector-b2c" class="selector-card selector-card-luxe group relative selector-theme-b2c text-white overflow-hidden aspect-square flex flex-col justify-between border border-white/20">
-      <span aria-hidden="true" class="selector-stroll selector-stroll-blue"></span>
-      <div class="relative z-10">
-        <span class="selector-pill inline-flex items-center bg-[#00a8f0] text-[#0a0a0a] text-xs font-bold uppercase mb-10">For Travelers</span>
-      </div>
-      <div class="relative z-10">
-        <h3 class="selector-headline text-[clamp(3rem,5vw,4.8rem)] font-bold mb-5 leading-[0.9]">I'm visiting Lisbon<br/><span class="block text-[clamp(1.8rem,2.8vw,2.6rem)]">(through my belly)</span></h3>
-        <div class="flex items-center gap-3 text-white font-semibold">
-          <span class="text-base tracking-[0.05em] uppercase">Discover Experiences</span>
-          <iconify-icon icon="lucide:arrow-right" class="selector-arrow text-2xl"></iconify-icon>
-        </div>
+
+    <a href="./foodie-experience.html" id="selector-b2c" class="selector-option selector-option--travelers">
+      <div class="selector-option-copy">
+        <p class="selector-option-label">Service 02</p>
+        <h3 class="selector-option-title">For Travelers</h3>
+        <p class="selector-option-subtitle">Foodie concierge and date-night planning in Lisbon.</p>
       </div>
     </a>
   </div>
