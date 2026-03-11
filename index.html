@@ -120,6 +120,65 @@ html {
   color: #0a0a0a !important;
 }
 
+body.mobile-menu-open {
+  overflow: hidden;
+}
+
+#top-hero .mobile-menu-panel {
+  position: fixed;
+  top: 5rem;
+  left: 0;
+  right: 0;
+  z-index: 39;
+  display: grid;
+  gap: 0.2rem;
+  padding: 0.9rem 1.5rem 1.15rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(10, 10, 10, 0.9);
+  backdrop-filter: blur(10px);
+  transform: translateY(-10px);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+}
+
+#top-hero .mobile-menu-panel.is-light {
+  border-bottom-color: rgba(10, 10, 10, 0.12);
+  background: rgba(238, 239, 234, 0.97);
+}
+
+#top-hero .mobile-menu-panel.is-open {
+  transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+#top-hero .mobile-menu-link,
+#top-hero .mobile-menu-cta {
+  display: block;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 0.68rem 0.2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+}
+
+#top-hero .mobile-menu-panel.is-light .mobile-menu-link,
+#top-hero .mobile-menu-panel.is-light .mobile-menu-cta {
+  color: #0a0a0a;
+  border-bottom-color: rgba(10, 10, 10, 0.1);
+}
+
+#top-hero .mobile-menu-cta {
+  border-bottom: 0;
+  color: #5db689;
+}
+
 #top-hero #nav-logo {
   transition: opacity 0.26s ease, transform 0.26s ease, visibility 0.26s ease;
 }
@@ -242,18 +301,22 @@ html {
 
 #cta-book-call .book-call-image {
   display: block;
-  height: 1.4rem;
+  height: 2rem;
   width: auto;
   transition: filter 0.3s ease;
 }
 
 #top-hero .top-nav.is-dark #cta-book-call .book-call-image {
-  filter: none;
+  filter: brightness(0) invert(1);
 }
 
 #top-hero .top-nav.is-light #cta-book-call .book-call-image,
 #cta-book-call:hover .book-call-image {
   filter: brightness(0);
+}
+
+#top-hero .top-nav.is-dark #cta-book-call:hover .book-call-image {
+  filter: brightness(0) invert(1);
 }
 
 #selector .selector-list {
@@ -530,38 +593,6 @@ html {
   overflow: visible;
 }
 
-.fresh-feed-nav {
-  display: none;
-  align-items: center;
-  justify-content: center;
-  gap: 0.85rem;
-  margin-top: 1.4rem;
-}
-
-.fresh-feed-nav-btn {
-  width: 2.6rem;
-  height: 2.6rem;
-  border: 1px solid rgba(10, 10, 10, 0.35);
-  border-radius: 999px;
-  background: #ffffff;
-  color: #0a0a0a;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
-}
-
-.fresh-feed-nav-btn:hover:not(:disabled) {
-  background: #0a0a0a;
-  color: #ffffff;
-  border-color: #0a0a0a;
-}
-
-.fresh-feed-nav-btn:disabled {
-  opacity: 0.38;
-  cursor: not-allowed;
-}
-
 @media (max-width: 1024px) {
   #selector .selector-list {
     grid-template-columns: 1fr;
@@ -583,22 +614,34 @@ html {
 
 @media (max-width: 1279px) {
   #latest-content .fresh-feed-viewport {
-    overflow: hidden;
-    margin-inline: -0.25rem;
-    touch-action: pan-y;
+    overflow-x: auto;
+    overflow-y: hidden;
+    margin-inline: 0;
+    touch-action: pan-y pinch-zoom;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  #latest-content .fresh-feed-viewport::-webkit-scrollbar {
+    display: none;
   }
 
   #latest-content #fresh-feed-track {
     display: flex;
-    gap: 0;
-    transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
-    will-change: transform;
+    gap: 0.85rem;
+    transition: none;
+    will-change: auto;
+    transform: none !important;
   }
 
   #latest-content #fresh-feed-track > .fresh-feed-slide {
     flex: 0 0 100%;
     max-width: 100%;
-    padding-inline: 0.25rem;
+    padding-inline: 0;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
   }
 
   #latest-content #fresh-feed-track > .fresh-feed-slide.phone-preview-card {
@@ -606,8 +649,12 @@ html {
     margin: 0;
   }
 
-  #latest-content .fresh-feed-nav {
-    display: flex;
+  #latest-content #fresh-feed-track > .fresh-feed-slide.is-loop-clone {
+    pointer-events: none;
+  }
+
+  #latest-content #fresh-feed-track > .fresh-feed-slide.is-loop-clone .phone-preview-controls {
+    display: none;
   }
 }
 
@@ -615,6 +662,12 @@ html {
   #latest-content #fresh-feed-track > .fresh-feed-slide {
     flex-basis: 50%;
     max-width: 50%;
+  }
+}
+
+@media (min-width: 768px) {
+  #latest-content #fresh-feed-track > .fresh-feed-slide.is-loop-clone {
+    display: none;
   }
 }
 
@@ -670,7 +723,27 @@ html {
   100% { transform: translateX(-50%); }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
+  #latest-content {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  #fresh-feed-viewport {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
+  #latest-content #fresh-feed-track {
+    gap: 1rem;
+  }
+
+  #latest-content #fresh-feed-track > .fresh-feed-slide {
+    flex-basis: 84%;
+    max-width: 84%;
+    scroll-snap-align: center;
+  }
+
   .testimonial-pan-track {
     gap: 1rem;
     animation-duration: 40s;
@@ -698,6 +771,14 @@ html {
     min-height: 560px;
     padding: 1.5rem;
   }
+
+  .phone-preview-card {
+    max-width: 290px;
+  }
+
+  .phone-preview-screen {
+    border-radius: 28px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -715,17 +796,25 @@ html {
         <img src="https://vgbujcuwptvheqijyjbe.supabase.co/storage/v1/object/public/hmac-uploads/uploads/14a0654e-e3ac-4ce2-b825-740077280921/1770822350896-be5a1f26/logo.png" alt="Lo" class="h-8 w-auto"/>
       </a>
       <nav class="hidden md:flex items-center gap-10 text-white">
-        <a href="./content-creation.html" id="nav-for-brands" class="nav-link text-sm font-medium tracking-wide uppercase text-white">For Brands</a>
+        <a href="./content-creation.html" id="nav-for-brands" class="nav-link text-sm font-medium tracking-wide uppercase text-white">For venues &amp; brands</a>
         <a href="./foodie-experience.html" id="nav-plan-trip" class="nav-link text-sm font-medium tracking-wide uppercase text-white">Plan your trip</a>
         <a href="./portfolio.html" id="nav-portfolio" class="nav-link text-sm font-medium tracking-wide uppercase text-white">Portfolio</a>
         <a href="./about.html" id="nav-about" class="nav-link text-sm font-medium tracking-wide uppercase text-white">About</a>
       </nav>
       <a href="./content-creation.html#contact-form" id="cta-book-call" class="hidden md:inline-flex items-center">
-        <img src="./assets/book_a_call2.png" alt="Book a Call" class="book-call-image"/>
+        <img src="./assets/book_me.png" alt="Book me" class="book-call-image"/>
       </a>
-      <button id="mobile-menu-btn" class="md:hidden p-2 text-white"><iconify-icon icon="lucide:menu" class="text-2xl"></iconify-icon></button>
+      <button id="mobile-menu-btn" class="md:hidden p-2 text-white" aria-label="Open menu" aria-controls="mobile-menu" aria-expanded="false"><iconify-icon icon="lucide:menu" class="text-2xl"></iconify-icon></button>
     </div>
   </header>
+  <nav id="mobile-menu" class="mobile-menu-panel md:hidden" aria-label="Mobile menu">
+    <a href="./content-creation.html" class="mobile-menu-link">For venues &amp; brands</a>
+    <a href="./foodie-experience.html" class="mobile-menu-link">Plan your trip</a>
+    <a href="./portfolio.html" class="mobile-menu-link">Portfolio</a>
+    <a href="./about.html" class="mobile-menu-link">About</a>
+    <a href="./contact.html" class="mobile-menu-link">Contact</a>
+    <a href="./content-creation.html#contact-form" class="mobile-menu-cta">Book a Call</a>
+  </nav>
 
   <section class="hero-logo-stage relative z-10 px-6 lg:px-12">
     <div id="hero-brand-lockup" class="hero-brand-lockup">
@@ -752,7 +841,7 @@ html {
     <a href="./content-creation.html" id="selector-b2b" class="selector-option selector-option--brands">
       <div class="selector-option-copy">
         <p class="selector-option-label">Service 01</p>
-        <h3 class="selector-option-title">For Brands</h3>
+        <h3 class="selector-option-title">For Venues & Brands</h3>
         <p class="selector-option-subtitle">Social media content creation for hospitality venues.</p>
       </div>
     </a>
@@ -920,17 +1009,10 @@ html {
     </article>
   </div>
   </div>
-  <div class="fresh-feed-nav" aria-label="Fresh feed carousel controls">
-    <button id="fresh-feed-prev" type="button" class="fresh-feed-nav-btn" aria-label="Previous video">
-      <iconify-icon icon="lucide:chevron-left" class="text-xl"></iconify-icon>
-    </button>
-    <button id="fresh-feed-next" type="button" class="fresh-feed-nav-btn" aria-label="Next video">
-      <iconify-icon icon="lucide:chevron-right" class="text-xl"></iconify-icon>
-    </button>
-  </div>
 </section>
 <!-- Testimonial Section -->
-<section class="py-24 bg-[#eeefea] border-y border-black/10">
+<!-- Section masquee temporairement: retirer "hidden" pour reactiver -->
+<section id="testimonials-section" class="py-24 bg-[#eeefea] border-y border-black/10" hidden>
   <div class="max-w-[1440px] mx-auto px-6 lg:px-12 mb-10">
     <p class="text-sm font-semibold tracking-widest text-gray-400 mb-4 uppercase">Testimonials</p>
     <h2 class="text-4xl lg:text-5xl font-bold tracking-tight">What clients are saying</h2>
@@ -953,7 +1035,7 @@ html {
     </div>
   </div>
 </section>
-<!-- Footer --><footer class="bg-[#0a0a0a] text-white pt-20 pb-8"><div class="max-w-[1440px] mx-auto px-6 lg:px-12"><div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16"><div class="lg:col-span-2"><img src="https://vgbujcuwptvheqijyjbe.supabase.co/storage/v1/object/public/hmac-uploads/uploads/14a0654e-e3ac-4ce2-b825-740077280921/1770822350896-be5a1f26/logo.png" alt="Lo" class="h-10 w-auto mb-6 brightness-0 invert"/><p class="text-gray-400 max-w-md mb-8">Content creator and foodie concierge based in Lisbon. Helping brands tell their story and travelers taste the real Portugal.</p><div class="flex gap-4"><a href="#" id="social-tiktok" class="w-10 h-10 border border-white/20 flex items-center justify-center hover:bg-[#5db689] hover:border-[#5db689] hover:text-[#0a0a0a] transition-all"><iconify-icon icon="lucide:music-2" class="text-lg"></iconify-icon></a><a href="#" id="social-instagram" class="w-10 h-10 border border-white/20 flex items-center justify-center hover:bg-[#5db689] hover:border-[#5db689] hover:text-[#0a0a0a] transition-all"><iconify-icon icon="lucide:instagram" class="text-lg"></iconify-icon></a><a href="https://linktr.ee/lisbonwithlo" id="social-linktree" aria-label="Linktree" target="_blank" rel="noopener noreferrer" class="w-10 h-10 border border-white/20 flex items-center justify-center hover:bg-[#5db689] hover:border-[#5db689] hover:text-[#0a0a0a] transition-all"><iconify-icon icon="lucide:link-2" class="text-lg"></iconify-icon></a></div></div><div><h4 class="font-semibold mb-6 text-sm tracking-widest uppercase">Services</h4><ul class="space-y-4 text-gray-400"><li><a href="./content-creation.html" id="footer-content" class="hover:text-[#5db689] transition-colors">Content Creation</a></li><li><a href="./foodie-experience.html#foodie-concierge" id="footer-concierge" class="hover:text-[#5db689] transition-colors">Foodie Concierge</a></li><li><a href="./foodie-experience.html#date-night-concierge" id="footer-date" class="hover:text-[#5db689] transition-colors">Date Night</a></li><li><a href="#" id="footer-guide" class="hover:text-[#5db689] transition-colors">Lisbon Food Guide</a></li></ul></div><div><h4 class="font-semibold mb-6 text-sm tracking-widest uppercase">Connect</h4><ul class="space-y-4 text-gray-400"><li><a href="./about.html" id="footer-about" class="hover:text-[#5db689] transition-colors">About Me</a></li><li><a href="#" id="footer-portfolio" class="hover:text-[#5db689] transition-colors">Portfolio</a></li><li><a href="./contact.html" id="footer-contact" class="hover:text-[#5db689] transition-colors">Contact</a></li><li><a href="#" id="footer-book" class="text-[#5db689] font-semibold">Book a Call →</a></li></ul></div></div><div class="border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-gray-500"><p>designed by Orson Everaert</p><div class="flex gap-6"><a href="#" id="footer-privacy" class="hover:text-white transition-colors">Privacy</a><a href="#" id="footer-terms" class="hover:text-white transition-colors">Terms</a></div></div></div></footer></div>
+<!-- Footer --><footer class="bg-[#0a0a0a] text-white pt-20 pb-8"><div class="max-w-[1440px] mx-auto px-6 lg:px-12"><div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16"><div class="lg:col-span-2"><img src="https://vgbujcuwptvheqijyjbe.supabase.co/storage/v1/object/public/hmac-uploads/uploads/14a0654e-e3ac-4ce2-b825-740077280921/1770822350896-be5a1f26/logo.png" alt="Lo" class="h-10 w-auto mb-6 brightness-0 invert"/><p class="text-gray-400 max-w-md mb-8">Content creator and foodie concierge based in Lisbon. Helping brands tell their story and travelers taste the real Portugal.</p><div class="flex gap-4"><a href="#" id="social-tiktok" class="w-10 h-10 border border-white/20 flex items-center justify-center hover:bg-[#5db689] hover:border-[#5db689] hover:text-[#0a0a0a] transition-all"><iconify-icon icon="lucide:music-2" class="text-lg"></iconify-icon></a><a href="#" id="social-instagram" class="w-10 h-10 border border-white/20 flex items-center justify-center hover:bg-[#5db689] hover:border-[#5db689] hover:text-[#0a0a0a] transition-all"><iconify-icon icon="lucide:instagram" class="text-lg"></iconify-icon></a><a href="https://linktr.ee/lisbonwithlo" id="social-linktree" aria-label="Linktree" target="_blank" rel="noopener noreferrer" class="w-10 h-10 border border-white/20 flex items-center justify-center hover:bg-[#5db689] hover:border-[#5db689] hover:text-[#0a0a0a] transition-all"><iconify-icon icon="lucide:link-2" class="text-lg"></iconify-icon></a></div></div><div><h4 class="font-semibold mb-6 text-sm tracking-widest uppercase">Services</h4><ul class="space-y-4 text-gray-400"><li><a href="./content-creation.html" id="footer-content" class="hover:text-[#5db689] transition-colors">Content Creation</a></li><li><a href="./foodie-experience.html#foodie-concierge" id="footer-concierge" class="hover:text-[#5db689] transition-colors">Foodie Concierge</a></li><li><a href="./foodie-experience.html#date-night-concierge" id="footer-date" class="hover:text-[#5db689] transition-colors">Date Night</a></li><li><a href="#" id="footer-guide" class="hover:text-[#5db689] transition-colors">Lisbon Food Guide</a></li></ul></div><div><h4 class="font-semibold mb-6 text-sm tracking-widest uppercase">Connect</h4><ul class="space-y-4 text-gray-400"><li><a href="./about.html" id="footer-about" class="hover:text-[#5db689] transition-colors">About Me</a></li><li><a href="#" id="footer-portfolio" class="hover:text-[#5db689] transition-colors">Portfolio</a></li><li><a href="./contact.html" id="footer-contact" class="hover:text-[#5db689] transition-colors">Contact</a></li><li><a href="#" id="footer-book" class="text-[#5db689] font-semibold">Book a Call →</a></li></ul></div></div><div class="border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-gray-500"><div class="flex gap-6"><a href="#" id="footer-privacy" class="hover:text-white transition-colors">Privacy</a><a href="#" id="footer-terms" class="hover:text-white transition-colors">Terms</a></div></div></div></footer></div>
 <script>
 (() => {
   const formatTime = (seconds) => {
@@ -975,6 +1057,34 @@ html {
   const topNav = document.querySelector("#top-hero .top-nav");
   const topHero = document.querySelector("#top-hero");
   const navLogo = document.querySelector("#nav-logo");
+  const mobileMenuBtn = document.querySelector("#mobile-menu-btn");
+  const mobileMenu = document.querySelector("#mobile-menu");
+  const mobileMenuIcon = mobileMenuBtn?.querySelector("iconify-icon");
+
+  const syncMobileMenuTheme = () => {
+    if (!mobileMenu || !topNav) return;
+    const light = topNav.classList.contains("is-light");
+    mobileMenu.classList.toggle("is-light", light);
+  };
+
+  const closeMobileMenu = () => {
+    if (!mobileMenuBtn || !mobileMenu) return;
+    mobileMenu.classList.remove("is-open");
+    mobileMenuBtn.setAttribute("aria-expanded", "false");
+    mobileMenuBtn.setAttribute("aria-label", "Open menu");
+    if (mobileMenuIcon) mobileMenuIcon.setAttribute("icon", "lucide:menu");
+    document.body.classList.remove("mobile-menu-open");
+  };
+
+  const openMobileMenu = () => {
+    if (!mobileMenuBtn || !mobileMenu) return;
+    syncMobileMenuTheme();
+    mobileMenu.classList.add("is-open");
+    mobileMenuBtn.setAttribute("aria-expanded", "true");
+    mobileMenuBtn.setAttribute("aria-label", "Close menu");
+    if (mobileMenuIcon) mobileMenuIcon.setAttribute("icon", "lucide:x");
+    document.body.classList.add("mobile-menu-open");
+  };
 
   const syncTopNavLogo = () => {
     if (!topNav || !navLogo || !topHero) return;
@@ -986,12 +1096,40 @@ html {
     topNav.classList.toggle("is-light", !onDarkHero);
     navLogo.classList.add("is-visible");
     navLogo.classList.remove("is-hidden");
+    syncMobileMenuTheme();
   };
 
   if (topNav && navLogo && topHero) {
     syncTopNavLogo();
     window.addEventListener("scroll", syncTopNavLogo, { passive: true });
     window.addEventListener("resize", syncTopNavLogo);
+  }
+
+  if (mobileMenuBtn && mobileMenu) {
+    mobileMenuBtn.addEventListener("click", (event) => {
+      event.stopPropagation();
+      if (mobileMenu.classList.contains("is-open")) {
+        closeMobileMenu();
+      } else {
+        openMobileMenu();
+      }
+    });
+
+    mobileMenu.addEventListener("click", (event) => {
+      event.stopPropagation();
+    });
+
+    mobileMenu.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", closeMobileMenu);
+    });
+
+    window.addEventListener("resize", () => {
+      if (window.innerWidth >= 768) closeMobileMenu();
+    });
+
+    window.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMobileMenu();
+    });
   }
 
   const videos = Array.from(document.querySelectorAll("[data-video]"));
@@ -1132,82 +1270,120 @@ html {
   const latestContent = document.querySelector("#latest-content");
   const feedViewport = latestContent?.querySelector("#fresh-feed-viewport");
   const feedTrack = latestContent?.querySelector("#fresh-feed-track");
-  const feedSlides = feedTrack ? Array.from(feedTrack.querySelectorAll(".fresh-feed-slide")) : [];
-  const prevFeedBtn = latestContent?.querySelector("#fresh-feed-prev");
-  const nextFeedBtn = latestContent?.querySelector("#fresh-feed-next");
+  const baseFeedSlides = feedTrack ? Array.from(feedTrack.querySelectorAll(".fresh-feed-slide")) : [];
 
-  if (latestContent && feedViewport && feedTrack && prevFeedBtn && nextFeedBtn && feedSlides.length) {
+  if (latestContent && feedViewport && feedTrack && baseFeedSlides.length) {
+    const isMobileCarousel = () => window.innerWidth < 768;
     let activeIndex = 0;
-    let slidesPerView = 1;
-    let carouselEnabled = false;
-    let swipeStartX = null;
+    let scrollSyncTimer = null;
+    let isLoopJumping = false;
+    let wasMobile = null;
 
-    const getSlidesPerView = () => (window.innerWidth >= 768 ? 2 : 1);
-    const getMaxIndex = () => Math.max(0, feedSlides.length - slidesPerView);
+    if (baseFeedSlides.length > 1) {
+      const firstClone = baseFeedSlides[0].cloneNode(true);
+      const lastClone = baseFeedSlides[baseFeedSlides.length - 1].cloneNode(true);
+      firstClone.classList.add("is-loop-clone");
+      lastClone.classList.add("is-loop-clone");
+      firstClone.setAttribute("aria-hidden", "true");
+      lastClone.setAttribute("aria-hidden", "true");
+      feedTrack.insertBefore(lastClone, baseFeedSlides[0]);
+      feedTrack.appendChild(firstClone);
+    }
 
-    const updateFeedCarousel = () => {
-      carouselEnabled = window.innerWidth < 1280;
-      if (!carouselEnabled) {
+    const getLoopSlides = () => Array.from(feedTrack.querySelectorAll(".fresh-feed-slide"));
+    const getMobileStartIndex = () => {
+      if (baseFeedSlides.length <= 1) return 0;
+      return 1;
+    };
+    const getSlideScrollLeft = (index) => {
+      const slides = getLoopSlides();
+      const slide = slides[index];
+      if (!slide) return 0;
+      const centeredOffset = (feedViewport.clientWidth - slide.clientWidth) / 2;
+      return Math.max(0, slide.offsetLeft - feedTrack.offsetLeft - centeredOffset);
+    };
+    const scrollToFeedIndex = (index, behavior = "smooth") => {
+      feedViewport.scrollTo({
+        left: getSlideScrollLeft(index),
+        top: 0,
+        behavior
+      });
+    };
+    const jumpToIndex = (index) => {
+      isLoopJumping = true;
+      scrollToFeedIndex(index, "auto");
+      window.requestAnimationFrame(() => {
+        window.requestAnimationFrame(() => {
+          isLoopJumping = false;
+        });
+      });
+    };
+
+    const applyCarouselMode = () => {
+      const isMobile = isMobileCarousel();
+
+      if (!isMobile) {
         activeIndex = 0;
-        feedTrack.style.transform = "";
-        prevFeedBtn.disabled = true;
-        nextFeedBtn.disabled = true;
+        feedViewport.scrollTo({ left: 0, top: 0, behavior: "auto" });
+        wasMobile = false;
         return;
       }
 
-      slidesPerView = getSlidesPerView();
-      activeIndex = Math.min(activeIndex, getMaxIndex());
-      const shiftPercent = (100 / slidesPerView) * activeIndex;
-      feedTrack.style.transform = `translate3d(-${shiftPercent}%, 0, 0)`;
-
-      prevFeedBtn.disabled = activeIndex <= 0;
-      nextFeedBtn.disabled = activeIndex >= getMaxIndex();
+      if (wasMobile !== true) {
+        activeIndex = getMobileStartIndex();
+      }
+      jumpToIndex(activeIndex);
+      wasMobile = true;
     };
 
-    prevFeedBtn.addEventListener("click", () => {
-      if (!carouselEnabled) return;
-      activeIndex = Math.max(0, activeIndex - 1);
-      updateFeedCarousel();
-    });
+    feedViewport.addEventListener("scroll", () => {
+      if (!isMobileCarousel() || isLoopJumping) return;
+      if (scrollSyncTimer) window.clearTimeout(scrollSyncTimer);
 
-    nextFeedBtn.addEventListener("click", () => {
-      if (!carouselEnabled) return;
-      activeIndex = Math.min(getMaxIndex(), activeIndex + 1);
-      updateFeedCarousel();
-    });
+      scrollSyncTimer = window.setTimeout(() => {
+        const slides = getLoopSlides();
+        const currentLeft = feedViewport.scrollLeft;
+        let nearestIndex = 0;
+        let nearestDistance = Number.POSITIVE_INFINITY;
 
-    feedViewport.addEventListener(
-      "touchstart",
-      (event) => {
-        if (!carouselEnabled) return;
-        swipeStartX = event.changedTouches[0].clientX;
-      },
-      { passive: true }
-    );
+        slides.forEach((_, index) => {
+          const distance = Math.abs(getSlideScrollLeft(index) - currentLeft);
+          if (distance < nearestDistance) {
+            nearestDistance = distance;
+            nearestIndex = index;
+          }
+        });
 
-    feedViewport.addEventListener(
-      "touchend",
-      (event) => {
-        if (!carouselEnabled || swipeStartX === null) return;
-        const deltaX = event.changedTouches[0].clientX - swipeStartX;
-        swipeStartX = null;
-        if (Math.abs(deltaX) < 40) return;
+        activeIndex = nearestIndex;
+        if (baseFeedSlides.length > 1) {
+          if (activeIndex === 0) {
+            activeIndex = slides.length - 2;
+            jumpToIndex(activeIndex);
+            return;
+          }
 
-        if (deltaX < 0 && activeIndex < getMaxIndex()) {
-          activeIndex += 1;
-        } else if (deltaX > 0 && activeIndex > 0) {
-          activeIndex -= 1;
+          if (activeIndex === slides.length - 1) {
+            activeIndex = 1;
+            jumpToIndex(activeIndex);
+          }
         }
-        updateFeedCarousel();
-      },
-      { passive: true }
-    );
+      }, 70);
+    }, { passive: true });
 
-    window.addEventListener("resize", updateFeedCarousel);
-    updateFeedCarousel();
+    window.addEventListener("resize", applyCarouselMode);
+    applyCarouselMode();
   }
 
-  document.addEventListener("click", closeAllMenus);
+  document.addEventListener("click", (event) => {
+    closeAllMenus();
+    if (mobileMenuBtn && mobileMenu && mobileMenu.classList.contains("is-open")) {
+      const clickedInsideMenu = mobileMenu.contains(event.target);
+      const clickedOnButton = mobileMenuBtn.contains(event.target);
+      if (!clickedInsideMenu && !clickedOnButton) {
+        closeMobileMenu();
+      }
+    }
+  });
 })();
 </script>
 </body>

@@ -100,6 +100,65 @@
       color: #ffffff;
     }
 
+    body.mobile-menu-open {
+      overflow: hidden;
+    }
+
+    .mobile-menu-panel {
+      position: fixed;
+      top: 5rem;
+      left: 0;
+      right: 0;
+      z-index: 39;
+      display: grid;
+      gap: 0.2rem;
+      padding: 0.9rem 1.5rem 1.15rem;
+      border-bottom: 1px solid var(--line);
+      background: rgba(250, 250, 247, 0.97);
+      backdrop-filter: blur(10px);
+      transform: translateY(-10px);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+    }
+
+    .mobile-menu-panel.is-dark {
+      border-bottom-color: rgba(255, 255, 255, 0.16);
+      background: rgba(10, 10, 10, 0.9);
+    }
+
+    .mobile-menu-panel.is-open {
+      transform: translateY(0);
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    .mobile-menu-link,
+    .mobile-menu-cta {
+      display: block;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 0.68rem 0.2rem;
+      border-bottom: 1px solid rgba(18, 18, 18, 0.12);
+      color: var(--ink);
+    }
+
+    .mobile-menu-panel.is-dark .mobile-menu-link,
+    .mobile-menu-panel.is-dark .mobile-menu-cta {
+      color: #ffffff;
+      border-bottom-color: rgba(255, 255, 255, 0.14);
+    }
+
+    .mobile-menu-cta {
+      border-bottom: 0;
+      color: var(--site-green);
+    }
+
     .nav-link {
       position: relative;
     }
@@ -127,22 +186,26 @@
 
     .book-call-image {
       display: block;
-      height: 1.4rem;
+      height: 2rem;
       width: auto;
       transition: filter 0.3s ease;
       filter: brightness(0);
     }
 
     .topbar.header-on-dark .book-call-image {
-      filter: none;
+      filter: brightness(0) invert(1);
     }
 
     #cta-book-call:hover .book-call-image {
       filter: brightness(0);
     }
 
+    .topbar.header-on-dark #cta-book-call:hover .book-call-image {
+      filter: brightness(0) invert(1);
+    }
+
     .portfolio-header {
-      padding: clamp(2rem, 4vw, 3.4rem) 1.1rem 0;
+      padding: clamp(2rem, 4vw, 3.4rem) 0 0;
       text-align: center;
     }
 
@@ -162,7 +225,7 @@
     }
 
     .filter-row {
-      padding: 1.2rem 1rem 0;
+      padding: 1.2rem 0 0;
       display: flex;
       justify-content: center;
     }
@@ -202,7 +265,7 @@
     }
 
     .portfolio-grid-wrap {
-      padding: 1.35rem 1rem 1.1rem;
+      padding: 1.35rem 0 1.1rem;
     }
 
     .portfolio-grid {
@@ -211,6 +274,8 @@
       gap: 0.85rem;
       align-items: start;
       grid-auto-flow: dense;
+      max-width: 1240px;
+      margin-inline: auto;
     }
 
     .portfolio-card {
@@ -381,6 +446,7 @@
     @media (max-width: 1200px) {
       .portfolio-grid {
         grid-template-columns: repeat(3, minmax(0, 1fr));
+        max-width: none;
       }
       .portfolio-card--wide {
         grid-column: span 2;
@@ -436,24 +502,32 @@
           </a>
 
           <nav class="hidden md:flex items-center gap-10">
-            <a href="./content-creation.html" id="nav-for-brands" class="nav-link text-sm font-medium tracking-wide uppercase">For Brands</a>
+            <a href="./content-creation.html" id="nav-for-brands" class="nav-link text-sm font-medium tracking-wide uppercase">For venues &amp; brands</a>
             <a href="./foodie-experience.html" id="nav-plan-trip" class="nav-link text-sm font-medium tracking-wide uppercase">Plan your trip</a>
             <a href="./portfolio.html" id="nav-portfolio" class="nav-link is-active text-sm font-medium tracking-wide uppercase">Portfolio</a>
             <a href="./about.html" id="nav-about" class="nav-link text-sm font-medium tracking-wide uppercase">About</a>
           </nav>
 
           <a href="./content-creation.html#contact-form" id="cta-book-call" class="hidden md:inline-flex items-center" aria-label="Book a call">
-            <img src="./assets/book_a_call2.png" alt="Book a Call" class="book-call-image" />
+            <img src="./assets/book_me.png" alt="Book me" class="book-call-image" />
           </a>
 
-          <button id="mobile-menu-btn" class="md:hidden p-2" aria-label="Open menu">
+          <button id="mobile-menu-btn" class="md:hidden p-2" aria-label="Open menu" aria-controls="mobile-menu" aria-expanded="false">
             <iconify-icon icon="lucide:menu" class="text-2xl"></iconify-icon>
           </button>
         </div>
       </header>
+      <nav id="mobile-menu" class="mobile-menu-panel md:hidden" aria-label="Mobile menu">
+        <a href="./content-creation.html" class="mobile-menu-link">For venues &amp; brands</a>
+        <a href="./foodie-experience.html" class="mobile-menu-link">Plan your trip</a>
+        <a href="./portfolio.html" class="mobile-menu-link">Portfolio</a>
+        <a href="./about.html" class="mobile-menu-link">About</a>
+        <a href="./contact.html" class="mobile-menu-link">Contact</a>
+        <a href="./content-creation.html#contact-form" class="mobile-menu-cta">Book a Call</a>
+      </nav>
 
       <main class="pt-20">
-      <section class="portfolio-header">
+      <section class="portfolio-header max-w-[1440px] mx-auto px-6 lg:px-12">
         <h1>Portfolio</h1>
         <p>
           A selection of short-form video work across hospitality, lifestyle, and UGC formats.
@@ -461,7 +535,7 @@
         </p>
       </section>
 
-      <section class="filter-row" aria-label="Portfolio filters">
+      <section class="filter-row max-w-[1440px] mx-auto px-6 lg:px-12" aria-label="Portfolio filters">
         <div class="filter-scroller" id="portfolio-filters">
           <button class="filter-chip is-active" type="button" data-filter="all">All</button>
           <button class="filter-chip" type="button" data-filter="lifestyle">Lifestyle</button>
@@ -472,7 +546,7 @@
         </div>
       </section>
 
-      <section class="portfolio-grid-wrap">
+      <section class="portfolio-grid-wrap max-w-[1440px] mx-auto px-6 lg:px-12">
         <div class="portfolio-grid" id="portfolio-grid">
           <article class="portfolio-card" data-tags="lifestyle,beauty,ugc">
             <div class="portfolio-media portfolio-media--vertical">
@@ -660,7 +734,7 @@
           </div>
 
           <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-gray-500">
-            <p>designed by Orson Everaert</p>
+            
             <div class="flex gap-6">
               <a href="#" id="footer-privacy" class="hover:text-white transition-colors">Privacy</a>
               <a href="#" id="footer-terms" class="hover:text-white transition-colors">Terms</a>
@@ -675,6 +749,34 @@
       const darkSurfaceSections = [document.querySelector('#page-footer')].filter(Boolean);
       const filterButtons = Array.from(document.querySelectorAll('[data-filter]'));
       const cards = Array.from(document.querySelectorAll('#portfolio-grid .portfolio-card'));
+      const mobileMenuBtn = document.querySelector('#mobile-menu-btn');
+      const mobileMenu = document.querySelector('#mobile-menu');
+      const mobileMenuIcon = mobileMenuBtn?.querySelector('iconify-icon');
+
+      const syncMobileMenuTheme = () => {
+        if (!mobileMenu || !pageHeader) return;
+        const onDarkSurface = pageHeader.classList.contains('header-on-dark');
+        mobileMenu.classList.toggle('is-dark', onDarkSurface);
+      };
+
+      const closeMobileMenu = () => {
+        if (!mobileMenuBtn || !mobileMenu) return;
+        mobileMenu.classList.remove('is-open');
+        mobileMenuBtn.setAttribute('aria-expanded', 'false');
+        mobileMenuBtn.setAttribute('aria-label', 'Open menu');
+        if (mobileMenuIcon) mobileMenuIcon.setAttribute('icon', 'lucide:menu');
+        document.body.classList.remove('mobile-menu-open');
+      };
+
+      const openMobileMenu = () => {
+        if (!mobileMenuBtn || !mobileMenu) return;
+        syncMobileMenuTheme();
+        mobileMenu.classList.add('is-open');
+        mobileMenuBtn.setAttribute('aria-expanded', 'true');
+        mobileMenuBtn.setAttribute('aria-label', 'Close menu');
+        if (mobileMenuIcon) mobileMenuIcon.setAttribute('icon', 'lucide:x');
+        document.body.classList.add('mobile-menu-open');
+      };
 
       const syncHeaderContrast = () => {
         if (!pageHeader) return;
@@ -688,6 +790,7 @@
         pageHeader.classList.toggle('text-white', onDarkSurface);
         pageHeader.classList.toggle('header-on-dark', onDarkSurface);
         pageHeader.classList.toggle('header-frosted', isScrolled && !onDarkSurface);
+        syncMobileMenuTheme();
       };
 
       const applyFilter = (value) => {
@@ -697,11 +800,9 @@
           const show = value === 'all' || tags.includes(value);
           card.classList.toggle('is-hidden', !show);
           card.querySelectorAll('video').forEach((video) => {
-            if (show) {
-              const promise = video.play();
-              if (promise && typeof promise.catch === 'function') promise.catch(() => {});
-            } else {
+            if (!show) {
               video.pause();
+              video.currentTime = 0;
             }
           });
         });
@@ -711,23 +812,85 @@
         button.addEventListener('click', () => applyFilter(button.dataset.filter || 'all'));
       });
 
-      // Keep videos muted/autoplay-friendly while still allowing native controls.
-      document.querySelectorAll('#portfolio-grid video').forEach((video) => {
+      if (mobileMenuBtn && mobileMenu) {
+        mobileMenuBtn.addEventListener('click', (event) => {
+          event.stopPropagation();
+          if (mobileMenu.classList.contains('is-open')) {
+            closeMobileMenu();
+          } else {
+            openMobileMenu();
+          }
+        });
+
+        mobileMenu.addEventListener('click', (event) => {
+          event.stopPropagation();
+        });
+
+        mobileMenu.querySelectorAll('a').forEach((link) => {
+          link.addEventListener('click', closeMobileMenu);
+        });
+
+        window.addEventListener('resize', () => {
+          if (window.innerWidth >= 768) closeMobileMenu();
+        });
+
+        window.addEventListener('keydown', (event) => {
+          if (event.key === 'Escape') closeMobileMenu();
+        });
+      }
+
+      const canHoverPreview = window.matchMedia('(hover: hover) and (pointer: fine)');
+
+      // Videos play only on hover (desktop) or touch (mobile/tablet).
+      document.querySelectorAll('#portfolio-grid .portfolio-media').forEach((media) => {
+        const video = media.querySelector('video');
+        if (!video) return;
+
         video.muted = true;
         video.playsInline = true;
         video.loop = true;
         video.preload = 'metadata';
-        const playPromise = video.play();
-        if (playPromise && typeof playPromise.catch === 'function') {
-          playPromise.catch(() => {
-            // Fallback is the poster frame; no black flash.
-          });
-        }
+
+        const startPreview = () => {
+          const playPromise = video.play();
+          if (playPromise && typeof playPromise.catch === 'function') playPromise.catch(() => {});
+        };
+
+        const stopPreview = () => {
+          video.pause();
+          video.currentTime = 0;
+        };
+
+        media.addEventListener('mouseenter', () => {
+          if (canHoverPreview.matches) startPreview();
+        });
+
+        media.addEventListener('mouseleave', () => {
+          if (canHoverPreview.matches) stopPreview();
+        });
+
+        media.addEventListener('pointerdown', (event) => {
+          if (event.pointerType === 'mouse') return;
+          if (video.paused) {
+            startPreview();
+          } else {
+            stopPreview();
+          }
+        });
       });
 
       window.addEventListener('scroll', syncHeaderContrast, { passive: true });
       window.addEventListener('resize', syncHeaderContrast);
       syncHeaderContrast();
+
+      document.addEventListener('click', (event) => {
+        if (!mobileMenuBtn || !mobileMenu || !mobileMenu.classList.contains('is-open')) return;
+        const clickedInsideMenu = mobileMenu.contains(event.target);
+        const clickedOnButton = mobileMenuBtn.contains(event.target);
+        if (!clickedInsideMenu && !clickedOnButton) {
+          closeMobileMenu();
+        }
+      });
     })();
   </script>
 </body>

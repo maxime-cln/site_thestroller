@@ -127,6 +127,69 @@
       color: #ffffff;
     }
 
+    #page-header.header-on-dark #mobile-menu-btn {
+      color: #ffffff;
+    }
+
+    body.mobile-menu-open {
+      overflow: hidden;
+    }
+
+    .mobile-menu-panel {
+      position: fixed;
+      top: 5rem;
+      left: 0;
+      right: 0;
+      z-index: 39;
+      display: grid;
+      gap: 0.2rem;
+      padding: 0.9rem 1.5rem 1.15rem;
+      border-bottom: 1px solid rgba(10, 10, 10, 0.1);
+      background: rgba(250, 250, 247, 0.97);
+      backdrop-filter: blur(10px);
+      transform: translateY(-10px);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+    }
+
+    .mobile-menu-panel.is-dark {
+      border-bottom-color: rgba(255, 255, 255, 0.16);
+      background: rgba(10, 10, 10, 0.9);
+    }
+
+    .mobile-menu-panel.is-open {
+      transform: translateY(0);
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    .mobile-menu-link,
+    .mobile-menu-cta {
+      display: block;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 0.68rem 0.2rem;
+      border-bottom: 1px solid rgba(18, 18, 18, 0.12);
+      color: var(--color-dark);
+    }
+
+    .mobile-menu-panel.is-dark .mobile-menu-link,
+    .mobile-menu-panel.is-dark .mobile-menu-cta {
+      color: #ffffff;
+      border-bottom-color: rgba(255, 255, 255, 0.14);
+    }
+
+    .mobile-menu-cta {
+      border-bottom: 0;
+      color: var(--color-lime);
+    }
+
     #cta-book-call {
       padding: 0;
       border: 0;
@@ -135,18 +198,22 @@
 
     #cta-book-call .book-call-image {
       display: block;
-      height: 1.4rem;
+      height: 2rem;
       width: auto;
       transition: filter 0.3s ease;
       filter: brightness(0);
     }
 
     #page-header.header-on-dark #cta-book-call .book-call-image {
-      filter: none;
+      filter: brightness(0) invert(1);
     }
 
     #cta-book-call:hover .book-call-image {
       filter: brightness(0);
+    }
+
+    #page-header.header-on-dark #cta-book-call:hover .book-call-image {
+      filter: brightness(0) invert(1);
     }
 
     .intro-copy {
@@ -266,10 +333,22 @@
         </nav>
 
         <a href="#contact-form" id="cta-book-call" class="hidden md:inline-flex items-center">
-          <img src="./assets/book_a_call2.png" alt="Book a Call" class="book-call-image" />
+          <img src="./assets/book_me.png" alt="Book me" class="book-call-image" />
         </a>
+
+        <button id="mobile-menu-btn" class="md:hidden p-2" aria-label="Open menu" aria-controls="mobile-menu" aria-expanded="false">
+          <iconify-icon icon="lucide:menu" class="text-2xl"></iconify-icon>
+        </button>
       </div>
     </header>
+    <nav id="mobile-menu" class="mobile-menu-panel md:hidden" aria-label="Mobile menu">
+      <a href="./content-creation.html" class="mobile-menu-link">For venues &amp; brands</a>
+      <a href="./foodie-experience.html" class="mobile-menu-link">Plan your trip</a>
+      <a href="./portfolio.html" class="mobile-menu-link">Portfolio</a>
+      <a href="./about.html" class="mobile-menu-link">About</a>
+      <a href="./contact.html" class="mobile-menu-link">Contact</a>
+      <a href="./content-creation.html#contact-form" class="mobile-menu-cta">Book a Call</a>
+    </nav>
 
     <main class="pt-32">
       <section class="px-6 lg:px-12 max-w-[1440px] mx-auto pb-16 lg:pb-20">
@@ -374,7 +453,7 @@
 
     <footer class="bg-[#0a0a0a] text-white pb-8" id="page-footer">
       <div class="max-w-[1100px] mx-auto px-6 lg:px-12 border-t border-white/12 pt-7 text-sm text-gray-400 flex flex-col md:flex-row items-center justify-between gap-3">
-        <p>designed by Orson Everaert</p>
+        
         <div class="flex items-center gap-5">
           <a href="./index.html" class="hover:text-white transition-colors">Back to Home</a>
           <a href="./portfolio.html" class="hover:text-white transition-colors">Portfolio</a>
@@ -388,8 +467,36 @@
     (() => {
       const pageHeader = document.querySelector("#page-header");
       const darkSurfaceSections = [document.querySelector("#contact-form"), document.querySelector("#page-footer")].filter(Boolean);
+      const mobileMenuBtn = document.querySelector("#mobile-menu-btn");
+      const mobileMenu = document.querySelector("#mobile-menu");
+      const mobileMenuIcon = mobileMenuBtn?.querySelector("iconify-icon");
       const form = document.querySelector("#simple-contact-form");
       const success = document.querySelector("#contact-success");
+
+      const syncMobileMenuTheme = () => {
+        if (!mobileMenu || !pageHeader) return;
+        const onDarkSurface = pageHeader.classList.contains("header-on-dark");
+        mobileMenu.classList.toggle("is-dark", onDarkSurface);
+      };
+
+      const closeMobileMenu = () => {
+        if (!mobileMenuBtn || !mobileMenu) return;
+        mobileMenu.classList.remove("is-open");
+        mobileMenuBtn.setAttribute("aria-expanded", "false");
+        mobileMenuBtn.setAttribute("aria-label", "Open menu");
+        if (mobileMenuIcon) mobileMenuIcon.setAttribute("icon", "lucide:menu");
+        document.body.classList.remove("mobile-menu-open");
+      };
+
+      const openMobileMenu = () => {
+        if (!mobileMenuBtn || !mobileMenu) return;
+        syncMobileMenuTheme();
+        mobileMenu.classList.add("is-open");
+        mobileMenuBtn.setAttribute("aria-expanded", "true");
+        mobileMenuBtn.setAttribute("aria-label", "Close menu");
+        if (mobileMenuIcon) mobileMenuIcon.setAttribute("icon", "lucide:x");
+        document.body.classList.add("mobile-menu-open");
+      };
 
       const syncHeaderContrast = () => {
         if (!pageHeader) return;
@@ -402,6 +509,7 @@
         pageHeader.classList.toggle("text-white", onDarkSurface);
         pageHeader.classList.toggle("header-on-dark", onDarkSurface);
         pageHeader.classList.toggle("header-frosted", isScrolled && !onDarkSurface);
+        syncMobileMenuTheme();
       };
 
       if (form) {
@@ -412,9 +520,45 @@
         });
       }
 
+      if (mobileMenuBtn && mobileMenu) {
+        mobileMenuBtn.addEventListener("click", (event) => {
+          event.stopPropagation();
+          if (mobileMenu.classList.contains("is-open")) {
+            closeMobileMenu();
+          } else {
+            openMobileMenu();
+          }
+        });
+
+        mobileMenu.addEventListener("click", (event) => {
+          event.stopPropagation();
+        });
+
+        mobileMenu.querySelectorAll("a").forEach((link) => {
+          link.addEventListener("click", closeMobileMenu);
+        });
+
+        window.addEventListener("resize", () => {
+          if (window.innerWidth >= 768) closeMobileMenu();
+        });
+
+        window.addEventListener("keydown", (event) => {
+          if (event.key === "Escape") closeMobileMenu();
+        });
+      }
+
       window.addEventListener("scroll", syncHeaderContrast, { passive: true });
       window.addEventListener("resize", syncHeaderContrast);
       syncHeaderContrast();
+
+      document.addEventListener("click", (event) => {
+        if (!mobileMenuBtn || !mobileMenu || !mobileMenu.classList.contains("is-open")) return;
+        const clickedInsideMenu = mobileMenu.contains(event.target);
+        const clickedOnButton = mobileMenuBtn.contains(event.target);
+        if (!clickedInsideMenu && !clickedOnButton) {
+          closeMobileMenu();
+        }
+      });
     })();
   </script>
 </body>
