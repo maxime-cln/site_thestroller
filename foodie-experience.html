@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>The Stroller</title>
+  <title>Foodie Experiences in Lisbon — The Stroller | Concierge & Date Night</title>
+  <meta name="description" content="Discover the best of Lisbon's food scene with a personal foodie concierge. Curated restaurant recommendations and date night experiences." />
   <script src="https://cdn.tailwindcss.com/"></script>
   <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
   <style>
@@ -1346,10 +1347,10 @@
           </div>
 
           <div class="questionnaire-panel" data-questionnaire-panel="foodie" hidden>
-            <form class="questionnaire-form" data-questionnaire-form="foodie">
-              <div class="questionnaire-success" data-questionnaire-success hidden>
-                Thanks. Your Foodie Concierge questionnaire was captured in this prototype. Next step: connect this form to your email/backend or CRM.
-              </div>
+            <form class="questionnaire-form" data-questionnaire-form="foodie" action="https://formsubmit.co/strollinglisbon@gmail.com" method="POST">
+              <input type="hidden" name="_subject" value="New Foodie Concierge inquiry from The Stroller website" />
+              <input type="hidden" name="_captcha" value="false" />
+              <input type="hidden" name="_next" value="https://thestroller.com/foodie-experience.html" />
 
               <div class="questionnaire-grid md:grid-cols-2">
                 <div class="questionnaire-block">
@@ -1416,16 +1417,15 @@
                   <iconify-icon icon="lucide:arrow-right" class="text-lg"></iconify-icon>
                 </button>
                 <button type="button" class="questionnaire-secondary" data-questionnaire-close>Close</button>
-                <p class="questionnaire-footnote">Prototype popup form. I can connect this to email, Formspree, Airtable, or a custom endpoint next.</p>
               </div>
             </form>
           </div>
 
           <div class="questionnaire-panel" data-questionnaire-panel="date-night" hidden>
-            <form class="questionnaire-form" data-questionnaire-form="date-night">
-              <div class="questionnaire-success" data-questionnaire-success hidden>
-                Thanks. Your Date Night Concierge questionnaire was captured in this prototype. Next step: connect this form to your backend / inbox workflow.
-              </div>
+            <form class="questionnaire-form" data-questionnaire-form="date-night" action="https://formsubmit.co/strollinglisbon@gmail.com" method="POST">
+              <input type="hidden" name="_subject" value="New Date Night inquiry from The Stroller website" />
+              <input type="hidden" name="_captcha" value="false" />
+              <input type="hidden" name="_next" value="https://thestroller.com/foodie-experience.html" />
 
               <div class="questionnaire-grid md:grid-cols-2">
                 <div class="questionnaire-block">
@@ -1509,7 +1509,6 @@
                   <iconify-icon icon="lucide:arrow-right" class="text-lg"></iconify-icon>
                 </button>
                 <button type="button" class="questionnaire-secondary" data-questionnaire-close>Close</button>
-                <p class="questionnaire-footnote">Prototype popup form. I can connect this to email, Formspree, Airtable, or a custom endpoint next.</p>
               </div>
             </form>
           </div>
@@ -1692,14 +1691,8 @@
           }
         });
 
-        document.querySelectorAll("[data-questionnaire-form]").forEach((form) => {
-          form.addEventListener("submit", (event) => {
-            event.preventDefault();
-            const success = form.querySelector("[data-questionnaire-success]");
-            if (success) success.hidden = false;
-            form.reset();
-          });
-        });
+
+
       };
 
       if (mobileMenuBtn && mobileMenu) {
