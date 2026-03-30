@@ -879,14 +879,19 @@ body.mobile-menu-open {
   }
 }
 
-.about-copy {
-  max-width: 64ch;
+.about-copy,
+.about-copy-col {
   font-size: clamp(1.05rem, 1.45vw, 1.35rem);
   line-height: 1.6;
   color: rgba(10, 10, 10, 0.85);
 }
 
-.about-copy p {
+.about-copy {
+  max-width: 64ch;
+}
+
+.about-copy p,
+.about-copy-col p {
   margin: 0;
 }
 
@@ -902,32 +907,17 @@ body.mobile-menu-open {
 
 .about-photo-slot {
   position: relative;
-  min-height: 520px;
-  border: 1px solid rgba(10, 10, 10, 0.14);
-  background: #d9d1c7;
   overflow: hidden;
 }
 
 .about-photo-image {
-  position: absolute;
-  inset: 0;
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
+  height: auto;
   display: block;
 }
 
-@media (max-width: 1024px) {
-  .about-photo-slot {
-    min-height: 420px;
-  }
-}
-
-@media (max-width: 768px) {
-  .about-photo-slot {
-    min-height: 360px;
-  }
+.about-copy-col {
+  text-align: justify;
 }
   </style>
 </head>
@@ -968,7 +958,42 @@ body.mobile-menu-open {
     </div>
   </section>
 
-</section><!-- The Selector -->
+</section><!-- About Me — Block 1: text left, photo right -->
+<section id="about-me" class="py-24 px-6 lg:px-12 max-w-[1240px] mx-auto">
+  <p class="text-sm font-semibold tracking-[0.18em] text-gray-400 mb-5 uppercase">About Me</p>
+  <h2 class="text-[clamp(2.9rem,7vw,5.4rem)] leading-[0.94] font-bold tracking-tight mb-14">I've always loved strolling around...</h2>
+  <div class="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-10 lg:gap-14 items-start">
+    <div class="about-copy-col space-y-4">
+      <p>I was the kid always somewhere else in her head. ADHD, they'd say. <span class="about-accent">Dreamer</span>, I prefer.</p>
+      <p>My favorite thing has always been losing myself in a city, an album in my ears, no agenda, just walking.</p>
+      <p>When I arrived in <span class="about-accent">Lisbon</span>, I didn't explore it. I strolled it. Every single day.</p>
+      <p>Years earlier, my dad had to pick five albums titles that sounded like me for a school project. First on his list: <span class="about-accent">Strollin'</span> by Chet Baker. He knew before I did.</p>
+      <p>Food has always been at the center of everything for me, growing up in a family where <span class="about-accent">meals were not just eaten, they were celebrated</span>. That obsession led me to work with restaurants in Brussels, chase flavors through Paris, and eventually land in Lisbon, which completely stole my heart.</p>
+      <p>Somewhere along the way, I discovered I love <span class="about-accent">making videos</span> — not the polished, overproduced kind, but the ones that actually capture what makes a place special. The light at golden hour, the sounds of a busy tasca, the moment you realize you have found something real.</p>
+    </div>
+    <div class="about-photo-slot">
+      <img src="./assets/about_me_lo.png" alt="Portrait of Lo" class="about-photo-image" />
+    </div>
+  </div>
+</section>
+<!-- About Me — Block 2 -->
+<section class="py-24 px-6 lg:px-12 max-w-[1240px] mx-auto">
+  <p class="text-sm font-semibold tracking-[0.18em] text-gray-400 mb-5 uppercase">What I do</p>
+  <h2 class="text-[clamp(2.9rem,7vw,5.4rem)] leading-[0.94] font-bold tracking-tight mb-14">I'm not a food agency. Not a travel agency.</h2>
+  <div class="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-10 lg:gap-14 items-start">
+    <div class="about-photo-slot lg:order-1">
+      <img src="./assets/thestroller_lo_photohome_2.jpeg" alt="Lo in Lisbon" class="about-photo-image" />
+      <p class="text-[0.65rem] text-gray-400 mt-2 tracking-wide">© Dankamcqueen</p>
+    </div>
+    <div class="about-copy-col space-y-4 lg:order-2">
+      <p>Think of me as the friend in Lisbon who knows where to eat, and happens to be good with a camera.</p>
+      <p>I create content for spots that deserve attention but do not have the skills to shine online themselves. <span class="about-accent">Music and visuals</span> are everything: the right frame, the right track, and suddenly people stop scrolling and feel something.</p>
+      <p>Now I share hidden gems with <span class="about-accent">+15k followers</span> on social media and help restaurants tell their stories through video.</p>
+      <p>Whether you are visiting Lisbon or running a spot that needs to be seen, let us <span class="about-accent">create something that connects</span>.</p>
+    </div>
+  </div>
+</section>
+<!-- The Selector -->
 <section id="selector" class="py-28 px-6 lg:px-12 max-w-[1240px] mx-auto">
   <div class="mb-16 lg:mb-20">
     <p class="text-sm font-semibold tracking-[0.18em] text-gray-400 mb-5 uppercase">How can I help you?</p>
@@ -978,7 +1003,7 @@ body.mobile-menu-open {
     <a href="./content-creation.html" id="selector-b2b" class="selector-option selector-option--brands">
       <div class="selector-option-copy">
         <p class="selector-option-label">Service 01</p>
-        <h3 class="selector-option-title">For Venues & Brands</h3>
+        <h3 class="selector-option-title">For Lisbon businesses</h3>
         <p class="selector-option-subtitle">Social media content creation for hospitality venues.</p>
       </div>
     </a>
@@ -986,74 +1011,18 @@ body.mobile-menu-open {
     <a href="./foodie-experience.html" id="selector-b2c" class="selector-option selector-option--travelers">
       <div class="selector-option-copy">
         <p class="selector-option-label">Service 02</p>
-        <h3 class="selector-option-title">For Travelers</h3>
+        <h3 class="selector-option-title">For food explorers</h3>
         <p class="selector-option-subtitle">Foodie concierge and date-night planning in Lisbon.</p>
       </div>
     </a>
   </div>
 </section>
-<!-- About Me -->
-<section id="about-me" class="py-24 px-6 lg:px-12 max-w-[1240px] mx-auto">
-  <p class="text-sm font-semibold tracking-[0.18em] text-gray-400 mb-5 uppercase">About Me</p>
-  <div class="grid grid-cols-1 lg:grid-cols-[1.15fr_0.85fr] gap-10 lg:gap-14 items-start">
-    <div>
-      <h2 class="text-[clamp(2.9rem,7vw,5.4rem)] leading-[0.94] font-bold tracking-tight mb-10">Why The Stroller?</h2>
-      <div class="about-copy space-y-5">
-        <p>I was the kid always somewhere else in her head. ADHD, they'd say. <em>Dreamer</em>, I prefer.</p>
-        <p>My favorite thing has always been losing myself in a city, an album in my ears, no agenda, just walking.</p>
-        <p>When I arrived in Lisbon, I didn't explore it. I strolled it. Every single day.</p>
-        <p>Years earlier, my dad had to pick five albums titles that sounded like me for a school project. First on his list: <em>Strollin'</em> by Chet Baker.<br/>He knew before I did.</p>
-
-        <hr />
-
-        <p>Food has always been at the center of everything for me, growing up in a family where meals were not just eaten, they were celebrated. That obsession led me to work with restaurants in Brussels, chase flavors through Paris, and eventually land in Lisbon, which completely stole my heart.</p>
-        <p>Somewhere along the way, I discovered I love making videos — not the polished, overproduced kind, but the ones that actually capture what makes a place special. The light at golden hour, the sounds of a busy tasca, the moment you realize you have found something real.</p>
-        <p>I create content for spots that deserve attention but do not have the skills to shine online themselves. Music and visuals are everything: the right frame, the right track, and suddenly people stop scrolling and feel something.</p>
-        <p>Now I share hidden gems with <span class="about-accent">+15k followers</span> on social media and help restaurants tell their stories through video.</p>
-        <p>Whether you are visiting Lisbon or running a spot that needs to be seen, let us create something that connects.</p>
-      </div>
-      <blockquote class="mt-12 text-[clamp(1.15rem,1.8vw,1.5rem)] font-bold leading-[1.45] max-w-[52ch]">
-        "I'm not a food agency. Not a travel agency.<br/>Think of me as the friend in Lisbon who knows where to eat, and happens to be good with a camera."
-      </blockquote>
-    </div>
-    <div class="about-photo-slot">
-      <img src="./assets/about_me_lo.png" alt="Portrait of Lo" class="about-photo-image" />
-    </div>
-  </div>
-</section>
-<!-- Social Proof Bar -->
-<section class="border-y border-black/10 py-8 overflow-hidden bg-[#eeefea]">
-  <div class="marquee-track flex items-center whitespace-nowrap">
-    <div class="partner-marquee-group">
-      <span class="partner-logo-slot"><img src="./assets/partner_gulbenkian.png" alt="Calouste Gulbenkian" class="partner-logo"/></span>
-      <span class="partner-logo-slot"><img src="./assets/partner_capture_111532.png" alt="Partner logo" class="partner-logo"/></span>
-      <span class="partner-logo-slot"><img src="./assets/partner_li_restaurant_week.png" alt="Lisbon Insiders" class="partner-logo"/></span>
-      <span class="partner-logo-slot"><img src="./assets/partner_gulbenkian.png" alt="Calouste Gulbenkian" class="partner-logo"/></span>
-      <span class="partner-logo-slot"><img src="./assets/partner_capture_111532.png" alt="Partner logo" class="partner-logo"/></span>
-      <span class="partner-logo-slot"><img src="./assets/partner_li_restaurant_week.png" alt="Lisbon Insiders" class="partner-logo"/></span>
-      <span class="partner-logo-slot"><img src="./assets/partner_gulbenkian.png" alt="Calouste Gulbenkian" class="partner-logo"/></span>
-      <span class="partner-logo-slot"><img src="./assets/partner_capture_111532.png" alt="Partner logo" class="partner-logo"/></span>
-      <span class="partner-logo-slot"><img src="./assets/partner_li_restaurant_week.png" alt="Lisbon Insiders" class="partner-logo"/></span>
-    </div>
-    <div class="partner-marquee-group" aria-hidden="true">
-      <span class="partner-logo-slot"><img src="./assets/partner_gulbenkian.png" alt="Calouste Gulbenkian" class="partner-logo"/></span>
-      <span class="partner-logo-slot"><img src="./assets/partner_capture_111532.png" alt="Partner logo" class="partner-logo"/></span>
-      <span class="partner-logo-slot"><img src="./assets/partner_li_restaurant_week.png" alt="Lisbon Insiders" class="partner-logo"/></span>
-      <span class="partner-logo-slot"><img src="./assets/partner_gulbenkian.png" alt="Calouste Gulbenkian" class="partner-logo"/></span>
-      <span class="partner-logo-slot"><img src="./assets/partner_capture_111532.png" alt="Partner logo" class="partner-logo"/></span>
-      <span class="partner-logo-slot"><img src="./assets/partner_li_restaurant_week.png" alt="Lisbon Insiders" class="partner-logo"/></span>
-      <span class="partner-logo-slot"><img src="./assets/partner_gulbenkian.png" alt="Calouste Gulbenkian" class="partner-logo"/></span>
-      <span class="partner-logo-slot"><img src="./assets/partner_capture_111532.png" alt="Partner logo" class="partner-logo"/></span>
-      <span class="partner-logo-slot"><img src="./assets/partner_li_restaurant_week.png" alt="Lisbon Insiders" class="partner-logo"/></span>
-    </div>
-  </div>
-</section>
 <!-- Latest Content Grid -->
-<section id="latest-content" class="py-24 px-6 lg:px-12 max-w-[1440px] mx-auto bg-[#eeefea]">
+<section id="latest-content" class="py-24 px-6 lg:px-12 max-w-[1240px] mx-auto bg-[#eeefea]">
   <div class="fresh-feed-carousel-head">
     <div>
       <p class="text-sm font-semibold tracking-widest text-gray-400 mb-4 uppercase">My Latest Work</p>
-      <h2 class="text-4xl lg:text-5xl font-bold tracking-tight">Fresh from the feed</h2>
+      <h2 class="text-[clamp(3.2rem,7vw,5.4rem)] leading-[0.94] font-bold tracking-tight">Fresh from the feed</h2>
     </div>
     <div class="fresh-feed-carousel-controls">
       <a href="./portfolio.html" id="view-all-content" class="hidden md:flex items-center gap-2 text-sm font-bold hover:text-[#5db689] transition-colors uppercase tracking-[0.08em]">
@@ -1260,6 +1229,33 @@ body.mobile-menu-open {
       <iconify-icon icon="lucide:arrow-right" class="text-lg"></iconify-icon>
     </button>
   </div>
+  </div>
+</section>
+<!-- Social Proof Bar -->
+<section class="border-y border-black/10 py-8 overflow-hidden bg-[#eeefea]">
+  <div class="marquee-track flex items-center whitespace-nowrap">
+    <div class="partner-marquee-group">
+      <span class="partner-logo-slot"><img src="./assets/partner_gulbenkian.png" alt="Calouste Gulbenkian" class="partner-logo"/></span>
+      <span class="partner-logo-slot"><img src="./assets/partner_capture_111532.png" alt="Partner logo" class="partner-logo"/></span>
+      <span class="partner-logo-slot"><img src="./assets/partner_li_restaurant_week.png" alt="Lisbon Insiders" class="partner-logo"/></span>
+      <span class="partner-logo-slot"><img src="./assets/partner_gulbenkian.png" alt="Calouste Gulbenkian" class="partner-logo"/></span>
+      <span class="partner-logo-slot"><img src="./assets/partner_capture_111532.png" alt="Partner logo" class="partner-logo"/></span>
+      <span class="partner-logo-slot"><img src="./assets/partner_li_restaurant_week.png" alt="Lisbon Insiders" class="partner-logo"/></span>
+      <span class="partner-logo-slot"><img src="./assets/partner_gulbenkian.png" alt="Calouste Gulbenkian" class="partner-logo"/></span>
+      <span class="partner-logo-slot"><img src="./assets/partner_capture_111532.png" alt="Partner logo" class="partner-logo"/></span>
+      <span class="partner-logo-slot"><img src="./assets/partner_li_restaurant_week.png" alt="Lisbon Insiders" class="partner-logo"/></span>
+    </div>
+    <div class="partner-marquee-group" aria-hidden="true">
+      <span class="partner-logo-slot"><img src="./assets/partner_gulbenkian.png" alt="Calouste Gulbenkian" class="partner-logo"/></span>
+      <span class="partner-logo-slot"><img src="./assets/partner_capture_111532.png" alt="Partner logo" class="partner-logo"/></span>
+      <span class="partner-logo-slot"><img src="./assets/partner_li_restaurant_week.png" alt="Lisbon Insiders" class="partner-logo"/></span>
+      <span class="partner-logo-slot"><img src="./assets/partner_gulbenkian.png" alt="Calouste Gulbenkian" class="partner-logo"/></span>
+      <span class="partner-logo-slot"><img src="./assets/partner_capture_111532.png" alt="Partner logo" class="partner-logo"/></span>
+      <span class="partner-logo-slot"><img src="./assets/partner_li_restaurant_week.png" alt="Lisbon Insiders" class="partner-logo"/></span>
+      <span class="partner-logo-slot"><img src="./assets/partner_gulbenkian.png" alt="Calouste Gulbenkian" class="partner-logo"/></span>
+      <span class="partner-logo-slot"><img src="./assets/partner_capture_111532.png" alt="Partner logo" class="partner-logo"/></span>
+      <span class="partner-logo-slot"><img src="./assets/partner_li_restaurant_week.png" alt="Lisbon Insiders" class="partner-logo"/></span>
+    </div>
   </div>
 </section>
 <!-- Testimonial Section -->

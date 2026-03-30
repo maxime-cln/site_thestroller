@@ -441,13 +441,17 @@
 
                 <input type="hidden" name="_subject" value="New contact from The Stroller website" />
                 <input type="hidden" name="_captcha" value="false" />
-                <input type="hidden" name="_next" value="https://thestroller.me/bookme.html#contact-form" />
+                <input type="hidden" name="_next" value="https://thestroller.me/bookme.html?sent=1#contact-form" />
 
                 <button type="submit" class="inline-flex items-center gap-3 bg-[#5db689] text-[#0a0a0a] px-7 py-3.5 text-sm font-bold tracking-wide uppercase hover:bg-[#00a8f0] transition-colors">
                   Send Message
                   <iconify-icon icon="lucide:arrow-right" class="text-xl"></iconify-icon>
                 </button>
               </form>
+              <div id="form-success" class="hidden mt-6 p-5 bg-[#5db689]/15 border border-[#5db689]/30 text-white">
+                <p class="font-bold text-lg mb-1">Message sent!</p>
+                <p class="text-white/75 text-sm">Thanks for reaching out. Lo will get back to you soon.</p>
+              </div>
             </div>
           </div>
         </div>
@@ -468,6 +472,13 @@
 
   <script>
     (() => {
+      if (new URLSearchParams(window.location.search).has("sent")) {
+        const form = document.querySelector("#simple-contact-form");
+        const success = document.querySelector("#form-success");
+        if (form) form.classList.add("hidden");
+        if (success) success.classList.remove("hidden");
+      }
+
       const pageHeader = document.querySelector("#page-header");
       const darkSurfaceSections = [document.querySelector("#contact-form"), document.querySelector("#page-footer")].filter(Boolean);
       const mobileMenuBtn = document.querySelector("#mobile-menu-btn");

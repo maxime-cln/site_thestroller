@@ -1350,7 +1350,7 @@
             <form class="questionnaire-form" data-questionnaire-form="foodie" action="https://formsubmit.co/strollinglisbon@gmail.com" method="POST">
               <input type="hidden" name="_subject" value="New Foodie Concierge inquiry from The Stroller website" />
               <input type="hidden" name="_captcha" value="false" />
-              <input type="hidden" name="_next" value="https://thestroller.me/foodie-experience.html" />
+              <input type="hidden" name="_next" value="https://thestroller.me/foodie-experience.html?sent=1" />
 
               <div class="questionnaire-grid md:grid-cols-2">
                 <div class="questionnaire-block">
@@ -1425,7 +1425,7 @@
             <form class="questionnaire-form" data-questionnaire-form="date-night" action="https://formsubmit.co/strollinglisbon@gmail.com" method="POST">
               <input type="hidden" name="_subject" value="New Date Night inquiry from The Stroller website" />
               <input type="hidden" name="_captcha" value="false" />
-              <input type="hidden" name="_next" value="https://thestroller.me/foodie-experience.html" />
+              <input type="hidden" name="_next" value="https://thestroller.me/foodie-experience.html?sent=1" />
 
               <div class="questionnaire-grid md:grid-cols-2">
                 <div class="questionnaire-block">
@@ -1530,6 +1530,16 @@
 
   <script>
     (() => {
+      if (new URLSearchParams(window.location.search).has("sent")) {
+        const contact = document.querySelector("#foodie-contact");
+        if (contact) {
+          const banner = document.createElement("div");
+          banner.className = "p-5 mb-6 bg-[#5db689]/15 border border-[#5db689]/30 text-white";
+          banner.innerHTML = '<p class="font-bold text-lg mb-1">Message sent!</p><p class="text-white/75 text-sm">Thanks for reaching out. Lo will get back to you soon.</p>';
+          contact.querySelector(".max-w-\\[1180px\\]")?.prepend(banner);
+        }
+      }
+
       const pageHeader = document.querySelector("#page-header");
       const darkSurfaceSections = [document.querySelector("#foodie-contact"), document.querySelector("#page-footer")].filter(Boolean);
       const mobileMenuBtn = document.querySelector("#mobile-menu-btn");
