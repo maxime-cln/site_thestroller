@@ -365,33 +365,102 @@
       white-space: nowrap;
     }
 
-    .portfolio-sound-toggle {
+    .portfolio-overlay {
       position: absolute;
-      top: 0.45rem;
-      left: 0.45rem;
-      z-index: 4;
-      width: 1.95rem;
-      height: 1.95rem;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(to top, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.4) 16%, rgba(0,0,0,0) 42%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .portfolio-media.is-playing .portfolio-overlay {
+      opacity: 1;
+    }
+
+    .portfolio-controls {
+      position: absolute;
+      left: 0.6rem;
+      right: 0.6rem;
+      bottom: 0.6rem;
+      color: #ffffff;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .portfolio-media.is-playing .portfolio-controls {
+      opacity: 1;
+    }
+
+    .portfolio-progress {
+      -webkit-appearance: none;
+      appearance: none;
+      pointer-events: auto;
+      cursor: pointer;
+      width: 100%;
+      height: 4px;
       border-radius: 999px;
-      border: 1px solid rgba(18, 18, 18, 0.08);
-      background: rgba(255, 255, 255, 0.92);
-      color: #1b1b1b;
+      --progress: 0%;
+      background: linear-gradient(to right, #fff 0%, #fff var(--progress), rgba(255,255,255,0.34) var(--progress), rgba(255,255,255,0.34) 100%);
+      margin-bottom: 0.5rem;
+    }
+
+    .portfolio-progress::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      border: 0;
+      background: #fff;
+      box-shadow: 0 0 0 2px rgba(10,10,10,0.25);
+    }
+
+    .portfolio-progress::-moz-range-thumb {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      border: 0;
+      background: #fff;
+      box-shadow: 0 0 0 2px rgba(10,10,10,0.25);
+    }
+
+    .portfolio-ctrl-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.82rem;
+      line-height: 1;
+    }
+
+    .portfolio-ctrl-left,
+    .portfolio-ctrl-right {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .portfolio-ctrl-btn {
+      pointer-events: auto;
+      cursor: pointer;
+      border: 0;
+      background: transparent;
+      color: #fff;
+      padding: 0;
+      line-height: 1;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      cursor: pointer;
-      transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
     }
 
-    .portfolio-sound-toggle:hover {
-      background: #5db689;
-      border-color: #5db689;
-      color: #0a0a0a;
+    .portfolio-ctrl-btn:hover {
+      opacity: 0.82;
     }
 
-    .portfolio-sound-toggle iconify-icon {
-      pointer-events: none;
-      font-size: 1rem;
+    .portfolio-ctrl-time {
+      white-space: nowrap;
+      font-size: 0.72rem;
     }
 
     .portfolio-meta {
@@ -1085,9 +1154,12 @@
         });
       }
 
-      const canHoverPreview = window.matchMedia('(hover: hover) and (pointer: fine)');
+      const formatTime = (s) => {
+        if (!Number.isFinite(s) || s < 0) return '0:00';
+        const m = Math.floor(s / 60);
+        return m + ':' + String(Math.floor(s % 60)).padStart(2, '0');
+      };
 
-      // Videos play only on hover (desktop) or touch (mobile/tablet).
       document.querySelectorAll('#portfolio-grid .portfolio-media').forEach((media) => {
         const video = media.querySelector('video');
         if (!video) return;
@@ -1097,61 +1169,99 @@
         video.loop = true;
         video.preload = 'metadata';
 
-        const soundToggle = document.createElement('button');
-        soundToggle.type = 'button';
-        soundToggle.className = 'portfolio-sound-toggle';
-        soundToggle.setAttribute('aria-label', 'Activate sound');
-        soundToggle.innerHTML = '<iconify-icon icon="lucide:volume-x"></iconify-icon>';
-        media.appendChild(soundToggle);
+        // Build overlay + controls
+        const overlay = document.createElement('div');
+        overlay.className = 'portfolio-overlay';
+        media.appendChild(overlay);
 
-        const syncSoundToggle = () => {
-          const icon = soundToggle.querySelector('iconify-icon');
-          if (!icon) return;
-          const isMuted = video.muted;
-          icon.setAttribute('icon', isMuted ? 'lucide:volume-x' : 'lucide:volume-2');
-          soundToggle.setAttribute('aria-label', isMuted ? 'Activate sound' : 'Deactivate sound');
+        const controls = document.createElement('div');
+        controls.className = 'portfolio-controls';
+        controls.innerHTML = `
+          <input class="portfolio-progress" type="range" min="0" max="100" step="0.1" value="0" aria-label="Video progress"/>
+          <div class="portfolio-ctrl-row">
+            <div class="portfolio-ctrl-left">
+              <button type="button" class="portfolio-ctrl-btn" data-action="play" aria-label="Play video">
+                <iconify-icon data-icon-play icon="lucide:play" class="text-[0.95rem]"></iconify-icon>
+              </button>
+              <span class="portfolio-ctrl-time" data-time>0:00 / 0:00</span>
+            </div>
+            <div class="portfolio-ctrl-right">
+              <button type="button" class="portfolio-ctrl-btn" data-action="mute" aria-label="Mute video">
+                <iconify-icon data-icon-mute icon="lucide:volume-x" class="text-[0.95rem]"></iconify-icon>
+              </button>
+              <button type="button" class="portfolio-ctrl-btn" data-action="fullscreen" aria-label="Fullscreen">
+                <iconify-icon icon="lucide:maximize" class="text-[0.95rem]"></iconify-icon>
+              </button>
+            </div>
+          </div>`;
+        media.appendChild(controls);
+
+        const progress = controls.querySelector('.portfolio-progress');
+        const playIcon = controls.querySelector('[data-icon-play]');
+        const muteIcon = controls.querySelector('[data-icon-mute]');
+        const timeEl = controls.querySelector('[data-time]');
+
+        const syncPlay = () => {
+          if (!playIcon) return;
+          playIcon.setAttribute('icon', video.paused ? 'lucide:play' : 'lucide:pause');
+          media.classList.toggle('is-playing', !video.paused);
         };
 
-        const startPreview = () => {
-          const playPromise = video.play();
-          if (playPromise && typeof playPromise.catch === 'function') playPromise.catch(() => {});
+        const syncMute = () => {
+          if (!muteIcon) return;
+          muteIcon.setAttribute('icon', video.muted ? 'lucide:volume-x' : 'lucide:volume-2');
         };
 
-        const stopPreview = () => {
-          video.pause();
-          video.currentTime = 0;
+        const syncProgress = () => {
+          if (!video.duration) return;
+          const pct = (video.currentTime / video.duration) * 100;
+          progress.value = pct;
+          progress.style.setProperty('--progress', pct + '%');
+          if (timeEl) timeEl.textContent = formatTime(video.currentTime) + ' / ' + formatTime(video.duration);
         };
 
-        media.addEventListener('mouseenter', () => {
-          if (canHoverPreview.matches) startPreview();
-        });
-
-        media.addEventListener('mouseleave', () => {
-          if (canHoverPreview.matches) stopPreview();
-        });
-
-        media.addEventListener('pointerdown', (event) => {
-          if (event.pointerType === 'mouse') return;
+        // Click on video area to play/pause
+        media.addEventListener('click', (e) => {
+          if (e.target.closest('.portfolio-controls') || e.target.closest('.portfolio-pill')) return;
           if (video.paused) {
-            startPreview();
+            video.play().catch(() => {});
           } else {
-            stopPreview();
+            video.pause();
           }
         });
 
-        soundToggle.addEventListener('pointerdown', (event) => {
-          event.stopPropagation();
+        controls.querySelector('[data-action="play"]').addEventListener('click', (e) => {
+          e.stopPropagation();
+          if (video.paused) { video.play().catch(() => {}); } else { video.pause(); }
         });
 
-        soundToggle.addEventListener('click', (event) => {
-          event.stopPropagation();
+        controls.querySelector('[data-action="mute"]').addEventListener('click', (e) => {
+          e.stopPropagation();
           video.muted = !video.muted;
-          syncSoundToggle();
-          if (video.paused && !video.muted) startPreview();
+          syncMute();
+          if (!video.muted && video.paused) video.play().catch(() => {});
         });
 
-        video.addEventListener('volumechange', syncSoundToggle);
-        syncSoundToggle();
+        controls.querySelector('[data-action="fullscreen"]').addEventListener('click', (e) => {
+          e.stopPropagation();
+          if (video.requestFullscreen) video.requestFullscreen();
+          else if (video.webkitRequestFullscreen) video.webkitRequestFullscreen();
+          else if (video.webkitEnterFullscreen) video.webkitEnterFullscreen();
+        });
+
+        progress.addEventListener('input', (e) => {
+          e.stopPropagation();
+          if (!video.duration) return;
+          video.currentTime = (progress.value / 100) * video.duration;
+        });
+
+        video.addEventListener('play', syncPlay);
+        video.addEventListener('pause', syncPlay);
+        video.addEventListener('timeupdate', syncProgress);
+        video.addEventListener('loadedmetadata', syncProgress);
+        video.addEventListener('volumechange', syncMute);
+        syncPlay();
+        syncMute();
       });
 
       window.addEventListener('scroll', syncHeaderContrast, { passive: true });
