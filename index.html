@@ -907,8 +907,6 @@ body.mobile-menu-open {
 
 .about-photo-slot {
   position: relative;
-  border: 1px solid rgba(10, 10, 10, 0.14);
-  background: #d9d1c7;
   overflow: hidden;
 }
 
@@ -919,7 +917,18 @@ body.mobile-menu-open {
 }
 
 .about-copy-col {
-  max-width: 48ch;
+  column-count: 2;
+  column-gap: 2rem;
+}
+
+.about-copy-col p {
+  break-inside: avoid;
+}
+
+@media (max-width: 768px) {
+  .about-copy-col {
+    column-count: 1;
+  }
 }
   </style>
 </head>
@@ -964,36 +973,31 @@ body.mobile-menu-open {
 <section id="about-me" class="py-24 px-6 lg:px-12 max-w-[1240px] mx-auto">
   <p class="text-sm font-semibold tracking-[0.18em] text-gray-400 mb-5 uppercase">About Me</p>
   <h2 class="text-[clamp(2.9rem,7vw,5.4rem)] leading-[0.94] font-bold tracking-tight mb-14">I've always loved strolling around...</h2>
-  <div class="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-10 lg:gap-14 items-start">
-    <div class="about-copy-col space-y-5">
-      <p>I was the kid always somewhere else in her head. ADHD, they'd say. <span class="about-accent">Dreamer</span>, I prefer.</p>
-      <p>My favorite thing has always been losing myself in a city, an album in my ears, no agenda, just walking.</p>
-      <p>When I arrived in <span class="about-accent">Lisbon</span>, I didn't explore it. I strolled it. Every single day.</p>
-      <p>Years earlier, my dad had to pick five albums titles that sounded like me for a school project. First on his list: <span class="about-accent">Strollin'</span> by Chet Baker.<br/>He knew before I did.</p>
-      <p>Food has always been at the center of everything for me, growing up in a family where <span class="about-accent">meals were not just eaten, they were celebrated</span>. That obsession led me to work with restaurants in Brussels, chase flavors through Paris, and eventually land in Lisbon, which completely stole my heart.</p>
-      <p>Somewhere along the way, I discovered I love <span class="about-accent">making videos</span> — not the polished, overproduced kind, but the ones that actually capture what makes a place special. The light at golden hour, the sounds of a busy tasca, the moment you realize you have found something real.</p>
-    </div>
-    <div class="about-photo-slot">
-      <img src="./assets/about_me_lo.png" alt="Portrait of Lo" class="about-photo-image" />
-    </div>
+  <div class="about-photo-slot mb-10 max-w-[560px]">
+    <img src="./assets/about_me_lo.png" alt="Portrait of Lo" class="about-photo-image" />
+  </div>
+  <div class="about-copy-col space-y-5">
+    <p>I was the kid always somewhere else in her head. ADHD, they'd say. <span class="about-accent">Dreamer</span>, I prefer.</p>
+    <p>My favorite thing has always been losing myself in a city, an album in my ears, no agenda, just walking.</p>
+    <p>When I arrived in <span class="about-accent">Lisbon</span>, I didn't explore it. I strolled it. Every single day.</p>
+    <p>Years earlier, my dad had to pick five albums titles that sounded like me for a school project. First on his list: <span class="about-accent">Strollin'</span> by Chet Baker.<br/>He knew before I did.</p>
+    <p>Food has always been at the center of everything for me, growing up in a family where <span class="about-accent">meals were not just eaten, they were celebrated</span>. That obsession led me to work with restaurants in Brussels, chase flavors through Paris, and eventually land in Lisbon, which completely stole my heart.</p>
+    <p>Somewhere along the way, I discovered I love <span class="about-accent">making videos</span> — not the polished, overproduced kind, but the ones that actually capture what makes a place special. The light at golden hour, the sounds of a busy tasca, the moment you realize you have found something real.</p>
   </div>
 </section>
-<!-- About Me — Block 2: photo left, text right (mirror) -->
+<!-- About Me — Block 2 -->
 <section class="py-24 px-6 lg:px-12 max-w-[1240px] mx-auto">
+  <p class="text-sm font-semibold tracking-[0.18em] text-gray-400 mb-5 uppercase">What I do</p>
   <h2 class="text-[clamp(2.9rem,7vw,5.4rem)] leading-[0.94] font-bold tracking-tight mb-14">I'm not a food agency. Not a travel agency.</h2>
-  <div class="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-10 lg:gap-14 items-start">
-    <div class="lg:order-1">
-      <div class="about-photo-slot">
-        <img src="./assets/thestroller_lo_photohome_2.jpeg" alt="Lo in Lisbon" class="about-photo-image" />
-      </div>
-      <p class="text-[0.65rem] text-gray-400 mt-2 tracking-wide">© Dankamcqueen</p>
-    </div>
-    <div class="about-copy-col space-y-5 lg:order-2">
-      <p>Think of me as the friend in Lisbon who knows where to eat, and happens to be good with a camera.</p>
-      <p>I create content for spots that deserve attention but do not have the skills to shine online themselves. <span class="about-accent">Music and visuals</span> are everything: the right frame, the right track, and suddenly people stop scrolling and feel something.</p>
-      <p>Now I share hidden gems with <span class="about-accent">+15k followers</span> on social media and help restaurants tell their stories through video.</p>
-      <p>Whether you are visiting Lisbon or running a spot that needs to be seen, let us <span class="about-accent">create something that connects</span>.</p>
-    </div>
+  <div class="about-photo-slot mb-10 max-w-[560px]">
+    <img src="./assets/thestroller_lo_photohome_2.jpeg" alt="Lo in Lisbon" class="about-photo-image" />
+  </div>
+  <p class="text-[0.65rem] text-gray-400 mt-[-0.5rem] mb-8 tracking-wide">© Dankamcqueen</p>
+  <div class="about-copy-col space-y-5">
+    <p>Think of me as the friend in Lisbon who knows where to eat, and happens to be good with a camera.</p>
+    <p>I create content for spots that deserve attention but do not have the skills to shine online themselves. <span class="about-accent">Music and visuals</span> are everything: the right frame, the right track, and suddenly people stop scrolling and feel something.</p>
+    <p>Now I share hidden gems with <span class="about-accent">+15k followers</span> on social media and help restaurants tell their stories through video.</p>
+    <p>Whether you are visiting Lisbon or running a spot that needs to be seen, let us <span class="about-accent">create something that connects</span>.</p>
   </div>
 </section>
 <!-- The Selector -->
@@ -1021,7 +1025,7 @@ body.mobile-menu-open {
   </div>
 </section>
 <!-- Latest Content Grid -->
-<section id="latest-content" class="py-24 px-6 lg:px-12 max-w-[1440px] mx-auto bg-[#eeefea]">
+<section id="latest-content" class="py-24 px-6 lg:px-12 max-w-[1240px] mx-auto bg-[#eeefea]">
   <div class="fresh-feed-carousel-head">
     <div>
       <p class="text-sm font-semibold tracking-widest text-gray-400 mb-4 uppercase">My Latest Work</p>
