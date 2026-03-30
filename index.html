@@ -879,14 +879,19 @@ body.mobile-menu-open {
   }
 }
 
-.about-copy {
-  max-width: 64ch;
+.about-copy,
+.about-copy-col {
   font-size: clamp(1.05rem, 1.45vw, 1.35rem);
   line-height: 1.6;
   color: rgba(10, 10, 10, 0.85);
 }
 
-.about-copy p {
+.about-copy {
+  max-width: 64ch;
+}
+
+.about-copy p,
+.about-copy-col p {
   margin: 0;
 }
 
@@ -968,12 +973,12 @@ body.mobile-menu-open {
     </div>
   </section>
 
-</section><!-- About Me -->
+</section><!-- About Me — Block 1: text left, photo right -->
 <section id="about-me" class="py-24 px-6 lg:px-12 max-w-[1240px] mx-auto">
   <p class="text-sm font-semibold tracking-[0.18em] text-gray-400 mb-5 uppercase">About Me</p>
   <h2 class="text-[clamp(2.9rem,7vw,5.4rem)] leading-[0.94] font-bold tracking-tight mb-14">I've always loved strolling around...</h2>
   <div class="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-10 lg:gap-14 items-stretch">
-    <div class="about-copy space-y-5">
+    <div class="about-copy-col space-y-5">
       <p>I was the kid always somewhere else in her head. ADHD, they'd say. <span class="about-accent">Dreamer</span>, I prefer.</p>
       <p>My favorite thing has always been losing myself in a city, an album in my ears, no agenda, just walking.</p>
       <p>When I arrived in <span class="about-accent">Lisbon</span>, I didn't explore it. I strolled it. Every single day.</p>
@@ -986,13 +991,21 @@ body.mobile-menu-open {
     </div>
   </div>
 </section>
-<!-- Statement -->
-<section class="py-20 px-6 lg:px-12 max-w-[1240px] mx-auto">
-  <h2 class="text-[clamp(2.4rem,5.5vw,4.2rem)] leading-[1] font-bold tracking-tight mb-10">I'm not a food agency. Not a travel agency.<br/>Think of me as the friend in Lisbon who knows where to eat, and happens to be good with a camera.</h2>
-  <div class="about-copy space-y-5">
-    <p>I create content for spots that deserve attention but do not have the skills to shine online themselves. <span class="about-accent">Music and visuals</span> are everything: the right frame, the right track, and suddenly people stop scrolling and feel something.</p>
-    <p>Now I share hidden gems with <span class="about-accent">+15k followers</span> on social media and help restaurants tell their stories through video.</p>
-    <p>Whether you are visiting Lisbon or running a spot that needs to be seen, let us <span class="about-accent">create something that connects</span>.</p>
+<!-- About Me — Block 2: photo left, text right (mirror) -->
+<section class="py-24 px-6 lg:px-12 max-w-[1240px] mx-auto">
+  <div class="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-10 lg:gap-14 items-stretch">
+    <div class="lg:order-1">
+      <div class="about-photo-slot">
+        <img src="./assets/thestroller_lo_photohome_2.jpeg" alt="Lo in Lisbon" class="about-photo-image" />
+      </div>
+      <p class="text-[0.65rem] text-gray-400 mt-2 tracking-wide">© Dankamcqueen</p>
+    </div>
+    <div class="about-copy-col space-y-5 lg:order-2">
+      <p class="text-[clamp(1.3rem,2vw,1.65rem)] font-bold leading-[1.35]">I'm not a food agency. Not a travel agency. Think of me as the friend in Lisbon who knows where to eat, and happens to be good with a camera.</p>
+      <p>I create content for spots that deserve attention but do not have the skills to shine online themselves. <span class="about-accent">Music and visuals</span> are everything: the right frame, the right track, and suddenly people stop scrolling and feel something.</p>
+      <p>Now I share hidden gems with <span class="about-accent">+15k followers</span> on social media and help restaurants tell their stories through video.</p>
+      <p>Whether you are visiting Lisbon or running a spot that needs to be seen, let us <span class="about-accent">create something that connects</span>.</p>
+    </div>
   </div>
 </section>
 <!-- The Selector -->
