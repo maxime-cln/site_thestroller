@@ -907,32 +907,19 @@ body.mobile-menu-open {
 
 .about-photo-slot {
   position: relative;
-  min-height: 520px;
   border: 1px solid rgba(10, 10, 10, 0.14);
   background: #d9d1c7;
   overflow: hidden;
 }
 
 .about-photo-image {
-  position: absolute;
-  inset: 0;
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
+  height: auto;
   display: block;
 }
 
-@media (max-width: 1024px) {
-  .about-photo-slot {
-    min-height: 420px;
-  }
-}
-
-@media (max-width: 768px) {
-  .about-photo-slot {
-    min-height: 360px;
-  }
+.about-copy-col {
+  max-width: 48ch;
 }
   </style>
 </head>
@@ -977,7 +964,7 @@ body.mobile-menu-open {
 <section id="about-me" class="py-24 px-6 lg:px-12 max-w-[1240px] mx-auto">
   <p class="text-sm font-semibold tracking-[0.18em] text-gray-400 mb-5 uppercase">About Me</p>
   <h2 class="text-[clamp(2.9rem,7vw,5.4rem)] leading-[0.94] font-bold tracking-tight mb-14">I've always loved strolling around...</h2>
-  <div class="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-10 lg:gap-14 items-stretch">
+  <div class="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-10 lg:gap-14 items-start">
     <div class="about-copy-col space-y-5">
       <p>I was the kid always somewhere else in her head. ADHD, they'd say. <span class="about-accent">Dreamer</span>, I prefer.</p>
       <p>My favorite thing has always been losing myself in a city, an album in my ears, no agenda, just walking.</p>
@@ -993,7 +980,8 @@ body.mobile-menu-open {
 </section>
 <!-- About Me — Block 2: photo left, text right (mirror) -->
 <section class="py-24 px-6 lg:px-12 max-w-[1240px] mx-auto">
-  <div class="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-10 lg:gap-14 items-stretch">
+  <h2 class="text-[clamp(2.9rem,7vw,5.4rem)] leading-[0.94] font-bold tracking-tight mb-14">I'm not a food agency. Not a travel agency.</h2>
+  <div class="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-10 lg:gap-14 items-start">
     <div class="lg:order-1">
       <div class="about-photo-slot">
         <img src="./assets/thestroller_lo_photohome_2.jpeg" alt="Lo in Lisbon" class="about-photo-image" />
@@ -1001,7 +989,7 @@ body.mobile-menu-open {
       <p class="text-[0.65rem] text-gray-400 mt-2 tracking-wide">© Dankamcqueen</p>
     </div>
     <div class="about-copy-col space-y-5 lg:order-2">
-      <p class="text-[clamp(1.3rem,2vw,1.65rem)] font-bold leading-[1.35]">I'm not a food agency. Not a travel agency. Think of me as the friend in Lisbon who knows where to eat, and happens to be good with a camera.</p>
+      <p>Think of me as the friend in Lisbon who knows where to eat, and happens to be good with a camera.</p>
       <p>I create content for spots that deserve attention but do not have the skills to shine online themselves. <span class="about-accent">Music and visuals</span> are everything: the right frame, the right track, and suddenly people stop scrolling and feel something.</p>
       <p>Now I share hidden gems with <span class="about-accent">+15k followers</span> on social media and help restaurants tell their stories through video.</p>
       <p>Whether you are visiting Lisbon or running a spot that needs to be seen, let us <span class="about-accent">create something that connects</span>.</p>
@@ -1037,7 +1025,7 @@ body.mobile-menu-open {
   <div class="fresh-feed-carousel-head">
     <div>
       <p class="text-sm font-semibold tracking-widest text-gray-400 mb-4 uppercase">My Latest Work</p>
-      <h2 class="text-4xl lg:text-5xl font-bold tracking-tight">Fresh from the feed</h2>
+      <h2 class="text-[clamp(3.2rem,7vw,5.4rem)] leading-[0.94] font-bold tracking-tight">Fresh from the feed</h2>
     </div>
     <div class="fresh-feed-carousel-controls">
       <a href="./portfolio.html" id="view-all-content" class="hidden md:flex items-center gap-2 text-sm font-bold hover:text-[#5db689] transition-colors uppercase tracking-[0.08em]">
