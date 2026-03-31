@@ -238,6 +238,30 @@
       color: var(--color-lime);
     }
 
+    .about-accent {
+      color: var(--color-lime);
+    }
+
+    .intro-photo-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+      align-items: start;
+    }
+
+    @media (min-width: 1024px) {
+      .intro-photo-grid {
+        grid-template-columns: 1fr 420px;
+        gap: 3.5rem;
+      }
+      .intro-photo-grid .photo-col {
+        order: 2;
+      }
+      .intro-photo-grid .text-col {
+        order: 1;
+      }
+    }
+
     @keyframes guideBadgePulse {
       0%, 78%, 100% {
         transform: rotate(11deg) scale(1);
@@ -1056,7 +1080,7 @@
 
         <nav class="hidden md:flex items-center gap-10">
           <a href="./content-creation.html" id="nav-for-brands" class="nav-link text-sm font-medium tracking-wide uppercase">For Lisbon businesses</a>
-          <a href="./foodie-experience.html" id="nav-plan-trip" class="nav-link is-active text-sm font-medium tracking-wide uppercase">Plan your trip</a>
+          <a href="./foodie-experience.html" id="nav-plan-trip" class="nav-link is-active text-sm font-medium tracking-wide uppercase">For Food Explorers</a>
           <a href="./portfolio.html" id="nav-portfolio" class="nav-link text-sm font-medium tracking-wide uppercase">Portfolio</a>
         </nav>
 
@@ -1071,17 +1095,17 @@
     </header>
     <nav id="mobile-menu" class="mobile-menu-panel md:hidden" aria-label="Mobile menu">
       <a href="./content-creation.html" class="mobile-menu-link">For Lisbon businesses</a>
-      <a href="./foodie-experience.html" class="mobile-menu-link">Plan your trip</a>
+      <a href="./foodie-experience.html" class="mobile-menu-link">For Food Explorers</a>
       <a href="./portfolio.html" class="mobile-menu-link">Portfolio</a>
       <a href="./bookme.html#contact-form" class="mobile-menu-cta">Book me</a>
     </nav>
 
     <main class="pt-32">
-      <section class=”relative px-6 lg:px-12 max-w-[1440px] mx-auto pb-16 lg:pb-20”>
+      <section class=”relative px-6 lg:px-12 max-w-[1240px] mx-auto pb-16 lg:pb-20”>
         <p class=”text-sm font-semibold tracking-[0.18em] text-gray-400 mb-5 uppercase”>Foodie Experience</p>
         <h1 class=”text-[clamp(2.7rem,6.2vw,5.6rem)] leading-[0.94] tracking-tight font-bold max-w-[14ch] mb-8”>Lisbon tastes better when someone else does the planning.</h1>
-        <div class=”grid grid-cols-1 lg:grid-cols-[1fr_420px] gap-10 lg:gap-14 items-start”>
-          <div>
+        <div class=”intro-photo-grid”>
+          <div class=”text-col”>
             <div class=”intro-copy space-y-5”>
               <p>You know the feeling. You're in one of the most exciting food cities in Europe, and you're still standing on a street corner, scrolling through reviews, trying to figure out where to eat.<br/>That's not a trip. That's <span class=”about-accent”>homework.</span></p>
               <p>I know Lisbon's food scene from the inside&nbsp;: the tiny tascas with no Instagram, the hard-to-book tables, the dishes locals actually order. The kind of stuff that doesn't show up on page one of Google.</p>
@@ -1098,7 +1122,7 @@
               <span class=”gumroad-guide-badge-label”>Buy my<br />3-day<br />Lisbon<br />guide</span>
             </a>
           </div>
-          <div class=”order-first lg:order-last”>
+          <div class=”photo-col”>
             <img src=”./assets/photo2-planyourtrip.jpg” alt=”Plan your Lisbon food trip” class=”w-full h-auto block” />
             <p class=”text-[1.3rem] text-gray-400 mt-2 tracking-wide”>© Dankamcqueen</p>
           </div>

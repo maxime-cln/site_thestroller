@@ -357,6 +357,8 @@
       background: #000;
       width: 100vw;
       height: 100vh;
+      aspect-ratio: unset;
+      overflow: visible;
     }
 
     .portfolio-media:fullscreen video,
@@ -366,6 +368,7 @@
       height: 100vh;
       max-width: calc(100vh * 9 / 16);
       object-fit: contain;
+      aspect-ratio: unset;
     }
 
     .portfolio-pill {
@@ -622,7 +625,7 @@
 
           <nav class="hidden md:flex items-center gap-10">
             <a href="./content-creation.html" id="nav-for-brands" class="nav-link text-sm font-medium tracking-wide uppercase">For Lisbon businesses</a>
-            <a href="./foodie-experience.html" id="nav-plan-trip" class="nav-link text-sm font-medium tracking-wide uppercase">Plan your trip</a>
+            <a href="./foodie-experience.html" id="nav-plan-trip" class="nav-link text-sm font-medium tracking-wide uppercase">For Food Explorers</a>
             <a href="./portfolio.html" id="nav-portfolio" class="nav-link is-active text-sm font-medium tracking-wide uppercase">Portfolio</a>
           </nav>
 
@@ -637,7 +640,7 @@
       </header>
       <nav id="mobile-menu" class="mobile-menu-panel md:hidden" aria-label="Mobile menu">
         <a href="./content-creation.html" class="mobile-menu-link">For Lisbon businesses</a>
-        <a href="./foodie-experience.html" class="mobile-menu-link">Plan your trip</a>
+        <a href="./foodie-experience.html" class="mobile-menu-link">For Food Explorers</a>
         <a href="./portfolio.html" class="mobile-menu-link">Portfolio</a>
         <a href="./bookme.html#contact-form" class="mobile-menu-cta">Book me</a>
       </nav>
@@ -669,7 +672,7 @@
           <article class="portfolio-card" data-tags="bar">
             <div class="portfolio-media portfolio-media--vertical">
               <span class="portfolio-pill">Bar</span>
-              <video muted loop playsinline preload="metadata" poster="./assets/portfolio-smash/Badassery.jpg">
+              <video muted loop playsinline preload="none" poster="./assets/portfolio-smash/Badassery.jpg">
                 <source src="./assets/portfolio-smash/Badassery.mp4" type="video/mp4" />
               </video>
             </div>
@@ -851,7 +854,7 @@
           <article class="portfolio-card" data-tags="restaurant">
             <div class="portfolio-media portfolio-media--vertical">
               <span class="portfolio-pill">Restaurant</span>
-              <video muted loop playsinline preload="metadata" poster="./assets/portfolio-smash/Cobaia.jpg">
+              <video muted loop playsinline preload="none" poster="./assets/portfolio-smash/Cobaia.jpg">
                 <source src="./assets/portfolio-smash/Cobaia.mp4" type="video/mp4" />
               </video>
             </div>
@@ -864,7 +867,7 @@
           <article class="portfolio-card" data-tags="restaurant">
             <div class="portfolio-media portfolio-media--vertical">
               <span class="portfolio-pill">Restaurant</span>
-              <video muted loop playsinline preload="metadata" poster="./assets/portfolio-smash/Comadre.jpg">
+              <video muted loop playsinline preload="none" poster="./assets/portfolio-smash/Comadre.jpg">
                 <source src="./assets/portfolio-smash/Comadre.mp4" type="video/mp4" />
               </video>
             </div>

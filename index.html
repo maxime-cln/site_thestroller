@@ -278,7 +278,10 @@ body.mobile-menu-open {
   letter-spacing: 0.14em;
   font-size: 0.72rem;
   opacity: 0.88;
-  margin-top: 2.8rem;
+  position: absolute;
+  bottom: 5rem;
+  left: 50%;
+  transform: translateX(-50%);
   animation: heroArrowBounce 2.2s ease-in-out infinite;
 }
 
@@ -930,7 +933,7 @@ body.mobile-menu-open {
       </a>
       <nav class="hidden md:flex items-center gap-10 text-white">
         <a href="./content-creation.html" id="nav-for-brands" class="nav-link text-sm font-medium tracking-wide uppercase text-white">For Lisbon businesses</a>
-        <a href="./foodie-experience.html" id="nav-plan-trip" class="nav-link text-sm font-medium tracking-wide uppercase text-white">Plan your trip</a>
+        <a href="./foodie-experience.html" id="nav-plan-trip" class="nav-link text-sm font-medium tracking-wide uppercase text-white">For Food Explorers</a>
         <a href="./portfolio.html" id="nav-portfolio" class="nav-link text-sm font-medium tracking-wide uppercase text-white">Portfolio</a>
       </nav>
       <a href="./bookme.html#contact-form" id="cta-book-call" class="hidden md:inline-flex items-center">
@@ -941,7 +944,7 @@ body.mobile-menu-open {
   </header>
   <nav id="mobile-menu" class="mobile-menu-panel md:hidden" aria-label="Mobile menu">
     <a href="./content-creation.html" class="mobile-menu-link">For Lisbon businesses</a>
-    <a href="./foodie-experience.html" class="mobile-menu-link">Plan your trip</a>
+    <a href="./foodie-experience.html" class="mobile-menu-link">For Food Explorers</a>
     <a href="./portfolio.html" class="mobile-menu-link">Portfolio</a>
     <a href="./bookme.html#contact-form" class="mobile-menu-cta">Book me</a>
   </nav>
@@ -949,11 +952,11 @@ body.mobile-menu-open {
   <section class="hero-logo-stage relative z-10 px-6 lg:px-12">
     <div id="hero-brand-lockup" class="hero-brand-lockup">
       <img src="./assets/the_stroller_logo_cleaned.png" alt="The Stroller" class="hero-logo-main"/>
-      <a href="#selector" id="hero-scroll-cue" class="hero-scroll-cue" aria-label="Stroll down to discover services">
-        <span>Stroll down</span>
-        <iconify-icon icon="lucide:arrow-down" class="text-3xl"></iconify-icon>
-      </a>
     </div>
+    <a href="#selector" id="hero-scroll-cue" class="hero-scroll-cue" aria-label="Stroll down to discover services">
+      <span>Stroll down</span>
+      <iconify-icon icon="lucide:arrow-down" class="text-3xl"></iconify-icon>
+    </a>
   </section>
 
 </section><!-- About Me — Block 1: text left, photo right -->
@@ -963,7 +966,7 @@ body.mobile-menu-open {
   <div class="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-10 lg:gap-14 items-start">
     <div class="about-copy-col space-y-4">
       <p>Hi, I'm Lo (and yes it's my real name)</p>
-      <p>I was the kid always somewhere else in her head. <span class="about-accent">ADHD, they'd say. Dreamer, I prefer.</span></p>
+      <p>I was the kid always somewhere else in her head. ADHD, they'd say. <span class="about-accent">Dreamer, I prefer.</span></p>
       <p>My favorite thing has always been <span class="about-accent">losing myself in a city,</span> an album in my ears, no agenda, just walking.</p>
       <p>When I arrived in Lisbon, I didn't explore it. <span class="about-accent">I strolled it.</span> Every single day.</p>
       <p>Years earlier, my dad had to pick five albums titles that sounded like me for a school project. First on his list: <span class="about-accent">Strollin' by Chet Baker.</span> He knew before I did!</p>
