@@ -348,8 +348,6 @@
       background: #0d0d0d;
     }
 
-    .portfolio-media:-webkit-full-screen,
-    .portfolio-media:-moz-full-screen,
     .portfolio-media:fullscreen {
       display: flex;
       align-items: center;
@@ -361,9 +359,26 @@
       overflow: visible;
     }
 
-    .portfolio-media:fullscreen video,
-    .portfolio-media:-webkit-full-screen video,
-    .portfolio-media:-moz-full-screen video {
+    .portfolio-media:-webkit-full-screen {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #000;
+      width: 100vw;
+      height: 100vh;
+      aspect-ratio: unset;
+      overflow: visible;
+    }
+
+    .portfolio-media:fullscreen video {
+      width: auto;
+      height: 100vh;
+      max-width: calc(100vh * 9 / 16);
+      object-fit: contain;
+      aspect-ratio: unset;
+    }
+
+    .portfolio-media:-webkit-full-screen video {
       width: auto;
       height: 100vh;
       max-width: calc(100vh * 9 / 16);
@@ -1188,7 +1203,7 @@
         video.muted = true;
         video.playsInline = true;
         video.loop = true;
-        video.preload = 'metadata';
+        if (video.preload !== 'none') video.preload = 'metadata';
 
         // Build overlay + controls
         const overlay = document.createElement('div');
@@ -1265,8 +1280,8 @@
 
         controls.querySelector('[data-action="fullscreen"]').addEventListener('click', (e) => {
           e.stopPropagation();
-          if (video.requestFullscreen) video.requestFullscreen();
-          else if (video.webkitRequestFullscreen) video.webkitRequestFullscreen();
+          if (media.requestFullscreen) media.requestFullscreen();
+          else if (media.webkitRequestFullscreen) media.webkitRequestFullscreen();
           else if (video.webkitEnterFullscreen) video.webkitEnterFullscreen();
         });
 
@@ -1284,16 +1299,11 @@
         syncPlay();
         syncMute();
 
-        // Play on hover — skip if video can't be decoded (H.265)
-        let hoverDisabled = false;
-        media.addEventListener('mouseenter', () => {
-          if (hoverDisabled) return;
-          video.play().catch(() => { hoverDisabled = true; video.load(); });
-        });
-        media.addEventListener('mouseleave', () => {
-          if (hoverDisabled) return;
-          video.pause();
-        });
+        // Play on hover — skip for preload=none (large videos loaded on demand)
+        if (video.preload !== 'none') {
+          media.addEventListener('mouseenter', () => { video.play().catch(() => {}); });
+          media.addEventListener('mouseleave', () => { video.pause(); });
+        }
       });
 
       window.addEventListener('scroll', syncHeaderContrast, { passive: true });
