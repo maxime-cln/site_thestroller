@@ -1265,8 +1265,8 @@
 
         controls.querySelector('[data-action="fullscreen"]').addEventListener('click', (e) => {
           e.stopPropagation();
-          if (media.requestFullscreen) media.requestFullscreen();
-          else if (media.webkitRequestFullscreen) media.webkitRequestFullscreen();
+          if (video.requestFullscreen) video.requestFullscreen();
+          else if (video.webkitRequestFullscreen) video.webkitRequestFullscreen();
           else if (video.webkitEnterFullscreen) video.webkitEnterFullscreen();
         });
 
@@ -1284,9 +1284,16 @@
         syncPlay();
         syncMute();
 
-        // Play on hover
-        media.addEventListener('mouseenter', () => { video.play().catch(() => {}); });
-        media.addEventListener('mouseleave', () => { video.pause(); });
+        // Play on hover — skip if video can't be decoded (H.265)
+        let hoverDisabled = false;
+        media.addEventListener('mouseenter', () => {
+          if (hoverDisabled) return;
+          video.play().catch(() => { hoverDisabled = true; video.load(); });
+        });
+        media.addEventListener('mouseleave', () => {
+          if (hoverDisabled) return;
+          video.pause();
+        });
       });
 
       window.addEventListener('scroll', syncHeaderContrast, { passive: true });

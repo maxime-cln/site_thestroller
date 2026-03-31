@@ -242,7 +242,7 @@
       color: var(--color-lime);
     }
 
-    .intro-photo-grid {
+    .foodie-intro-grid {
       display: grid;
       grid-template-columns: 1fr;
       gap: 2.5rem;
@@ -250,15 +250,9 @@
     }
 
     @media (min-width: 1024px) {
-      .intro-photo-grid {
+      .foodie-intro-grid {
         grid-template-columns: 1fr 420px;
         gap: 3.5rem;
-      }
-      .intro-photo-grid .photo-col {
-        order: 2;
-      }
-      .intro-photo-grid .text-col {
-        order: 1;
       }
     }
 
@@ -1101,16 +1095,16 @@
     </nav>
 
     <main class="pt-32">
-      <section class=”relative px-6 lg:px-12 max-w-[1240px] mx-auto pb-16 lg:pb-20”>
+      <section class=”relative px-6 lg:px-12 max-w-[1240px] mx-auto pb-16 lg:pb-20” style=”padding-left: 1.5rem; padding-right: 1.5rem; max-width: 1240px; margin-left: auto; margin-right: auto;”>
         <p class=”text-sm font-semibold tracking-[0.18em] text-gray-400 mb-5 uppercase”>Foodie Experience</p>
-        <h1 class=”text-[clamp(2.7rem,6.2vw,5.6rem)] leading-[0.94] tracking-tight font-bold max-w-[14ch] mb-8”>Lisbon tastes better when someone else does the planning.</h1>
-        <div class=”intro-photo-grid”>
-          <div class=”text-col”>
-            <div class=”intro-copy space-y-5”>
-              <p>You know the feeling. You're in one of the most exciting food cities in Europe, and you're still standing on a street corner, scrolling through reviews, trying to figure out where to eat.<br/>That's not a trip. That's <span class=”about-accent”>homework.</span></p>
+        <h1 class=”text-[clamp(2.7rem,6.2vw,5.6rem)] leading-[0.94] tracking-tight font-bold max-w-[14ch] mb-8” style=”font-size: clamp(2.7rem,6.2vw,5.6rem); line-height: 0.94; font-weight: bold;”>Lisbon tastes better when someone else does the planning.</h1>
+        <div class=”foodie-intro-grid” style=”display: grid; gap: 2.5rem; align-items: start;”>
+          <div>
+            <div class=”intro-copy space-y-5” style=”max-width: 72ch; font-size: clamp(1.08rem, 1.42vw, 1.33rem); line-height: 1.54; color: rgba(10,10,10,0.85);”>
+              <p>You know the feeling. You're in one of the most exciting food cities in Europe, and you're still standing on a street corner, scrolling through reviews, trying to figure out where to eat.<br/>That's not a trip. That's <span class=”about-accent” style=”color: #5db689;”>homework.</span></p>
               <p>I know Lisbon's food scene from the inside&nbsp;: the tiny tascas with no Instagram, the hard-to-book tables, the dishes locals actually order. The kind of stuff that doesn't show up on page one of Google.</p>
-              <p>No more <span class=”about-accent”>research rabbit holes.</span> No more “this looked better online.” No more settling.</p>
-              <p><span class=”about-accent”>Whether you're visiting for a week or living here</span> and looking to rediscover the city through its best date nights, just show up <span class=”about-accent”>hungry.</span> I'll handle everything else :-)</p>
+              <p>No more <span class=”about-accent” style=”color: #5db689;”>research rabbit holes.</span> No more “this looked better online.” No more settling.</p>
+              <p><span class=”about-accent” style=”color: #5db689;”>Whether you're visiting for a week or living here</span> and looking to rediscover the city through its best date nights, just show up <span class=”about-accent” style=”color: #5db689;”>hungry.</span> I'll handle everything else :-)</p>
             </div>
             <a
               href=”https://loeveraert.gumroad.com/l/thestroller?layout=discover&recommended_by=search”
@@ -1122,8 +1116,8 @@
               <span class=”gumroad-guide-badge-label”>Buy my<br />3-day<br />Lisbon<br />guide</span>
             </a>
           </div>
-          <div class=”photo-col”>
-            <img src=”./assets/photo2-planyourtrip.jpg” alt=”Plan your Lisbon food trip” class=”w-full h-auto block” />
+          <div class=”order-first lg:order-last”>
+            <img src=”./assets/photo2-planyourtrip.jpg” alt=”Plan your Lisbon food trip” class=”w-full h-auto block” style=”width: 100%; height: auto;” />
             <p class=”text-[1.3rem] text-gray-400 mt-2 tracking-wide”>© Dankamcqueen</p>
           </div>
         </div>
