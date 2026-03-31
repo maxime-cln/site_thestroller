@@ -236,9 +236,15 @@
       min-height: 100%;
     }
 
-    .route-card:hover {
+    .route-card--brands:hover {
       border-color: rgba(93, 182, 137, 0.75);
       background: rgba(93, 182, 137, 0.08);
+      transform: translateY(-1px);
+    }
+
+    .route-card--foodie:hover {
+      border-color: rgba(0, 168, 240, 0.75);
+      background: rgba(0, 168, 240, 0.08);
       transform: translateY(-1px);
     }
 
@@ -329,7 +335,6 @@
             </div>
           </div>
           <a href="./portfolio.html" id="nav-portfolio" class="nav-link text-sm font-medium tracking-wide uppercase">PORTFOLIO</a>
-          <a href="./about.html" id="nav-about" class="nav-link text-sm font-medium tracking-wide uppercase">ABOUT</a>
         </nav>
 
         <a href="./bookme.html#contact-form" id="cta-book-call" class="hidden md:inline-flex items-center">
@@ -342,10 +347,9 @@
       </div>
     </header>
     <nav id="mobile-menu" class="mobile-menu-panel md:hidden" aria-label="Mobile menu">
-      <a href="./content-creation.html" class="mobile-menu-link">For venues &amp; brands</a>
+      <a href="./content-creation.html" class="mobile-menu-link">For Lisbon businesses</a>
       <a href="./foodie-experience.html" class="mobile-menu-link">Plan your trip</a>
       <a href="./portfolio.html" class="mobile-menu-link">Portfolio</a>
-      <a href="./about.html" class="mobile-menu-link">About</a>
       <a href="./bookme.html#contact-form" class="mobile-menu-cta">Book me</a>
     </nav>
 
@@ -361,13 +365,13 @@
 
       <section class="px-6 lg:px-12 max-w-[1440px] mx-auto pb-20">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <a href="./content-creation.html" class="route-card">
+          <a href="./content-creation.html" class="route-card route-card--brands">
             <p class="text-xs tracking-[0.14em] uppercase text-gray-500 m-0">Best for brands</p>
             <p class="text-[1.25rem] leading-[1.15] font-bold m-0">Content Creation</p>
             <p class="text-sm text-black/65 leading-[1.35] m-0">Restaurants, hotels, bakeries, hospitality venues, and social media content production.</p>
             <span class="inline-flex items-center gap-2 text-sm font-semibold text-[#0a0a0a] mt-1">Go to service page <iconify-icon icon="lucide:arrow-right" class="text-base"></iconify-icon></span>
           </a>
-          <a href="./foodie-experience.html" class="route-card">
+          <a href="./foodie-experience.html" class="route-card route-card--foodie">
             <p class="text-xs tracking-[0.14em] uppercase text-gray-500 m-0">Best for visitors & locals</p>
             <p class="text-[1.25rem] leading-[1.15] font-bold m-0">Foodie Experience</p>
             <p class="text-sm text-black/65 leading-[1.35] m-0">Foodie concierge and date night curation in Lisbon with tailored recommendations.</p>
@@ -449,8 +453,8 @@
                 </button>
               </form>
               <div id="form-success" class="hidden mt-6 p-5 bg-[#5db689]/15 border border-[#5db689]/30 text-white">
-                <p class="font-bold text-lg mb-1">Message sent!</p>
-                <p class="text-white/75 text-sm">Thanks for reaching out. Lo will get back to you soon.</p>
+                <p class="font-bold text-lg mb-1">You're all set! 💌</p>
+                <p class="text-white/75 text-sm">Thanks for contacting me, I'll be in touch soon!</p>
               </div>
             </div>
           </div>
@@ -464,7 +468,6 @@
         <div class="flex items-center gap-5">
           <a href="./index.html" class="hover:text-white transition-colors">Back to Home</a>
           <a href="./portfolio.html" class="hover:text-white transition-colors">Portfolio</a>
-          <a href="./about.html" class="hover:text-white transition-colors">About</a>
         </div>
       </div>
     </footer>
