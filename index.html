@@ -464,6 +464,52 @@ body.mobile-menu-open {
   transform: scale(1.045);
 }
 
+.phone-preview-screen:fullscreen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000;
+  width: 100vw;
+  height: 100vh;
+  aspect-ratio: unset;
+  overflow: visible;
+  border-radius: 0;
+  border: none;
+  box-shadow: none;
+}
+
+.phone-preview-screen:-webkit-full-screen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000;
+  width: 100vw;
+  height: 100vh;
+  aspect-ratio: unset;
+  overflow: visible;
+  border-radius: 0;
+  border: none;
+  box-shadow: none;
+}
+
+.phone-preview-screen:fullscreen video {
+  width: auto;
+  height: 100vh;
+  max-width: calc(100vh * 9 / 16);
+  object-fit: contain;
+  aspect-ratio: unset;
+  transform: none;
+}
+
+.phone-preview-screen:-webkit-full-screen video {
+  width: auto;
+  height: 100vh;
+  max-width: calc(100vh * 9 / 16);
+  object-fit: contain;
+  aspect-ratio: unset;
+  transform: none;
+}
+
 .phone-preview-overlay {
   position: absolute;
   inset: 0;

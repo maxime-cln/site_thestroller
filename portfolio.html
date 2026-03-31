@@ -688,7 +688,7 @@
             <div class="portfolio-media portfolio-media--vertical">
               <span class="portfolio-pill">Bar</span>
               <video muted loop playsinline preload="none" poster="./assets/portfolio-smash/Badassery.jpg">
-                <source src="./assets/portfolio-smash/Badassery.mp4" type="video/mp4" />
+                <source data-src="./assets/portfolio-smash/Badassery.mp4" type="video/mp4" />
               </video>
             </div>
             <div class="portfolio-meta">
@@ -870,7 +870,7 @@
             <div class="portfolio-media portfolio-media--vertical">
               <span class="portfolio-pill">Restaurant</span>
               <video muted loop playsinline preload="none" poster="./assets/portfolio-smash/Cobaia.jpg">
-                <source src="./assets/portfolio-smash/Cobaia.mp4" type="video/mp4" />
+                <source data-src="./assets/portfolio-smash/Cobaia.mp4" type="video/mp4" />
               </video>
             </div>
             <div class="portfolio-meta">
@@ -883,7 +883,7 @@
             <div class="portfolio-media portfolio-media--vertical">
               <span class="portfolio-pill">Restaurant</span>
               <video muted loop playsinline preload="none" poster="./assets/portfolio-smash/Comadre.jpg">
-                <source src="./assets/portfolio-smash/Comadre.mp4" type="video/mp4" />
+                <source data-src="./assets/portfolio-smash/Comadre.mp4" type="video/mp4" />
               </video>
             </div>
             <div class="portfolio-meta">
@@ -1256,19 +1256,30 @@
           if (timeEl) timeEl.textContent = formatTime(video.currentTime) + ' / ' + formatTime(video.duration);
         };
 
+        // Lazy-load deferred sources (data-src → src) on first play
+        const loadDeferredSource = () => {
+          const source = video.querySelector('source[data-src]');
+          if (source) {
+            source.src = source.dataset.src;
+            source.removeAttribute('data-src');
+            video.load();
+          }
+        };
+
+        const playVideo = () => {
+          loadDeferredSource();
+          video.play().catch(() => {});
+        };
+
         // Click on video area to play/pause
         media.addEventListener('click', (e) => {
           if (e.target.closest('.portfolio-controls') || e.target.closest('.portfolio-pill')) return;
-          if (video.paused) {
-            video.play().catch(() => {});
-          } else {
-            video.pause();
-          }
+          if (video.paused) { playVideo(); } else { video.pause(); }
         });
 
         controls.querySelector('[data-action="play"]').addEventListener('click', (e) => {
           e.stopPropagation();
-          if (video.paused) { video.play().catch(() => {}); } else { video.pause(); }
+          if (video.paused) { playVideo(); } else { video.pause(); }
         });
 
         controls.querySelector('[data-action="mute"]').addEventListener('click', (e) => {
